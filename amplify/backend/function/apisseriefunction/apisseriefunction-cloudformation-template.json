@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storageapisseriebdName": {
+    "storageapisseriedbName": {
       "Type": "String",
-      "Default": "storageapisseriebdName"
+      "Default": "storageapisseriedbName"
     },
-    "storageapisseriebdArn": {
+    "storageapisseriedbArn": {
       "Type": "String",
-      "Default": "storageapisseriebdArn"
+      "Default": "storageapisseriedbArn"
     }
   },
   "Conditions": {
@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "productsfunction",
+            "apisseriefunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "productsfunction",
+                  "apisseriefunction",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "apisseriebeLambdaRoleae4a0973",
+            "apisseriebeLambdaRolec518006f",
             {
               "Fn::Join": [
                 "",
                 [
-                  "apisseriebeLambdaRoleae4a0973",
+                  "apisseriebeLambdaRolec518006f",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageapisseriebdArn"
+                  "Ref": "storageapisseriedbArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageapisseriebdArn"
+                        "Ref": "storageapisseriedbArn"
                       },
                       "index/*"
                     ]

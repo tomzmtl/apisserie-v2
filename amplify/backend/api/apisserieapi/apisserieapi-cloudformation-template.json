@@ -14,15 +14,15 @@
         },
     
     
-          "functionproductsfunctionName": {
+          "functionapisseriefunctionName": {
             "Type": "String",
-            "Default": "functionproductsfunctionName"
+            "Default": "functionapisseriefunctionName"
           },
         
           
-          "functionproductsfunctionArn": {
+          "functionapisseriefunctionArn": {
             "Type": "String",
-            "Default": "functionproductsfunctionArn"
+            "Default": "functionapisseriefunctionArn"
           }
         
           
@@ -176,7 +176,7 @@
                             
                             {
                                 
-                                "Ref": "functionproductsfunctionArn"
+                                "Ref": "functionapisseriefunctionArn"
                             },
                             
                             "/invocations"
@@ -275,7 +275,7 @@
                           
                           {
                             
-                            "Ref": "functionproductsfunctionArn"
+                            "Ref": "functionapisseriefunctionArn"
                           },
                           
                           "/invocations"
@@ -332,12 +332,12 @@
                   
         
         
-        "functionproductsfunctionPermissionapisserieapi": {
+        "functionapisseriefunctionPermissionapisserieapi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionproductsfunctionName"
+                        "Ref":  "functionapisseriefunctionName"
                     },
                     
                     "Action": "lambda:InvokeFunction",

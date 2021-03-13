@@ -1,7 +1,0 @@
-{
-    "tableName": "products",
-    "partitionKeyName": "id",
-    "partitionKeyType": "S",
-    "sortKeyName": "name",
-    "sortKeyType": "S"
-}

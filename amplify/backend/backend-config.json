@@ -1,13 +1,13 @@
 {
   "function": {
-    "productsfunction": {
+    "apisseriefunction": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
       "dependsOn": [
         {
           "category": "storage",
-          "resourceName": "apisseriebd",
+          "resourceName": "apisseriedb",
           "attributes": [
             "Name",
             "Arn"
@@ -21,7 +21,7 @@
     }
   },
   "storage": {
-    "apisseriebd": {
+    "apisseriedb": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }
@@ -33,7 +33,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "productsfunction",
+          "resourceName": "apisseriefunction",
           "attributes": [
             "Name",
             "Arn"
