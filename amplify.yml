@@ -1,5 +1,0 @@
-backend:
-  phases:
-    build:
-      commands:
-        - amplifyPush --simple
