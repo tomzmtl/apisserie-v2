@@ -8,8 +8,11 @@ const ProductList = () => {
   useEffect(() => {
 
     API
-      .get('apisserieapi', '/products/id')
-      .then(response => setProducts(response))
+      .get('api461c9eea', '/products/name')
+      .then(response => {
+        console.log(response);
+        setProducts(response)
+      })
       .catch(error => console.log(error.response));
   }, [])
 

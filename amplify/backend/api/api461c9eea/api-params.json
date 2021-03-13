@@ -2,30 +2,30 @@
     "paths": [
         {
             "name": "/products",
-            "lambdaFunction": "apisseriefunction",
+            "lambdaFunction": "apisseriebec40fc96a",
             "privacy": {
                 "open": true
             },
             "policyResourceName": "/products"
         }
     ],
-    "resourceName": "apisserieapi",
-    "apiName": "apisserieapi",
+    "resourceName": "api461c9eea",
+    "apiName": "api461c9eea",
     "functionArns": [
         {
-            "lambdaFunction": "apisseriefunction"
+            "lambdaFunction": "apisseriebec40fc96a"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-amplifyfcce979f3fe44-staging-155424-authRole",
-        "unAuthRoleName": "amplify-amplifyfcce979f3fe44-staging-155424-unauthRole"
+        "authRoleName": "amplify-apisseriebe-staging-184327-authRole",
+        "unAuthRoleName": "amplify-apisseriebe-staging-184327-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "apisseriefunction",
+            "resourceName": "apisseriebec40fc96a",
             "attributes": [
                 "Name",
                 "Arn"

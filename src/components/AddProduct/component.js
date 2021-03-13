@@ -16,9 +16,15 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    API.post("apisserieapi", "/products", {
-      body: { name, zone }
+    console.log(222, name, zone)
+
+    API.put("api461c9eea", "/products", {
+      body: { name },
+      headers: {
+        'Content-type': 'application/json'
+      }
     })
+    .then(r => console.log(r))
   }
 
   return (

@@ -14,15 +14,15 @@
         },
     
     
-          "functionapisseriefunctionName": {
+          "functionapisseriebec40fc96aName": {
             "Type": "String",
-            "Default": "functionapisseriefunctionName"
+            "Default": "functionapisseriebec40fc96aName"
           },
         
           
-          "functionapisseriefunctionArn": {
+          "functionapisseriebec40fc96aArn": {
             "Type": "String",
-            "Default": "functionapisseriefunctionArn"
+            "Default": "functionapisseriebec40fc96aArn"
           }
         
           
@@ -45,16 +45,16 @@
         
         
         
-      "apisserieapi": {
+      "api461c9eea": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "apisserieapi",
+          "Name": "api461c9eea",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "apisserieapi"
+              "title": "api461c9eea"
             },
             "host": {
                 "Fn::Join": [
@@ -176,7 +176,7 @@
                             
                             {
                                 
-                                "Ref": "functionapisseriefunctionArn"
+                                "Ref": "functionapisseriebec40fc96aArn"
                             },
                             
                             "/invocations"
@@ -275,7 +275,7 @@
                           
                           {
                             
-                            "Ref": "functionapisseriefunctionArn"
+                            "Ref": "functionapisseriebec40fc96aArn"
                           },
                           
                           "/invocations"
@@ -332,12 +332,12 @@
                   
         
         
-        "functionapisseriefunctionPermissionapisserieapi": {
+        "functionapisseriebec40fc96aPermissionapi461c9eea": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionapisseriefunctionName"
+                        "Ref":  "functionapisseriebec40fc96aName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -356,7 +356,7 @@
                             },
                             ":",
                             {
-                                "Ref": "apisserieapi"
+                                "Ref": "api461c9eea"
                             },
                             "/*/*/*"
                         ]
@@ -367,7 +367,7 @@
         
         
         
-      "DeploymentAPIGWapisserieapi": {
+      "DeploymentAPIGWapi461c9eea": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -381,7 +381,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "apisserieapi"
+            "Ref": "api461c9eea"
           }
         }
       }
@@ -389,15 +389,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "apisserieapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "api461c9eea"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "apisserieapi"
+          "Value": "api461c9eea"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "apisserieapi"}
+          "Value": {"Ref": "api461c9eea"}
         }
     }
   }

@@ -1,13 +1,19 @@
 {
+  "storage": {
+    "db": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
   "function": {
-    "apisseriefunction": {
+    "apisseriebec40fc96a": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
       "dependsOn": [
         {
           "category": "storage",
-          "resourceName": "apisseriedb",
+          "resourceName": "db",
           "attributes": [
             "Name",
             "Arn"
@@ -20,20 +26,14 @@
       ]
     }
   },
-  "storage": {
-    "apisseriedb": {
-      "service": "DynamoDB",
-      "providerPlugin": "awscloudformation"
-    }
-  },
   "api": {
-    "apisserieapi": {
+    "api461c9eea": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "apisseriefunction",
+          "resourceName": "apisseriebec40fc96a",
           "attributes": [
             "Name",
             "Arn"
