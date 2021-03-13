@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storagedbName": {
+    "storagedynamo3684f44cName": {
       "Type": "String",
-      "Default": "storagedbName"
+      "Default": "storagedynamo3684f44cName"
     },
-    "storagedbArn": {
+    "storagedynamo3684f44cArn": {
       "Type": "String",
-      "Default": "storagedbArn"
+      "Default": "storagedynamo3684f44cArn"
     }
   },
   "Conditions": {
@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "apisseriebec40fc96a",
+            "apisseriev2183c65c2",
             {
               "Fn::Join": [
                 "",
                 [
-                  "apisseriebec40fc96a",
+                  "apisseriev2183c65c2",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "apisseriebeLambdaRole47b66a2c",
+            "apisseriev2LambdaRole9462ddf2",
             {
               "Fn::Join": [
                 "",
                 [
-                  "apisseriebeLambdaRole47b66a2c",
+                  "apisseriev2LambdaRole9462ddf2",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedbArn"
+                  "Ref": "storagedynamo3684f44cArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagedbArn"
+                        "Ref": "storagedynamo3684f44cArn"
                       },
                       "index/*"
                     ]

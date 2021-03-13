@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "apisseriebe",
+  "projectName": "apisseriev2",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

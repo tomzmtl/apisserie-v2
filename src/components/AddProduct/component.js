@@ -18,7 +18,7 @@ const AddProduct = () => {
 
     console.log(222, name, zone)
 
-    API.put("api461c9eea", "/products", {
+    API.put("api41415b60", "/products", {
       body: { name },
       headers: {
         'Content-type': 'application/json'

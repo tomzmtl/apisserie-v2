@@ -8,7 +8,7 @@ const ProductList = () => {
   useEffect(() => {
 
     API
-      .get('api461c9eea', '/products/name')
+      .get('api41415b60', '/products/name')
       .then(response => {
         console.log(response);
         setProducts(response)

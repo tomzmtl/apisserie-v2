@@ -1,5 +1,5 @@
-backend:
-  phases:
-    build:
-      commands:
-        - amplifyPush --simple
+# backend:
+#   phases:
+#     build:
+#       commands:
+#         - amplifyPush --simple
