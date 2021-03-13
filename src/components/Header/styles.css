@@ -1,0 +1,8 @@
+.Header {
+  background: #111111;
+}
+
+.Header .MuiButtonBase-root {
+  width: 32px;
+  height: 32px;
+}
