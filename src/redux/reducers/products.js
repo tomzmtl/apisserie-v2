@@ -3,6 +3,7 @@ export const reducer = (state = [], action) => {
     case "SET_PRODUCTS": 
       return action.payload.products.map(product => ({
         zone: 1,
+        selected: false,
         ...product
       }))
 
@@ -16,9 +17,9 @@ export const reducer = (state = [], action) => {
       }
 
       return [
-        ...state.slice(0, index - 1),
+        ...state.slice(0, index),
         action.payload.product,
-        ...state.slice(index),
+        ...state.slice(index + 1),
       ]
     }
     

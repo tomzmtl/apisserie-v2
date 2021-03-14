@@ -22,11 +22,11 @@ const AddProduct = () => {
     const product = { name, zone }
 
     API.post("api41415b60", "/products", { body: product })
-    .then(() => {
-      dispatch(updateProduct(product))
-      setName("")
-      setZone(1)
-    })
+      .then(() => {
+        dispatch(updateProduct(product))
+        setName("")
+        setZone(1)
+      })
   }
 
   return (
