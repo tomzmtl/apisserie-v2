@@ -1,7 +1,0 @@
-.ProductList {
-  padding: 16px;
-}
-
-.ProductList .Product + .Product {
-  margin-top: 16px;
-}

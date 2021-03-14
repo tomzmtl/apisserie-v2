@@ -1,7 +1,7 @@
 import { ButtonBase } from '@material-ui/core'
 import { Settings, PlaylistAdd } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom'
-import "./styles.css";
+import "./styles.scss";
 
 const Header = () => {
   const history = useHistory()

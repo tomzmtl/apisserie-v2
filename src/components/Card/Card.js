@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import './styles.css'
+import './styles.scss'
 
 const Card = ({ children, isActive, onClick, className }) => {
   const classes = classnames({

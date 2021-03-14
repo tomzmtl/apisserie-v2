@@ -1,0 +1,9 @@
+@import '../App/theme.scss';
+
+.ProductList {
+  padding: $space;
+}
+
+.ProductList .Product + .Product {
+  margin-top: $space;
+}

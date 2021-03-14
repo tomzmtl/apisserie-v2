@@ -1,16 +1,13 @@
+@import '../App/theme.scss';
+
 .Card {
   background: #1e1f1e;
   border: 1px solid #171616;
-  padding: 16px;
+  padding: $space;
   font-size: 16px;
   transition: 200ms ease-out;
 }
 
 .Card--active {
   background: #ab310b;
-}
-
-.Card--interactive:active {
-  background: #ed4715;
-  transition: none;
 }

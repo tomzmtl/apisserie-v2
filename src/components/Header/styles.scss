@@ -1,5 +1,8 @@
+@import '../App/theme.scss';
+
 .Header {
   background: #111111;
+  padding: 0 $space;
 }
 
 .Header .MuiButtonBase-root {

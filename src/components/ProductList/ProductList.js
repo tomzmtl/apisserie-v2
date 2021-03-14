@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 import { useSelector } from 'react-redux'
 import Product from '../Product';
 import { useLoadProducts } from '../../hooks';
