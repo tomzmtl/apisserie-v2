@@ -1,21 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { API } from 'aws-amplify';
+import { useDispatch } from 'react-redux';
+import { setProducts } from './redux/actions/products'
 
 export const useLoadProducts = () => {
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
   
   useEffect(() => {
     API
       .get('api41415b60', '/products/name')
-      .then(response => {
-        setProducts(response.map(product => ({
-          zone: 1,
-          selected: false,
-          ...product,
-        })))
-      })
+      .then(response => dispatch(setProducts(response)))
       .catch(error => console.log(error.response));
-  }, [])
-
-  return { products }
+  }, [dispatch])
 }

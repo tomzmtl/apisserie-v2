@@ -1,7 +1,10 @@
 import { API } from 'aws-amplify'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { updateProduct } from '../../redux/actions/products'
 
 const AddProduct = () => {
+  const dispatch = useDispatch()
   const [name, setName] = useState("")
   const [zone, setZone] = useState(1)
 
@@ -16,13 +19,14 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    API.put("api41415b60", "/products", {
-      body: { name, zone },
-      headers: {
-        'Content-type': 'application/json'
-      }
+    const product = { name, zone }
+
+    API.post("api41415b60", "/products", { body: product })
+    .then(() => {
+      dispatch(updateProduct(product))
+      setName("")
+      setZone(1)
     })
-    .then(r => console.log(r))
   }
 
   return (

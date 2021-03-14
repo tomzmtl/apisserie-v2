@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import classnames from 'classnames'
+import Card from '../Card';
 import './styles.css';
 
 const Product = ({ product, onClick }) => {
@@ -9,13 +9,10 @@ const Product = ({ product, onClick }) => {
     setIsActive(!isActive)
   }
 
-  const classes = classnames({
-    Product: true,
-    'Product--active': isActive
-  })
-
   return (
-    <div className={classes} onClick={handleClick}>{product.name}</div>
+    <Card className="Product" onClick={handleClick} isActive={isActive}>
+      {product.name}
+    </Card>
   )
 }
 
