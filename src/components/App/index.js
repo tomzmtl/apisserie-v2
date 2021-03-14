@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './styles.css';
 import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
@@ -10,9 +11,18 @@ Amplify.configure(awsconfig);
 function App() {
   return (
     <div className="App">
-      <Header />
-      <ProductList />
-      <AddProduct />
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <ProductList /> 
+            <AddProduct />
+          </Route>
+          <Route path="/delete">
+            {/* <About /> */}
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
