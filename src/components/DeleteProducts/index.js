@@ -1,1 +1,1 @@
-export { default } from "./AdminView"
+export { default } from "./DeleteProducts"

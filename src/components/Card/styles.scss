@@ -1,13 +1,17 @@
 @import '../App/theme.scss';
 
-.Card {
+.Card,
+.MuiButtonBase-root.Card {
+  display: block;
+  width: 100%;
   background: #1e1f1e;
   border: 1px solid #171616;
   padding: $space;
   font-size: 16px;
   transition: 200ms ease-out;
-}
+  text-align: left;
 
-.Card--active {
-  background: $primary;
+  &--active {
+    background: $primary;
+  }
 }

@@ -5,8 +5,9 @@ import './styles.scss';
 import './theme.scss';
 import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
-import DeleteProducts from '../DeleteProducts';
 import Header from '../Header';
+import ShopList from '../ShopList';
+import DeleteProducts from '../DeleteProducts';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import { store } from '../../redux/store'
@@ -26,6 +27,9 @@ const App = () => {
             </Route>
             <Route path="/delete">
               <DeleteProducts />
+            </Route>
+            <Route path="/shop">
+              <ShopList />
             </Route>
           </Switch>
         </Router>

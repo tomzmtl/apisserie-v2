@@ -1,11 +1,19 @@
 @import '../App/theme.scss';
 
 .ProductList {
+  position: relative;
+
   &__list {
     padding: $space;
   }
 
-  .Product + .Product {
-    margin-top: $space;
+  &__search {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .TextField__input {
+    padding: $space $space * 2;
   }
 }
