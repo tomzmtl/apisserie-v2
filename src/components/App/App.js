@@ -5,10 +5,10 @@ import './styles.scss';
 import './theme.scss';
 import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
+import DeleteProducts from '../DeleteProducts';
 import Header from '../Header';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
-import Card from '../Card';
 import { store } from '../../redux/store'
 
 Amplify.configure(awsconfig);
@@ -22,12 +22,10 @@ const App = () => {
           <Switch>
             <Route exact path="/">
               <ProductList />
-              <Card>
-                <AddProduct />
-              </Card>
+              <AddProduct />
             </Route>
             <Route path="/delete">
-              {/* <About /> */}
+              <DeleteProducts />
             </Route>
           </Switch>
         </Router>

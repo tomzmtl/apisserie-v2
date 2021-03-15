@@ -2,6 +2,8 @@ import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateProduct } from '../../redux/actions/products'
+import TextField from '../TextField'
+import "./styles.scss"
 
 const AddProduct = () => {
   const dispatch = useDispatch()
@@ -32,9 +34,9 @@ const AddProduct = () => {
   return (
     <div className="AddProduct">
       <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" value={name} onChange={handleChangeName}  />
+        <TextField placeholder="Nom" value={name} onChange={handleChangeName}  />
         <br />
-        <input name="zone" placeholder="Zone" value={zone} onChange={handleChangeZone} type="number" />
+        <TextField placeholder="Zone" value={zone} onChange={handleChangeZone} type="tel" />
         <br />
         <button type="submit">Submit</button>
       </form>

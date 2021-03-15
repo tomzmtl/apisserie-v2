@@ -15,7 +15,7 @@ const ProductList = () => {
   }
 
   const renderProducts = () => products
-    .filter(product => product.name.includes(query))
+    .filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
     .map(product => <Product product={product} key={product.name} />)
 
   return (

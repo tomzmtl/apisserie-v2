@@ -22,6 +22,9 @@ export const reducer = (state = [], action) => {
         ...state.slice(index + 1),
       ]
     }
+
+    case "DELETE_PRODUCT":
+      return state.filter(product => product.name !== action.payload.product.name)
     
     default: return state
   }

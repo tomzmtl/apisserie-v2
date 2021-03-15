@@ -1,5 +1,5 @@
 import { ButtonBase } from '@material-ui/core'
-import { Settings, PlaylistAdd } from '@material-ui/icons';
+import { Delete, PlaylistAddCheck } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom'
 import "./styles.scss";
 
@@ -9,11 +9,11 @@ const Header = () => {
 
   return (
     <div className="Header">
-      <ButtonBase onClick={navigateTo("/admin")}>
-        <Settings />
+      <ButtonBase onClick={navigateTo("/delete")}>
+        <Delete />
       </ButtonBase>
       <ButtonBase onClick={navigateTo("/")}>
-        <PlaylistAdd />
+        <PlaylistAddCheck />
       </ButtonBase>
     </div>
   )
