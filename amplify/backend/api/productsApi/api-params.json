@@ -2,18 +2,18 @@
     "paths": [
         {
             "name": "/products",
-            "lambdaFunction": "apisseriev2183c65c2",
+            "lambdaFunction": "productsController",
             "privacy": {
                 "open": true
             },
             "policyResourceName": "/products"
         }
     ],
-    "resourceName": "api41415b60",
-    "apiName": "api41415b60",
+    "resourceName": "productsApi",
+    "apiName": "productsApi",
     "functionArns": [
         {
-            "lambdaFunction": "apisseriev2183c65c2"
+            "lambdaFunction": "productsController"
         }
     ],
     "privacy": {
@@ -25,7 +25,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "apisseriev2183c65c2",
+            "resourceName": "productsController",
             "attributes": [
                 "Name",
                 "Arn"

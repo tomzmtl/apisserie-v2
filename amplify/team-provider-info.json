@@ -13,9 +13,9 @@
     },
     "categories": {
       "function": {
-        "apisseriev2183c65c2": {
+        "productsController": {
           "deploymentBucketName": "amplify-amplify5720e4aa9f124-staging-201504-deployment",
-          "s3Key": "amplify-builds/apisseriev2183c65c2-6e3237536e68392b3179-build.zip"
+          "s3Key": "amplify-builds/productsController-622f59674f4d42547849-build.zip"
         }
       }
     }

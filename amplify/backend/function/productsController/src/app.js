@@ -17,16 +17,16 @@ AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "products";
+let tableName = "productsTable";
 if(process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "name";
+const partitionKeyName = "id";
 const partitionKeyType = "S";
-const sortKeyName = "";
-const sortKeyType = "";
+const sortKeyName = "name";
+const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
 const path = "/products";
 const UNAUTH = 'UNAUTH';

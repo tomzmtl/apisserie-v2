@@ -12,6 +12,13 @@
             "Type": "String"
         },
         
+        "sortKeyName": {
+            "Type": "String"
+        },
+        "sortKeyType": {
+            "Type": "String"
+        },
+        
         "tableName": {
             "Type": "String"
         }
@@ -33,6 +40,11 @@
                 "AttributeDefinitions": [
                   
                   {
+                      "AttributeName": "id",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
                       "AttributeName": "name",
                       "AttributeType": "S"
                   } 
@@ -41,8 +53,13 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "name",
+                    "AttributeName": "id",
                     "KeyType": "HASH"
+                  }  , 
+                  
+                  {
+                    "AttributeName": "name",
+                    "KeyType": "RANGE"
                   } 
                   
                 ],
@@ -110,6 +127,17 @@
         "PartitionKeyType": {
             "Value": {
                 "Ref": "partitionKeyType"
+            }
+        },
+        
+        "SortKeyName": {
+            "Value": {
+                "Ref": "sortKeyName"
+            }
+        },
+        "SortKeyType": {
+            "Value": {
+                "Ref": "sortKeyType"
             }
         },
         

@@ -8,12 +8,21 @@ const awsmobile = {
         {
             "tableName": "products-staging",
             "region": "us-east-1"
+        },
+        {
+            "tableName": "productsTable-staging",
+            "region": "us-east-1"
         }
     ],
     "aws_cloud_logic_custom": [
         {
-            "name": "api41415b60",
+            "name": "productsApi",
             "endpoint": "https://s4tevtip5c.execute-api.us-east-1.amazonaws.com/staging",
+            "region": "us-east-1"
+        },
+        {
+            "name": "productsApi",
+            "endpoint": "https://3spo6acgi3.execute-api.us-east-1.amazonaws.com/staging",
             "region": "us-east-1"
         }
     ]

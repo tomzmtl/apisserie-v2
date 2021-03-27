@@ -8,7 +8,7 @@ export const useLoadProducts = () => {
   
   useEffect(() => {
     API
-      .get('api41415b60', '/products/name')
+      .get('productsApi', '/products/id')
       .then(response => dispatch(setProducts(response)))
       .catch(error => console.log(error.response));
   }, [dispatch])

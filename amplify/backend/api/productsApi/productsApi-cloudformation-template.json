@@ -14,15 +14,15 @@
         },
     
     
-          "functionapisseriev2183c65c2Name": {
+          "functionproductsControllerName": {
             "Type": "String",
-            "Default": "functionapisseriev2183c65c2Name"
+            "Default": "functionproductsControllerName"
           },
         
           
-          "functionapisseriev2183c65c2Arn": {
+          "functionproductsControllerArn": {
             "Type": "String",
-            "Default": "functionapisseriev2183c65c2Arn"
+            "Default": "functionproductsControllerArn"
           }
         
           
@@ -45,16 +45,16 @@
         
         
         
-      "api41415b60": {
+      "productsApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "api41415b60",
+          "Name": "productsApi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "api41415b60"
+              "title": "productsApi"
             },
             "host": {
                 "Fn::Join": [
@@ -176,7 +176,7 @@
                             
                             {
                                 
-                                "Ref": "functionapisseriev2183c65c2Arn"
+                                "Ref": "functionproductsControllerArn"
                             },
                             
                             "/invocations"
@@ -275,7 +275,7 @@
                           
                           {
                             
-                            "Ref": "functionapisseriev2183c65c2Arn"
+                            "Ref": "functionproductsControllerArn"
                           },
                           
                           "/invocations"
@@ -332,12 +332,12 @@
                   
         
         
-        "functionapisseriev2183c65c2Permissionapi41415b60": {
+        "functionproductsControllerPermissionproductsApi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionapisseriev2183c65c2Name"
+                        "Ref":  "functionproductsControllerName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -356,7 +356,7 @@
                             },
                             ":",
                             {
-                                "Ref": "api41415b60"
+                                "Ref": "productsApi"
                             },
                             "/*/*/*"
                         ]
@@ -367,7 +367,7 @@
         
         
         
-      "DeploymentAPIGWapi41415b60": {
+      "DeploymentAPIGWproductsApi": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -381,7 +381,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "api41415b60"
+            "Ref": "productsApi"
           }
         }
       }
@@ -389,15 +389,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "api41415b60"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "productsApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "api41415b60"
+          "Value": "productsApi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "api41415b60"}
+          "Value": {"Ref": "productsApi"}
         }
     }
   }

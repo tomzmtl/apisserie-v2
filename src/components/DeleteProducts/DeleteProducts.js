@@ -19,7 +19,7 @@ const DeleteProducts = () => {
     }
 
     API
-      .del("api41415b60", `/products/object/${product.name}`)
+      .del("productsApi", `/products/object/${product.name}`)
       .then(() => {
         dispatch(deleteProduct(product))
       })

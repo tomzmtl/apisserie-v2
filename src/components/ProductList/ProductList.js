@@ -20,7 +20,7 @@ const ProductList = () => {
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: !product.selected }
     
-    API.put("api41415b60", "/products", { body: updatedProduct })
+    API.put("productsApi", "/products", { body: updatedProduct })
       .then(() => {
         dispatch(updateProduct(updatedProduct))
       })

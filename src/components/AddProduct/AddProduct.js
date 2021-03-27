@@ -1,4 +1,5 @@
 import { API } from 'aws-amplify'
+import uuid from 'uuid/v4'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateProduct } from '../../redux/actions/products'
@@ -21,9 +22,13 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const product = { name, zone }
+    const product = {
+      id: uuid(),
+      name,
+      zone
+    }
 
-    API.post("api41415b60", "/products", { body: product })
+    API.post("productsApi", "/products", { body: product })
       .then(() => {
         dispatch(updateProduct(product))
         setName("")
