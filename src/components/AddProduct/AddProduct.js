@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'
-import uuid from 'uuid/v4'
+import { v4 as uuid } from 'uuid';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateProduct } from '../../redux/actions/products'

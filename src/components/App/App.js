@@ -7,6 +7,7 @@ import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
 import Header from '../Header';
 import ShopList from '../ShopList';
+// import ProductView from '../ProductView';
 import DeleteProducts from '../DeleteProducts';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
@@ -31,6 +32,9 @@ const App = () => {
             <Route path="/shop">
               <ShopList />
             </Route>
+            {/* <Route path="/products/:productId">
+              <ProductView />
+            </Route> */}
           </Switch>
         </Router>
       </Provider>
