@@ -1,1 +1,19 @@
-.ShopList {}
+@import '../App/theme.scss';
+
+.ShopList {
+  &__list {
+    padding: $space;
+  }
+
+  .Card {
+    padding: $space * 2;
+
+    & + .Card {
+      margin-top: $space;
+    }
+
+    &--active {
+      background-color: #111;
+    }
+  }
+}
