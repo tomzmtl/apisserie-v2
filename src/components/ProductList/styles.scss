@@ -16,4 +16,24 @@
   .TextField__input {
     padding: $space $space * 2;
   }
+
+  $col-2-break: 750px;
+
+  @media (max-width: $col-2-break - 1) {
+    &__list {
+      .Product + .Product {
+        margin-top: $space;
+      }
+    }
+  }
+
+  @media (min-width: $col-2-break) {
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+      grid-column-gap: $space;
+      grid-row-gap: $space;
+    }
+  }
 }
