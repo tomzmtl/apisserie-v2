@@ -1,11 +1,29 @@
 @import '../App/theme.scss';
 
 .Header {
+  position: relative;
   background: #111111;
   padding: 0 $space;
-}
+  
+  .MuiButtonBase-root {
+    width: 40px;
+    height: 40px;
+  }
 
-.Header .MuiButtonBase-root {
-  width: 40px;
-  height: 40px;
+  .MuiLinearProgress {
+    &-root {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
+
+    &-colorPrimary {
+      background-color: $primary;
+    }
+  
+    &-bar {
+      background-color: darken($primary, 20%);
+    }
+  }
 }

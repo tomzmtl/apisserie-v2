@@ -1,13 +1,11 @@
 import API from '@aws-amplify/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { API_NAME } from '../../constants'
-import { useLoadProducts } from '../../hooks'
 import { updateProduct } from '../../redux/actions/products'
 import Product from '../Product'
 import './styles.scss';
 
 const ShopList = () => {
-  useLoadProducts()
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
 

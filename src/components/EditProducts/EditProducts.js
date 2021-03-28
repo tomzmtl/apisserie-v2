@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux'
-import { useLoadProducts, useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks'
 import { selectProductsByName } from '../../redux/selectors/products'
 import Card from '../Card'
 import "./styles.scss"
 
 const EditProducts = () => {
-  useLoadProducts()
   const products = useSelector(selectProductsByName)
   const navigateTo = useNavigation()
 

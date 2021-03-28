@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react';
 import Product from '../Product';
-import { useLoadProducts } from '../../hooks';
 import './styles.scss';
 import TextField from '../TextField';
 import { updateProduct } from '../../redux/actions/products';
@@ -10,7 +9,6 @@ import { selectProductsByName } from '../../redux/selectors/products';
 import { API_NAME } from '../../constants';
 
 const ProductList = () => {
-  useLoadProducts()
   const [query, setQuery] = useState("")
   const products = useSelector(selectProductsByName)
   const dispatch = useDispatch()

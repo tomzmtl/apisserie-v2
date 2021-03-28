@@ -1,13 +1,14 @@
 import API from '@aws-amplify/api';
-import { ButtonBase } from '@material-ui/core'
+import { ButtonBase, LinearProgress } from '@material-ui/core'
 import { Edit, PlaylistAddCheck, ShoppingCart, Sync } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { API_NAME } from '../../constants';
-import { useNavigation } from '../../hooks';
+import { useLoadProducts, useNavigation } from '../../hooks';
 import { setProducts } from '../../redux/actions/products';
 import "./styles.scss";
 
 const Header = () => {
+  const isLoading = useLoadProducts()
   const navigateTo = useNavigation()
   const dispatch = useDispatch()
 
@@ -32,6 +33,7 @@ const Header = () => {
       <ButtonBase onClick={onClickRefresh} centerRipple>
         <Sync />
       </ButtonBase>
+      {isLoading && <LinearProgress />}
     </div>
   )
 }
