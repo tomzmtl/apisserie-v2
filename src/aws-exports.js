@@ -6,14 +6,14 @@ const awsmobile = {
     "aws_dynamodb_all_tables_region": "us-east-1",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "productsTable-staging",
+            "tableName": "productTable-staging",
             "region": "us-east-1"
         }
     ],
     "aws_cloud_logic_custom": [
         {
-            "name": "productsApi",
-            "endpoint": "https://3spo6acgi3.execute-api.us-east-1.amazonaws.com/staging",
+            "name": "productApi",
+            "endpoint": "https://5ey35faizl.execute-api.us-east-1.amazonaws.com/staging",
             "region": "us-east-1"
         }
     ]

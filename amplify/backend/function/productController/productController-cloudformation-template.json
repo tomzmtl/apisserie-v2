@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storageproductsDbName": {
+    "storageproductDbName": {
       "Type": "String",
-      "Default": "storageproductsDbName"
+      "Default": "storageproductDbName"
     },
-    "storageproductsDbArn": {
+    "storageproductDbArn": {
       "Type": "String",
-      "Default": "storageproductsDbArn"
+      "Default": "storageproductDbArn"
     }
   },
   "Conditions": {
@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "productsController",
+            "productController",
             {
               "Fn::Join": [
                 "",
                 [
-                  "productsController",
+                  "productController",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "apisseriev2LambdaRolefef31f1c",
+            "apisseriev2LambdaRole3cb8e1e8",
             {
               "Fn::Join": [
                 "",
                 [
-                  "apisseriev2LambdaRolefef31f1c",
+                  "apisseriev2LambdaRole3cb8e1e8",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageproductsDbArn"
+                  "Ref": "storageproductDbArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageproductsDbArn"
+                        "Ref": "storageproductDbArn"
                       },
                       "index/*"
                     ]

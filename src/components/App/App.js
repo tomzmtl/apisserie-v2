@@ -7,8 +7,8 @@ import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
 import Header from '../Header';
 import ShopList from '../ShopList';
-// import ProductView from '../ProductView';
-import DeleteProducts from '../DeleteProducts';
+import ProductCard from '../ProductCard';
+import EditProducts from '../EditProducts';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import { store } from '../../redux/store'
@@ -26,15 +26,15 @@ const App = () => {
               <ProductList />
               <AddProduct />
             </Route>
-            <Route path="/delete">
-              <DeleteProducts />
+            <Route exact path="/products">
+              <EditProducts />
             </Route>
             <Route path="/shop">
               <ShopList />
             </Route>
-            {/* <Route path="/products/:productId">
-              <ProductView />
-            </Route> */}
+            <Route path="/products/:productId">
+              <ProductCard />
+            </Route>
           </Switch>
         </Router>
       </Provider>

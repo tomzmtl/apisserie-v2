@@ -13,9 +13,9 @@
     },
     "categories": {
       "function": {
-        "productsController": {
+        "productController": {
           "deploymentBucketName": "amplify-amplify5720e4aa9f124-staging-201504-deployment",
-          "s3Key": "amplify-builds/productsController-622f59674f4d42547849-build.zip"
+          "s3Key": "amplify-builds/productController-6854714565694669427a-build.zip"
         }
       }
     }

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { updateProduct } from '../../redux/actions/products'
 import TextField from '../TextField'
 import "./styles.scss"
+import { API_NAME } from '../../constants';
 
 const AddProduct = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const AddProduct = () => {
       zone
     }
 
-    API.post("productsApi", "/products", { body: product })
+    API.post(API_NAME, "/products", { body: product })
       .then(() => {
         dispatch(updateProduct(product))
         setName("")

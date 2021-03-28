@@ -1,32 +1,32 @@
 import API from '@aws-amplify/api';
 import { ButtonBase } from '@material-ui/core'
-import { Delete, PlaylistAddCheck, ShoppingCart, Sync } from '@material-ui/icons';
+import { Edit, PlaylistAddCheck, ShoppingCart, Sync } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { API_NAME } from '../../constants';
+import { useNavigation } from '../../hooks';
 import { setProducts } from '../../redux/actions/products';
 import "./styles.scss";
 
 const Header = () => {
-  const history = useHistory()
-  const navigateTo = path => () => history.push(path)
+  const navigateTo = useNavigation()
   const dispatch = useDispatch()
 
   const onClickRefresh = () => {
     API
-      .get('productsApi', '/products/id')
+      .get(API_NAME, '/products/id')
       .then(response => dispatch(setProducts(response)))
       .catch(error => console.log(error.response));
   }
 
   return (
     <div className="Header">
-      <ButtonBase onClick={navigateTo("/delete")} centerRipple>
-        <Delete />
+      <ButtonBase onClick={() => navigateTo("/products")} centerRipple>
+        <Edit />
       </ButtonBase>
-      <ButtonBase onClick={navigateTo("/")} centerRipple>
+      <ButtonBase onClick={() => navigateTo("/")} centerRipple>
         <PlaylistAddCheck />
       </ButtonBase>
-      <ButtonBase onClick={navigateTo("/shop")} centerRipple>
+      <ButtonBase onClick={() => navigateTo("/shop")} centerRipple>
         <ShoppingCart />
       </ButtonBase>
       <ButtonBase onClick={onClickRefresh} centerRipple>

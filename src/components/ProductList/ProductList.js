@@ -6,11 +6,13 @@ import './styles.scss';
 import TextField from '../TextField';
 import { updateProduct } from '../../redux/actions/products';
 import API from '@aws-amplify/api';
+import { selectProductsByName } from '../../redux/selectors/products';
+import { API_NAME } from '../../constants';
 
 const ProductList = () => {
   useLoadProducts()
   const [query, setQuery] = useState("")
-  const products = useSelector(state => state.products)
+  const products = useSelector(selectProductsByName)
   const dispatch = useDispatch()
 
   const handleChangeQuery = e => {
@@ -20,7 +22,7 @@ const ProductList = () => {
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: !product.selected }
     
-    API.put("productsApi", "/products", { body: updatedProduct })
+    API.put(API_NAME, "/products", { body: updatedProduct })
       .then(() => {
         dispatch(updateProduct(updatedProduct))
       })
@@ -28,9 +30,8 @@ const ProductList = () => {
 
   const renderProducts = () => products
     .filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => a.name.localeCompare(b.name))
     .map(product => {
-      return <Product product={product} key={product.name} onClick={handleProductClick(product)} />
+      return <Product product={product} key={product.id} onClick={handleProductClick(product)} />
     })
 
   return (

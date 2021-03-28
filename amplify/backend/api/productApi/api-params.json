@@ -2,18 +2,18 @@
     "paths": [
         {
             "name": "/products",
-            "lambdaFunction": "productsController",
+            "lambdaFunction": "productController",
             "privacy": {
                 "open": true
             },
             "policyResourceName": "/products"
         }
     ],
-    "resourceName": "productsApi",
-    "apiName": "productsApi",
+    "resourceName": "productApi",
+    "apiName": "productApi",
     "functionArns": [
         {
-            "lambdaFunction": "productsController"
+            "lambdaFunction": "productController"
         }
     ],
     "privacy": {
@@ -25,7 +25,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "productsController",
+            "resourceName": "productController",
             "attributes": [
                 "Name",
                 "Arn"
