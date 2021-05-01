@@ -27,7 +27,10 @@ const ProductCard = () => {
 
     API.put(API_NAME, "/products", { body })
       .then(() => {
-        dispatch(updateProduct(product))
+        dispatch(updateProduct({
+          ...product,
+          name
+        }))
         navigateTo('/products')
       })
   }

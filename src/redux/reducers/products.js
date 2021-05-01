@@ -9,7 +9,7 @@ export const reducer = (state = [], action) => {
 
     case "UPDATE_PRODUCT": {
       const index = state.findIndex(
-        product => product.name === action.payload.product.name
+        product => product.id === action.payload.product.id
       )
 
       if (index === -1) {
