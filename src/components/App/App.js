@@ -8,7 +8,7 @@ import AddProduct from '../AddProduct';
 import Header from '../Header';
 import ShopList from '../ShopList';
 import ProductCard from '../ProductCard';
-import EditProducts from '../EditProducts';
+import ProductAdmin from '../ProductAdmin';
 import ZoneAdmin from '../ZoneAdmin';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
@@ -28,7 +28,7 @@ const App = () => {
               <AddProduct />
             </Route>
             <Route exact path="/products">
-              <EditProducts />
+              <ProductAdmin />
             </Route>
             <Route exact path="/zones">
               <ZoneAdmin />
