@@ -1,6 +1,6 @@
 import API from '@aws-amplify/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { API_NAME } from '../../constants'
+import { PRODUCT_API } from '../../constants'
 import { updateProduct } from '../../redux/actions/products'
 import Product from '../Product'
 import './styles.scss';
@@ -12,7 +12,7 @@ const ShopList = () => {
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: false }
     
-    API.put(API_NAME, "/products", { body: updatedProduct })
+    API.put(PRODUCT_API, "/products", { body: updatedProduct })
       .then(() => {
         dispatch(updateProduct(updatedProduct))
       })

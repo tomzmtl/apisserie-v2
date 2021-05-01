@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/zones",
+      "lambdaFunction": "zoneController",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/zones"
+    }
+  ],
+  "resourceName": "zoneApi",
+  "apiName": "zoneApi",
+  "functionArns": [
+    {
+      "lambdaFunction": "zoneController"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-amplify5720e4aa9f124-staging-201504-authRole",
+    "unAuthRoleName": "amplify-amplify5720e4aa9f124-staging-201504-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "zoneController",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

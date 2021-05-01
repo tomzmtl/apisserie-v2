@@ -6,7 +6,7 @@ import TextField from '../TextField';
 import { updateProduct } from '../../redux/actions/products';
 import API from '@aws-amplify/api';
 import { selectProductsByName } from '../../redux/selectors/products';
-import { API_NAME } from '../../constants';
+import { PRODUCT_API } from '../../constants';
 
 const ProductList = () => {
   const [query, setQuery] = useState("")
@@ -20,7 +20,7 @@ const ProductList = () => {
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: !product.selected }
     
-    API.put(API_NAME, "/products", { body: updatedProduct })
+    API.put(PRODUCT_API, "/products", { body: updatedProduct })
       .then(() => {
         dispatch(updateProduct(updatedProduct))
       })

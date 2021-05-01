@@ -9,6 +9,7 @@ import Header from '../Header';
 import ShopList from '../ShopList';
 import ProductCard from '../ProductCard';
 import EditProducts from '../EditProducts';
+import ZoneAdmin from '../ZoneAdmin';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import { store } from '../../redux/store'
@@ -28,6 +29,9 @@ const App = () => {
             </Route>
             <Route exact path="/products">
               <EditProducts />
+            </Route>
+            <Route exact path="/zones">
+              <ZoneAdmin />
             </Route>
             <Route path="/shop">
               <ShopList />

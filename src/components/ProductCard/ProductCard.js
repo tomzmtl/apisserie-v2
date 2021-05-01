@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import Card from '../Card'
 import TextField from '../TextField'
 import { useNavigation } from '../../hooks'
-import { API_NAME } from '../../constants'
+import { PRODUCT_API } from '../../constants'
 import { deleteProduct, updateProduct } from '../../redux/actions/products'
 
 const ProductCard = () => {
@@ -25,7 +25,7 @@ const ProductCard = () => {
       name
     }
 
-    API.put(API_NAME, "/products", { body })
+    API.put(PRODUCT_API, "/products", { body })
       .then(() => {
         dispatch(updateProduct({
           ...product,
@@ -45,7 +45,7 @@ const ProductCard = () => {
     }
 
     API
-      .del(API_NAME, `/products/object/${product.id}`)
+      .del(PRODUCT_API, `/products/object/${product.id}`)
       .then(() => {
         dispatch(deleteProduct(product.id))
         navigateTo('/products')

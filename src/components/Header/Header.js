@@ -1,5 +1,5 @@
 import { ButtonBase, LinearProgress } from '@material-ui/core'
-import { Edit, PlaylistAddCheck, ShoppingCart, Sync } from '@material-ui/icons';
+import { Edit, PlaylistAddCheck, ShoppingCart, Sync, LocationOn } from '@material-ui/icons';
 import { useLoadProducts, useNavigation } from '../../hooks';
 import "./styles.scss";
 
@@ -15,6 +15,9 @@ const Header = () => {
     <div className="Header">
       <ButtonBase onClick={() => navigateTo("/products")} centerRipple>
         <Edit />
+      </ButtonBase>
+      <ButtonBase onClick={() => navigateTo("/zones")} centerRipple>
+        <LocationOn />
       </ButtonBase>
       <ButtonBase onClick={() => navigateTo("/")} centerRipple>
         <PlaylistAddCheck />

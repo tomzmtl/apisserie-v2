@@ -2,47 +2,47 @@ import { API } from 'aws-amplify'
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateProduct } from '../../redux/actions/products'
+import { updateZone } from '../../redux/actions/zones'
 import TextField from '../TextField'
 import "./styles.scss"
-import { PRODUCT_API } from '../../constants';
+import { ZONE_API } from '../../constants';
 
-const AddProduct = () => {
+const AddZone = () => {
   const dispatch = useDispatch()
   const [name, setName] = useState("")
-  const [zone, setZone] = useState(1)
+  const [order, setOrder] = useState(1)
 
   const handleChangeName = (e) => {
     setName(e.target.value)
   }
 
   const handleChangeZone = (e) => {
-    setZone(Number(e.target.value))
+    setOrder(Number(e.target.value))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const product = {
+    const zone = {
       id: uuid(),
       name,
-      zone
+      order
     }
 
-    API.post(PRODUCT_API, "/products", { body: product })
+    API.post(ZONE_API, "/zones", { body: zone })
       .then(() => {
-        dispatch(updateProduct(product))
+        dispatch(updateZone(zone))
         setName("")
-        setZone(1)
+        setOrder(1)
       })
   }
 
   return (
-    <div className="AddProduct">
+    <div className="AddZone">
       <form onSubmit={handleSubmit}>
         <TextField placeholder="Nom" value={name} onChange={handleChangeName}  />
         <br />
-        <TextField placeholder="Zone" value={zone} onChange={handleChangeZone} type="tel" />
+        <TextField placeholder="Ordre" value={order} onChange={handleChangeZone} type="number" />
         <br />
         <button type="submit">Submit</button>
       </form>
@@ -50,4 +50,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default AddZone
