@@ -7,7 +7,7 @@ import Card from '../Card'
 import TextField from '../TextField'
 import { useNavigation } from '../../hooks'
 import { API_NAME } from '../../constants'
-import { updateProduct } from '../../redux/actions/products'
+import { deleteProduct, updateProduct } from '../../redux/actions/products'
 
 const ProductCard = () => {
   const dispatch = useDispatch()
@@ -46,7 +46,10 @@ const ProductCard = () => {
 
     API
       .del(API_NAME, `/products/object/${product.id}`)
-      .then(() => navigateTo('/products'))
+      .then(() => {
+        dispatch(deleteProduct(product.id))
+        navigateTo('/products')
+      })
   }
 
   return (

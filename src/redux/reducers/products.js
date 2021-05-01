@@ -24,7 +24,7 @@ export const reducer = (state = [], action) => {
     }
 
     case "DELETE_PRODUCT":
-      return state.filter(product => product.name !== action.payload.product.name)
+      return state.filter(product => product.id !== action.payload.productId)
     
     default: return state
   }
