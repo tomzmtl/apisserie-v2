@@ -2,12 +2,15 @@ import API from '@aws-amplify/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { PRODUCT_API } from '../../constants'
 import { updateProduct } from '../../redux/actions/products'
+import { selectSelectedProductsByZoneOrder } from '../../redux/selectors/products'
 import Product from '../Product'
 import './styles.scss';
 
 const ShopList = () => {
-  const products = useSelector(state => state.products)
+  const products = useSelector(selectSelectedProductsByZoneOrder)
   const dispatch = useDispatch()
+
+  console.log(444, products);
 
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: false }
@@ -19,8 +22,6 @@ const ShopList = () => {
   }
 
   const renderProducts = () => products
-    .filter(product => product.selected)
-    .sort((a, b) => a.zone > b.zone ? -1 : 1)
     .map(product => <Product product={product} key={product.id} onClick={handleProductClick(product)} />)
 
   return (
