@@ -2,7 +2,7 @@ import { API } from 'aws-amplify'
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateProduct } from '../../redux/actions/products'
+import { updateProduct } from '../../actions/products'
 import TextField from '../TextField'
 import "./styles.scss"
 import { PRODUCT_API } from '../../constants';

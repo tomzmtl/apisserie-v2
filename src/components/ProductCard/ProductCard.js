@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import Card from '../Card'
 import TextField from '../TextField'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/navigation'
 import { PRODUCT_API } from '../../constants'
-import { deleteProduct, updateProduct } from '../../redux/actions/products'
-import { selectZonesByName } from '../../redux/selectors/zones'
+import { deleteProduct, updateProduct } from '../../actions/products'
+import { selectZonesByName } from '../../selectors/zones'
 
 const ProductCard = () => {
   const dispatch = useDispatch()
@@ -51,7 +51,6 @@ const ProductCard = () => {
     API
       .del(PRODUCT_API, `/products/object/${product.id}`)
       .then(() => {
-        dispatch(deleteProduct(product.id))
         navigateTo('/products')
       })
   }

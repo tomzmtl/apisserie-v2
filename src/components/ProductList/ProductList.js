@@ -3,9 +3,9 @@ import { useState } from 'react';
 import Product from '../Product';
 import './styles.scss';
 import TextField from '../TextField';
-import { updateProduct } from '../../redux/actions/products';
+import { updateProduct } from '../../actions/products';
 import API from '@aws-amplify/api';
-import { selectProductsByName } from '../../redux/selectors/products';
+import { selectProductsByName } from '../../selectors/products';
 import { PRODUCT_API } from '../../constants';
 
 const ProductList = () => {

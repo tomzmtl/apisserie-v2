@@ -1,6 +1,7 @@
 import { ButtonBase, LinearProgress } from '@material-ui/core'
 import { List, PlaylistAddCheck, ShoppingCart, Sync, LocationOn } from '@material-ui/icons';
-import { useLoadProducts, useNavigation } from '../../hooks';
+import { useLoadProducts } from '../../hooks/products';
+import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 
 const Header = () => {

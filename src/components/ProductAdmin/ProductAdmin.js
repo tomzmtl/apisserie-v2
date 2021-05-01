@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
-import { useNavigation } from '../../hooks'
-import { selectProductsByName } from '../../redux/selectors/products'
-import { selectZones } from '../../redux/selectors/zones'
+import { useNavigation } from '../../hooks/navigation'
+import { selectProductsByName } from '../../selectors/products'
+import { selectZones } from '../../selectors/zones'
 import Card from '../Card'
-import { useLoadProducts } from '../../hooks';
+import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import "./styles.scss"
 

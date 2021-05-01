@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/navigation'
 import { useLoadZones } from "../../hooks/zones"
-import { selectZonesByOrder } from '../../redux/selectors/zones'
+import { selectZonesByOrder } from '../../selectors/zones'
 import Card from '../Card'
 import AddZone from '../AddZone'
 import "./styles.scss"

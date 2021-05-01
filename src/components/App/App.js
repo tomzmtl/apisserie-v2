@@ -12,7 +12,7 @@ import ProductAdmin from '../ProductAdmin';
 import ZoneAdmin from '../ZoneAdmin';
 import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
-import { store } from '../../redux/store'
+import { store } from '../../store'
 
 Amplify.configure(awsconfig);
 

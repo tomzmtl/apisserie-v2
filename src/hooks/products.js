@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { API } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
-import { setProducts } from './redux/actions/products'
-import { useHistory } from 'react-router';
-import { PRODUCT_API } from './constants';
-import { makeTimestamp } from './helpers';
+import { setProducts } from '../actions/products'
+import { PRODUCT_API } from '../constants';
+import { makeTimestamp } from '../helpers';
 
 export const useLoadProducts = () => {
   const dispatch = useDispatch()
@@ -29,9 +28,4 @@ export const useLoadProducts = () => {
   }, [dispatch, sendRequest, ts])
 
   return { sendRequest, isLoading }
-}
-
-export const useNavigation = () => {
-  const history = useHistory()
-  return path => history.push(path)
 }

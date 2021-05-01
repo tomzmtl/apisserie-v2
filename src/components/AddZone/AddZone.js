@@ -2,7 +2,7 @@ import { API } from 'aws-amplify'
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateZone } from '../../redux/actions/zones'
+import { updateZone } from '../../actions/zones'
 import TextField from '../TextField'
 import "./styles.scss"
 import { ZONE_API } from '../../constants';

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ZONE_API } from "../constants"
 import { makeTimestamp } from '../helpers'
-import { setZones } from '../redux/actions/zones'
+import { setZones } from '../actions/zones'
 
 export const useLoadZones = () => {
   const dispatch = useDispatch()

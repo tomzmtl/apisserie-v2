@@ -1,8 +1,8 @@
 import API from '@aws-amplify/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { PRODUCT_API } from '../../constants'
-import { updateProduct } from '../../redux/actions/products'
-import { selectSelectedProductsByZoneOrder } from '../../redux/selectors/products'
+import { updateProduct } from '../../actions/products'
+import { selectSelectedProductsByZoneOrder } from '../../selectors/products'
 import Product from '../Product'
 import './styles.scss';
 
