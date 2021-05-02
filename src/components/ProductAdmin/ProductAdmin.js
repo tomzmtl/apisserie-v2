@@ -1,19 +1,22 @@
 import { useSelector } from 'react-redux'
-import { useNavigation } from '../../hooks/navigation'
 import { selectProductsByName } from '../../selectors/products'
 import { selectZones } from '../../selectors/zones'
 import Card from '../Card'
+import ProductEdit from '../ProductEdit'
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import "./styles.scss"
+import { useState } from 'react'
+import { Dialog } from '@material-ui/core'
 
 const ProductAdmin = () => {
   useLoadProducts()
   useLoadZones()
 
+  const [editProductId, setEditProductId] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
   const products = useSelector(selectProductsByName)
   const zones = useSelector(selectZones)
-  const navigateTo = useNavigation()
 
   const renderProducts = () => products
     .map(product => {
@@ -21,7 +24,10 @@ const ProductAdmin = () => {
 
       const cardProps = {
         className: "ProductAdmin__item",
-        onClick: () => navigateTo(`/products/${product.id}`),
+        onClick: () => {
+          setEditProductId(product.id)
+          setIsOpen(true)
+        },
         key: product.id
       }
       
@@ -36,6 +42,9 @@ const ProductAdmin = () => {
   return (
     <div className="ProductAdmin">
       {renderProducts()}
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+        <ProductEdit productId={editProductId} onClose={() => setIsOpen(false)} />
+      </Dialog>
     </div>
   )
 }

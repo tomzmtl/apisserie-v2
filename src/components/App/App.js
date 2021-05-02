@@ -7,7 +7,6 @@ import ProductList from '../ProductList';
 import AddProduct from '../AddProduct';
 import Header from '../Header';
 import ShopList from '../ShopList';
-import ProductCard from '../ProductCard';
 import ProductAdmin from '../ProductAdmin';
 import ZoneAdmin from '../ZoneAdmin';
 import Amplify from 'aws-amplify';
@@ -36,9 +35,6 @@ const App = () => {
               </Route>
               <Route path="/shop">
                 <ShopList />
-              </Route>
-              <Route path="/products/:productId">
-                <ProductCard />
               </Route>
             </Switch>
           </div>

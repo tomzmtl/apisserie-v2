@@ -1,25 +1,26 @@
+import { DialogTitle, DialogContent, DialogActions } from "@material-ui/core"
 import { Delete, Edit } from '@material-ui/icons'
 import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router'
-import Card from '../Card'
 import TextField from '../TextField'
-import { useNavigation } from '../../hooks/navigation'
 import { PRODUCT_API } from '../../constants'
-import { updateProduct } from '../../actions/products'
+import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
+import "./styles.scss"
 
-const ProductCard = () => {
+const ProductEdit = ({ productId, onClose }) => {
   const dispatch = useDispatch()
-  const { productId } = useParams()
   const products = useSelector(state => state.products)
   const zones = useSelector(selectZonesByName)
-  const navigateTo = useNavigation()
   const product = products.find(p => p.id === productId)
 
-  const [name, setName] = useState(product.name)
-  const [zoneId, setZoneId] = useState(product.zoneId || null)
+  const [name, setName] = useState(product ? product.name : null)
+  const [zoneId, setZoneId] = useState(product ? product.zoneId : null)
+
+  if (!product) {
+    return null
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const ProductCard = () => {
     API.put(PRODUCT_API, "/products", { body })
       .then(() => {
         dispatch(updateProduct(body))
-        navigateTo('/products')
+        onClose()
       })
   }
 
@@ -51,7 +52,8 @@ const ProductCard = () => {
     API
       .del(PRODUCT_API, `/products/object/${product.id}`)
       .then(() => {
-        navigateTo('/products')
+        onClose()
+        dispatch(deleteProduct(product.id))
       })
   }
 
@@ -64,23 +66,24 @@ const ProductCard = () => {
   }
 
   return (
-    <Card>
-      <h1>{product.name}</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="ProductEdit">
+      <DialogTitle id="form-dialog-title">{product.name}</DialogTitle>
+      <DialogContent>
         <TextField value={name} placeholder="Name" onChange={handleChangeName} />
         <select onChange={handleChangeZone} value={zoneId || ""}>
           {renderZoneOptions()}
         </select>
-        <button type="submit">
+      </DialogContent>
+      <DialogActions>
+        <button onClick={handleSubmit}>
           <Edit /> Update
         </button>
-      </form>
-      <br/><br/>
-      <button onClick={handleDelete}>
-        <Delete /> Delete
-      </button>
-    </Card>
+        <button onClick={handleDelete}>
+          <Delete /> Delete
+        </button>
+      </DialogActions>
+    </div>
   )
 }
 
-export default ProductCard
+export default ProductEdit
