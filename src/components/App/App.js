@@ -22,24 +22,26 @@ const App = () => {
       <Provider store={store}>
         <Router>
           <Header />
-          <Switch>
-            <Route exact path="/">
-              <ProductList />
-              <AddProduct />
-            </Route>
-            <Route exact path="/products">
-              <ProductAdmin />
-            </Route>
-            <Route exact path="/zones">
-              <ZoneAdmin />
-            </Route>
-            <Route path="/shop">
-              <ShopList />
-            </Route>
-            <Route path="/products/:productId">
-              <ProductCard />
-            </Route>
-          </Switch>
+          <div className="App__content">
+            <Switch>
+              <Route exact path="/">
+                <ProductList />
+                <AddProduct />
+              </Route>
+              <Route exact path="/products">
+                <ProductAdmin />
+              </Route>
+              <Route exact path="/zones">
+                <ZoneAdmin />
+              </Route>
+              <Route path="/shop">
+                <ShopList />
+              </Route>
+              <Route path="/products/:productId">
+                <ProductCard />
+              </Route>
+            </Switch>
+          </div>
         </Router>
       </Provider>
     </div>

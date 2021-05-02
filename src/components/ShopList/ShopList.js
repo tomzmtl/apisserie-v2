@@ -10,8 +10,6 @@ const ShopList = () => {
   const products = useSelector(selectSelectedProductsByZoneOrder)
   const dispatch = useDispatch()
 
-  console.log(444, products);
-
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: false }
     

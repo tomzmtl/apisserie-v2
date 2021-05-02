@@ -12,22 +12,22 @@ const Header = () => {
     sendRequest()
   }
 
+  const renderButton = (label, to, icon) => (
+    <ButtonBase className="Header__button" onClick={() => navigateTo(to)} centerRipple>
+      <div className="Header__buttonIcon">{icon}</div>
+      <div className="Header__buttonLabel">{label}</div>
+    </ButtonBase>
+  )
+
   return (
     <div className="Header">
-      <ButtonBase onClick={() => navigateTo("/products")} centerRipple>
-        <List />
-      </ButtonBase>
-      <ButtonBase onClick={() => navigateTo("/zones")} centerRipple>
-        <LocationOn />
-      </ButtonBase>
-      <ButtonBase onClick={() => navigateTo("/")} centerRipple>
-        <PlaylistAddCheck />
-      </ButtonBase>
-      <ButtonBase onClick={() => navigateTo("/shop")} centerRipple>
-        <ShoppingCart />
-      </ButtonBase>
-      <ButtonBase onClick={onClickRefresh} centerRipple>
-        <Sync />
+      {renderButton("Produits", "/products", <List />)}
+      {renderButton("Rayons", "/zones", <LocationOn />)}
+      {renderButton("Liste", "/", <PlaylistAddCheck />)}
+      {renderButton("À pisserie", "/shop", <ShoppingCart />)}
+      <ButtonBase className="Header__button" onClick={onClickRefresh} centerRipple>
+        <div className="Header__buttonIcon"><Sync /></div>
+        <div className="Header__buttonLabel">Rafraîchir</div>
       </ButtonBase>
       {isLoading && <LinearProgress />}
     </div>

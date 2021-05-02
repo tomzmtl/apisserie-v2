@@ -17,9 +17,7 @@
     padding: $space $space * 2;
   }
 
-  $col-2-break: 750px;
-
-  @media (max-width: $col-2-break - 1) {
+  @media (max-width: $break-side-menu - 1) {
     &__list {
       .Product + .Product {
         margin-top: $space;
@@ -27,13 +25,19 @@
     }
   }
 
-  @media (min-width: $col-2-break) {
+  @media (min-width: $break-list-2col) {
     &__list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: 1fr;
       grid-column-gap: $space;
       grid-row-gap: $space;
+    }
+  }
+
+  @media (min-width: $break-list-3col) {
+    &__list {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }

@@ -3,18 +3,13 @@
 .Header {
   position: relative;
   background: #111111;
-  padding: 0 $space;
-  
-  .MuiButtonBase-root {
-    width: 40px;
-    height: 40px;
-  }
+  padding-top: 4px;
 
   .MuiLinearProgress {
     &-root {
       position: absolute;
       width: 100%;
-      bottom: 0;
+      top: 0;
       left: 0;
     }
 
@@ -24,6 +19,49 @@
   
     &-bar {
       background-color: darken($primary, 20%);
+    }
+  }
+
+  @media (max-width: $break-side-menu - 1) {
+    padding-left: $space;
+    padding-right: $space;
+
+    .Header__button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .Header__buttonLabel {
+      display: none;
+    }
+  }
+
+  @media (min-width: $break-side-menu) {
+    min-height: 100vh;
+    
+    .Header__button {
+      display: flex;
+      width: 100%;
+      text-align: left;
+
+      &:hover {
+        background-color: #2c2c2c;
+      }
+    }
+
+    .Header__buttonIcon {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+
+      > * {
+        margin: auto
+      }
+    }
+
+    .Header__buttonLabel {
+      width: 100%;
     }
   }
 }

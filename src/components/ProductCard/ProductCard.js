@@ -7,7 +7,7 @@ import Card from '../Card'
 import TextField from '../TextField'
 import { useNavigation } from '../../hooks/navigation'
 import { PRODUCT_API } from '../../constants'
-import { deleteProduct, updateProduct } from '../../actions/products'
+import { updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 
 const ProductCard = () => {
