@@ -1,13 +1,64 @@
 @import '../App/theme.scss';
 
 .Header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px;
-  background-color: #000;
-  padding-top: 4px;
-  z-index: 100;
+  &__wrapper {
+    position: fixed;
+    top: 0;
+    width: 200px;
+    min-height: 100vh;
+    flex-shrink: 0;
+    background-color: #000;
+    z-index: 200;
+    transition: 200ms ease-out;
+  }
+
+  &__button {
+    display: flex;
+    width: 100%;
+    text-align: left;
+
+    &--active {
+      .Header__buttonLabel {
+        color: $primary;
+      }
+
+      .MuiSvgIcon-root {
+        fill: $primary;
+      }
+    }
+
+    &:hover {
+      background-color: #0e0e0e;
+    }
+  }
+
+  &__buttonIcon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    > * {
+      margin: auto
+    }
+  }
+
+  &__buttonLabel {
+    width: 100%;
+  }
+
+  &__openButton.MuiButtonBase-root {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
+    right: 10px;
+    background: yellow;
+    z-index: 200;
+    border-radius: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    background: $primary;
+  }
 
   .MuiLinearProgress {
     &-root {
@@ -15,6 +66,7 @@
       width: 100%;
       top: 0;
       left: 0;
+      z-index: 300;
     }
 
     &-colorPrimary {
@@ -26,62 +78,24 @@
     }
   }
 
-  &__button {
-    width: 40px;
-    height: 40px;
+  @include maxWidth($break-mobile-menu) {
+    &__wrapper {
+      right: 0;
+      transform: translateX(100%);
+    }
 
-    &--active {
-      .Header__buttonLabel {
-        color: $primary;
-      }
-
-      .MuiSvgIcon-root {
-        fill: $primary;
-      }
+    &--open .Header__wrapper {
+      transform: translateX(0)
     }
   }
 
-  @media (max-width: $break-side-menu - 1) {
-    width: 100%;
-    padding-left: $space;
-    padding-right: $space;
-
-    .Header__button {
-      width: 40px;
-      height: 40px;
+  @include minWidth($break-mobile-menu) {
+    &__wrapper {
+      left: 0;
     }
 
-    .Header__buttonLabel {
+    &__openButton.MuiButtonBase-root {
       display: none;
-    }
-  }
-
-  @media (min-width: $break-side-menu) {
-    min-height: 100vh;
-    
-    .Header__button {
-      display: flex;
-      width: 100%;
-      text-align: left;
-
-      &:hover {
-        background-color: rgb(14, 14, 14);
-      }
-    }
-
-    .Header__buttonIcon {
-      display: flex;
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-
-      > * {
-        margin: auto
-      }
-    }
-
-    .Header__buttonLabel {
-      width: 100%;
     }
   }
 }

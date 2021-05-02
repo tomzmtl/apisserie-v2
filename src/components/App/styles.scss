@@ -9,24 +9,16 @@ html, body {
   color: #eeeeee;
 }
 
-@media (max-width: $break-side-menu - 1) {
-  .App {
-    &__content {
-      padding-top: 40px;
-    }
-  }
-}
+.App {
+  padding-top: 5px;
 
-@media (min-width: $break-side-menu) {
-  .App {
+  &__content {
+    width: 100%;
+  }
+
+  @include minWidth($break-mobile-menu) {
     &__content {
-      width: 100%;
       padding-left: 200px;
     }
-  }
-
-  .Header {
-    flex-shrink: 0;
-    width: 200px;
   }
 }
