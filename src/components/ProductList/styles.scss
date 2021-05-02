@@ -40,4 +40,10 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  @media (min-width: $break-list-4col) {
+    &__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
 }

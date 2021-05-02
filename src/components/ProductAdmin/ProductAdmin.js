@@ -28,7 +28,7 @@ const ProductAdmin = () => {
       return (
         <Card {...cardProps}>
           <div className="ProductAdmin__itemName">{product.name}</div>
-          {zone && <div className="ProductAdmin__itemZone">{zone.name}</div>}
+          <div className="ProductAdmin__itemZone">{zone ? zone.name : "-"}</div>
         </Card>
       )
     })

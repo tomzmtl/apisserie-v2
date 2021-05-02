@@ -1,9 +1,13 @@
 @import '../App/theme.scss';
 
 .Header {
-  position: relative;
-  background: #111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  background-color: #000;
   padding-top: 4px;
+  z-index: 100;
 
   .MuiLinearProgress {
     &-root {
@@ -22,7 +26,23 @@
     }
   }
 
+  &__button {
+    width: 40px;
+    height: 40px;
+
+    &--active {
+      .Header__buttonLabel {
+        color: $primary;
+      }
+
+      .MuiSvgIcon-root {
+        fill: $primary;
+      }
+    }
+  }
+
   @media (max-width: $break-side-menu - 1) {
+    width: 100%;
     padding-left: $space;
     padding-right: $space;
 
@@ -45,7 +65,7 @@
       text-align: left;
 
       &:hover {
-        background-color: #2c2c2c;
+        background-color: rgb(14, 14, 14);
       }
     }
 
