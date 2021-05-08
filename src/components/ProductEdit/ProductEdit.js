@@ -4,10 +4,12 @@ import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '../TextField'
+import Button from '../Button'
 import { PRODUCT_API } from '../../constants'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import "./styles.scss"
+import Select from '../Select/Select'
 
 const ProductEdit = ({ productId, onClose }) => {
   const dispatch = useDispatch()
@@ -49,38 +51,27 @@ const ProductEdit = ({ productId, onClose }) => {
       return
     }
 
-    API
-      .del(PRODUCT_API, `/products/object/${product.id}`)
+    API.del(PRODUCT_API, `/products/object/${product.id}`)
       .then(() => {
         onClose()
         dispatch(deleteProduct(product.id))
       })
   }
 
-  const renderZoneOptions = () => {
-    const empty = <option key="none" value="">No zone assigned</option>
-
-    return [].concat(empty, zones.map(zone => {
-      return <option key={zone.id} value={zone.id}>{zone.name}</option>
-    }))
-  }
+  const options = [{ label: "Pas de rayon", value: "none" }].concat(
+    zones.map(zone => ({ value: zone.id, label: zone.name })
+  ))
 
   return (
     <div className="ProductEdit">
       <DialogTitle id="form-dialog-title">{product.name}</DialogTitle>
       <DialogContent>
         <TextField value={name} placeholder="Name" onChange={handleChangeName} />
-        <select onChange={handleChangeZone} value={zoneId || ""}>
-          {renderZoneOptions()}
-        </select>
+        <Select options={options} onChange={handleChangeZone} value={zoneId || ""} />
       </DialogContent>
       <DialogActions>
-        <button onClick={handleSubmit}>
-          <Edit /> Update
-        </button>
-        <button onClick={handleDelete}>
-          <Delete /> Delete
-        </button>
+        <Button label="Supprimer" onClick={handleDelete} icon={<Delete />} />
+        <Button label="Mettre à jour" onClick={handleSubmit} icon={<Edit />} />
       </DialogActions>
     </div>
   )

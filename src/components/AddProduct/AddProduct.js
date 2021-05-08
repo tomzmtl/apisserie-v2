@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateProduct } from '../../actions/products'
 import TextField from '../TextField'
+import Button from '../Button'
 import "./styles.scss"
 import { PRODUCT_API } from '../../constants';
 
@@ -40,11 +41,11 @@ const AddProduct = () => {
   return (
     <div className="AddProduct">
       <form onSubmit={handleSubmit}>
-        <TextField placeholder="Nom" value={name} onChange={handleChangeName}  />
+        <TextField placeholder="Nom" value={name} onChange={handleChangeName} required />
         <br />
         <TextField placeholder="Zone" value={zone} onChange={handleChangeZone} type="tel" />
         <br />
-        <button type="submit">Submit</button>
+        <Button label="Ajouter" submit />
       </form>
     </div>
   )

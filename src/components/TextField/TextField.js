@@ -1,6 +1,6 @@
 import './styles.scss'
 
-const TextField = ({ value, onChange, placeholder, type }) => {
+const TextField = ({ value, onChange, placeholder, type, required = false }) => {
   return (
     <div className="TextField">
       <input
@@ -9,6 +9,7 @@ const TextField = ({ value, onChange, placeholder, type }) => {
         onChange={onChange}
         placeholder={placeholder}
         type={type}
+        required
       />
     </div>
   )

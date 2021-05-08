@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateZone } from '../../actions/zones'
 import TextField from '../TextField'
+import Button from '../Button'
 import "./styles.scss"
 import { ZONE_API } from '../../constants';
 
@@ -44,7 +45,7 @@ const AddZone = () => {
         <br />
         <TextField placeholder="Ordre" value={order} onChange={handleChangeZone} type="number" />
         <br />
-        <button type="submit">Submit</button>
+        <Button label="Ajouter" type="submit" />
       </form>
     </div>
   )

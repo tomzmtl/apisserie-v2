@@ -20,3 +20,10 @@ html, body {
     }
   }
 }
+
+.Select + .Select,
+.TextField + .TextField,
+.Select + .TextField,
+.TextField + .Select {
+  margin-top: $space;
+}
