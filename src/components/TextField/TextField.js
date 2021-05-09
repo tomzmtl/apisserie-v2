@@ -9,7 +9,7 @@ const TextField = ({ value, onChange, placeholder, type, required = false }) => 
         onChange={onChange}
         placeholder={placeholder}
         type={type}
-        required
+        required={required}
       />
     </div>
   )
