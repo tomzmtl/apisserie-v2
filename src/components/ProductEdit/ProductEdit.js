@@ -3,13 +3,13 @@ import { Delete, Edit } from '@material-ui/icons'
 import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import TextField from '../TextField'
-import Button from '../Button'
+import TextField from '../../petate-ui/TextField'
+import Button from '../../petate-ui/Button'
 import { PRODUCT_API } from '../../constants'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import "./styles.scss"
-import Select from '../Select/Select'
+import Select from '../../petate-ui/Select'
 
 const ProductEdit = ({ productId, onClose }) => {
   const dispatch = useDispatch()

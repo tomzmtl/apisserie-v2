@@ -3,8 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateZone } from '../../actions/zones'
-import TextField from '../TextField'
-import Button from '../Button'
+import { TextField, Button } from '../../petate-ui'
 import "./styles.scss"
 import { ZONE_API } from '../../constants';
 

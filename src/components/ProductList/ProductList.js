@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react';
 import Product from '../Product';
 import './styles.scss';
-import TextField from '../TextField';
+import { TextField } from '../../petate-ui'
 import { updateProduct } from '../../actions/products';
 import API from '@aws-amplify/api';
 import { selectProductsByName } from '../../selectors/products';

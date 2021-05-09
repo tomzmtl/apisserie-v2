@@ -1,19 +1,6 @@
-$space: 8px;
-$primary: #ab310b;
+@import "../../petate-ui/theme.scss";
 
 $break-mobile-menu: 750px;
 $break-list-2col: 600px;
 $break-list-3col: 1100px;
 $break-list-4col: 1450px;
-
-@mixin maxWidth($breakpoint) {
-  @media (max-width: $breakpoint - 1) {
-    @content;
-  }
-}
-
-@mixin minWidth($breakpoint) {
-  @media (min-width: $breakpoint) {
-    @content;
-  }
-}
