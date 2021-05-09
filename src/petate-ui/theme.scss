@@ -1,5 +1,6 @@
 $space: 8px;
 $primary: #ab310b;
+$error: #c70b0b;
 
 @mixin maxWidth($breakpoint) {
   @media (max-width: $breakpoint - 1) {

@@ -1,16 +1,29 @@
 import { ButtonBase } from "@material-ui/core"
+import classnames from "classnames"
 import "./styles.scss"
 
-const Button = ({ label, onClick, submit = false }) => {
+const Button = ({
+  className,
+  label = null,
+  onClick,
+  icon = null,
+  submit = false,
+  danger = false
+}) => {
   const props = {
-    className: "Button",
+    className: classnames("Button", className, {
+      "Button--withIcon": !!icon,
+      "Button--withLabel": !!label,
+      "Button--danger": danger,
+    }),
     onClick,
     type: submit ? "submit" : "button"
   }
 
   return (
     <ButtonBase {...props}>
-      {label}
+      {icon && <div className="Button__icon">{icon}</div>}
+      {label && <div className="Button__label">{label}</div>}
     </ButtonBase>
   )
 }

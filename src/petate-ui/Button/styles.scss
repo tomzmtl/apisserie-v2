@@ -2,12 +2,45 @@
 
 .Button {
   &.MuiButtonBase-root {
-    padding: $space $space * 2;
+    padding: 0;
     background: $primary;
     border-radius: 2px;
+  }
+  
+  &__label {
+    padding: $space $space * 2 $space $space;
+  }
+
+  &__icon {
+    padding: $space;
+    display: flex;
+  }
+
+  svg {
+    align-self: center;
+    width: 16px;
+    height: 16px;
   }
 
   &:hover {
     background: darken($primary, 5)
+  }
+
+  &--withLabel:not(&--withIcon) .Button__label {
+    padding-left: $space * 2;
+  }
+
+  &--withIcon:is(&--withLabel) &__icon {
+    border-right: 1px solid darken($primary, 5)
+  }
+
+  &--danger {
+    &.MuiButtonBase-root {
+      background: $error;
+    }
+
+    &:hover {
+      background: darken($error, 5)
+    }
   }
 }
