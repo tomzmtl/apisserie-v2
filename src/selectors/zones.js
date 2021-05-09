@@ -1,4 +1,4 @@
-export const selectZones = state => state.zones
+export const selectZones = state => state.zones.items
 
 export const selectZonesByName = state =>
   selectZones(state).sort((a, b) => a.name.localeCompare(b.name))

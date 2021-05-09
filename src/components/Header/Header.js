@@ -7,9 +7,9 @@ import { useLocation } from 'react-router';
 import classnames from 'classnames';
 import { useState } from 'react';
 
-const Header = () => {
+const Header = ({ isLoading }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { isLoading, sendRequest } = useLoadProducts()
+  const { sendRequest } = useLoadProducts()
   const navigateTo = useNavigation()
   const location = useLocation()
 

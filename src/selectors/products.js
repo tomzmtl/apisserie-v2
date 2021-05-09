@@ -1,8 +1,10 @@
+export const selectProducts = state => state.products.items
+
 export const selectProductsByName = state =>
-  state.products.sort((a, b) => a.name.localeCompare(b.name))
+  selectProducts(state).sort((a, b) => a.name.localeCompare(b.name))
 
 export const selectSelectedProductsByZoneOrder = state => {
-  return state.products.filter(product => product.selected).sort((a, b) => {
+  return selectProducts(state).filter(product => product.selected).sort((a, b) => {
     const zoneA = state.zones.find(zone => zone.id === a.zoneId)
     const zoneB = state.zones.find(zone => zone.id === b.zoneId)
 

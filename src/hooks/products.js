@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { setProducts } from '../actions/products'
 import { PRODUCT_API } from '../constants';
 import { makeTimestamp } from '../helpers';
+import { setIsLoading } from '../actions/products';
 
 export const useLoadProducts = () => {
   const dispatch = useDispatch()
-  const [isLoading, setIsLoading] = useState(false)
   const [ts, setTs] = useState(makeTimestamp())
 
   const sendRequest = useCallback(
@@ -18,14 +18,14 @@ export const useLoadProducts = () => {
         .get(PRODUCT_API, '/products/id')
         .then(response => dispatch(setProducts(response)))
         .catch(error => console.log(error.response))
-        .finally(() => setIsLoading(false))
+        .finally(() => dispatch(setIsLoading(false)))
     }, [dispatch])
   
   useEffect(() => {
-    setIsLoading(true)
+    dispatch(setIsLoading(true))
 
     sendRequest()
   }, [dispatch, sendRequest, ts])
 
-  return { sendRequest, isLoading }
+  return { sendRequest }
 }
