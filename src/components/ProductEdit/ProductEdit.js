@@ -1,15 +1,13 @@
-import { DialogTitle, DialogContent } from "@material-ui/core"
 import { Delete, Edit } from '@material-ui/icons'
-import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, TextField, Dialog } from '../../petate-ui'
-import { PRODUCT_API } from '../../constants'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
 import "./styles.scss"
 import Select from '../../petate-ui/Select'
+import * as api from '../../api/products'
 
 const ProductEdit = ({ productId, onClose }) => {
   const dispatch = useDispatch()
@@ -33,11 +31,10 @@ const ProductEdit = ({ productId, onClose }) => {
       zoneId: zoneId || null
     }
 
-    API.put(PRODUCT_API, "/products", { body })
-      .then(() => {
-        dispatch(updateProduct(body))
-        onClose()
-      })
+    api.putProduct(body).then(() => {
+      dispatch(updateProduct(body))
+      onClose()
+    })
   }
 
   const handleChangeName = (e) => setName(e.target.value)
@@ -51,11 +48,10 @@ const ProductEdit = ({ productId, onClose }) => {
       return
     }
 
-    API.del(PRODUCT_API, `/products/object/${product.id}`)
-      .then(() => {
-        onClose()
-        dispatch(deleteProduct(product.id))
-      })
+    api.deleteProduct(product.id).then(() => {
+      onClose()
+      dispatch(deleteProduct(product.id))
+    })
   }
 
   const options = [{ label: "Pas de rayon", value: "none" }].concat(

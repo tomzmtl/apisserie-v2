@@ -14,20 +14,23 @@ export const reducer = (state = initialState, action) => {
       }
     
     case "UPDATE_ZONE": {
-      const index = state.findIndex(
+      const index = state.items.findIndex(
         zone => zone.id === action.payload.zone.id
       )
 
       if (index === -1) {
-        return state.concat(action.payload.zone)
+        return {
+          ...state,
+          items: state.items.concat(action.payload.zone)
+        }
       }
 
       return {
         ...state,
         items: [
-          ...state.slice(0, index),
+          ...state.items.slice(0, index),
           action.payload.zone,
-          ...state.slice(index + 1),
+          ...state.items.slice(index + 1),
         ]
       }
     }
