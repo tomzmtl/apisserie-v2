@@ -1,4 +1,4 @@
-import { Edit } from '@material-ui/icons'
+import { Save } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, TextField, Dialog } from '../../petate-ui'
@@ -42,7 +42,7 @@ const ZoneEdit = ({ zoneId, onClose }) => {
         </Dialog.Content>
         <Dialog.Actions>
           <div />
-          <Button label="Mettre à jour" icon={<Edit />} submit />
+          <Button label="Mettre à jour" icon={<Save />} submit variant="confirm" />
         </Dialog.Actions>
       </form>
     </div>

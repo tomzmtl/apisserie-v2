@@ -1,4 +1,4 @@
-import { Delete, Edit } from '@material-ui/icons'
+import { Delete, Save } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, TextField, Dialog } from '../../petate-ui'
@@ -66,8 +66,8 @@ const ProductEdit = ({ productId, onClose }) => {
           <Select options={options} onChange={handleChangeZone} value={zoneId || ""} />
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onClick={handleDelete} icon={<Delete />} danger />
-          <Button label="Mettre à jour" icon={<Edit />} submit />
+          <Button onClick={handleDelete} icon={<Delete />} variant="cancel" />
+          <Button label="Mettre à jour" icon={<Save />} submit variant="confirm" />
         </Dialog.Actions>
       </form>
     </div>

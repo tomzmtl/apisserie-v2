@@ -3,5 +3,13 @@
 .DialogActions {
   display: flex;
   justify-content: space-between;
-  padding: $space;
+  padding: $space $dialog-space $dialog-space $dialog-space;
+
+  .Button + .Button {
+    margin-left: $space;
+  }
+
+  .Button--variant-confirm {
+    width: 100%;
+  }
 }

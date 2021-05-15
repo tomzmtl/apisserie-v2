@@ -1,7 +1,7 @@
 @import "../theme.scss";
 
 .DialogHeader {
-  padding: $space;
+  padding: $dialog-space;
 
   &__title {
     font-size: 20px;

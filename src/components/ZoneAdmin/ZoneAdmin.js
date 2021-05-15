@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Dialog } from '@material-ui/core'
+import { Dialog } from '../../petate-ui'
 // import { useNavigation } from '../../hooks/navigation'
 import { useLoadZones } from "../../hooks/zones"
 import { selectZonesByOrder } from '../../selectors/zones'
@@ -40,9 +40,9 @@ const ZoneAdmin = () => {
     <div className="ZoneAdmin">
       {renderZones()}
       <AddZone />
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+      <Dialog.Root open={isOpen} onClose={() => setIsOpen(false)} >
         <ZoneEdit zoneId={editId} onClose={() => setIsOpen(false)} />
-      </Dialog>
+      </Dialog.Root>
     </div>
   )
 }

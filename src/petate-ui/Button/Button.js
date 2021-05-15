@@ -8,13 +8,13 @@ const Button = ({
   onClick,
   icon = null,
   submit = false,
-  danger = false
+  variant = null
 }) => {
   const props = {
     className: classnames("Button", className, {
       "Button--withIcon": !!icon,
       "Button--withLabel": !!label,
-      "Button--danger": danger,
+      [`Button--variant-${variant}`]: variant,
     }),
     onClick,
     type: submit ? "submit" : "button"

@@ -5,6 +5,7 @@
     padding: 0;
     background: $primary;
     border-radius: 2px;
+    justify-content: flex-start;
   }
   
   &__label {
@@ -31,7 +32,7 @@
   }
 
   &--withIcon:is(&--withLabel) &__icon {
-    border-right: 1px solid darken($primary, 5)
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
   }
 
   &--danger {
@@ -41,6 +42,26 @@
 
     &:hover {
       background: darken($error, 5)
+    }
+  }
+
+  &--variant-cancel {
+    &.MuiButtonBase-root {
+      background: $error;
+    }
+
+    &:hover {
+      background: darken($error, 5)
+    }
+  }
+
+  &--variant-confirm {
+    &.MuiButtonBase-root {
+      background: #3a9b49;
+    }
+
+    &:hover {
+      background: darken(#3a9b49, 5)
     }
   }
 }

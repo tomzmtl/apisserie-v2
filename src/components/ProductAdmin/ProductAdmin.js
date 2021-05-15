@@ -7,7 +7,7 @@ import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import "./styles.scss"
 import { useState } from 'react'
-import { Dialog } from '@material-ui/core'
+import { Dialog } from '../../petate-ui'
 
 const ProductAdmin = () => {
   useLoadProducts()
@@ -42,9 +42,9 @@ const ProductAdmin = () => {
   return (
     <div className="ProductAdmin">
       {renderProducts()}
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+      <Dialog.Root open={isOpen} onClose={() => setIsOpen(false)}>
         <ProductEdit productId={editProductId} onClose={() => setIsOpen(false)} />
-      </Dialog>
+      </Dialog.Root>
     </div>
   )
 }

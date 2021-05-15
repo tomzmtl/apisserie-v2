@@ -1,5 +1,6 @@
 $space: 8px;
-$primary: #ab310b;
+$dialog-space: $space * 2;
+$primary: hsl(295, 54%, 51%);
 $error: #c70b0b;
 
 @mixin maxWidth($breakpoint) {
