@@ -6,7 +6,7 @@ import { useLoadZones } from "../../hooks/zones"
 import { selectZonesByOrder } from '../../selectors/zones'
 import Card from '../Card'
 import ZoneEdit from "../ZoneEdit"
-import AddZone from '../AddZone'
+import AddZone from '../ZoneAdd'
 import "./styles.scss"
 
 const ZoneAdmin = () => {

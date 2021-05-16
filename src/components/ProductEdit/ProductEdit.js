@@ -32,8 +32,6 @@ const ProductEdit = ({ productId, onClose = null }) => {
 
     const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase())
 
-    console.log(products, existingProduct);
-
     if (existingProduct) {
       window.alert("Ce produit existe déjà")
     } else {
@@ -50,7 +48,6 @@ const ProductEdit = ({ productId, onClose = null }) => {
   }
 
   const handleChangeName = (e) => setName(e.target.value)
-
   const handleChangeZone = e => setZoneId(e.target.value)
 
   const handleDelete = () => {
