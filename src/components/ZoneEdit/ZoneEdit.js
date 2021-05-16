@@ -13,6 +13,7 @@ const ZoneEdit = ({ zoneId, onClose }) => {
   const zone = zones.find(({ id }) => id === zoneId)
 
   const [name, setName] = useState(zone ? zone.name : null)
+  const [order, setOrder] = useState(zone ? zone.order.toString() : "1")
 
   if (!zone) {
     return null
@@ -24,6 +25,7 @@ const ZoneEdit = ({ zoneId, onClose }) => {
     const body = {
       ...zone,
       name,
+      order: Number(order)
     }
 
     api.putZone(body).then(() => {
@@ -33,15 +35,16 @@ const ZoneEdit = ({ zoneId, onClose }) => {
   }
 
   const handleChangeName = (e) => setName(e.target.value)
+  const handleChangeOrder = (e) => setOrder(e.target.value)
 
   return (
     <div className="ZoneEdit">
       <form onSubmit={handleSubmit}>
         <Dialog.Content>
           <TextField value={name} placeholder="Name" onChange={handleChangeName} required />
+          <TextField value={order} placeholder="Order" onChange={handleChangeOrder} required />
         </Dialog.Content>
         <Dialog.Actions>
-          <div />
           <Button label="Mettre à jour" icon={<Save />} submit variant="confirm" />
         </Dialog.Actions>
       </form>
