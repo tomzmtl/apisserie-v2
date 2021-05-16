@@ -12,6 +12,7 @@ html, body {
 .App {
   &__content {
     width: 100%;
+    padding-bottom: $space * 3;
   }
 
   @include minWidth($break-mobile-menu) {

@@ -4,7 +4,7 @@ import './normalize.css';
 import './styles.scss';
 import './theme.scss';
 import ProductList from '../ProductList';
-import AddProduct from '../AddProduct';
+import ProductAdd from '../ProductAdd';
 import Header from '../Header';
 import ShopList from '../ShopList';
 import ProductAdmin from '../ProductAdmin';
@@ -25,7 +25,7 @@ const App = () => {
             <Switch>
               <Route exact path="/">
                 <ProductList />
-                <AddProduct />
+                <ProductAdd />
               </Route>
               <Route exact path="/products">
                 <ProductAdmin />
