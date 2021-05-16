@@ -1,3 +1,42 @@
 @import '../App/theme.scss';
 
-// .Product {}
+.Product {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid #171616;
+  transition: 200ms ease-out;
+
+  &__base.MuiButtonBase-root {
+    display: block;
+    min-height: 40px;
+    width: 100%;
+    background: #1e1f1e;
+    padding-left: $space;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  &__discount.MuiButtonBase-root {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 0;
+    top: 0;
+    opacity: 0.5;
+  }
+
+  &--active {
+    border-color: $primary;
+  }
+
+  &--discounted {
+    .Product__discount.MuiButtonBase-root {
+      opacity: 1;
+
+      > * {
+        fill: $primary;
+      }
+    }
+  }
+}

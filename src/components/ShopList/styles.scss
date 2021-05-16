@@ -5,15 +5,13 @@
     padding: $space;
   }
 
-  .Card {
-    padding: $space * 2;
-
-    & + .Card {
+  .Product {
+    & + .Product {
       margin-top: $space;
     }
 
     &--active {
-      background-color: #111;
+      border-color: #111;
     }
   }
 }

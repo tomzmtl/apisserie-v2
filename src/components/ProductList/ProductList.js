@@ -1,35 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useState } from 'react';
 import Product from '../Product';
 import './styles.scss';
 import { TextField } from '../../petate-ui'
-import { updateProduct } from '../../actions/products';
-import API from '@aws-amplify/api';
 import { selectProductsByName } from '../../selectors/products';
-import { PRODUCT_API } from '../../constants';
 
 const ProductList = () => {
   const [query, setQuery] = useState("")
   const products = useSelector(selectProductsByName)
-  const dispatch = useDispatch()
 
   const handleChangeQuery = e => {
     setQuery(e.target.value)
   }
 
-  const handleProductClick = product => () => {
-    const updatedProduct = { ...product, selected: !product.selected }
-    
-    API.put(PRODUCT_API, "/products", { body: updatedProduct })
-      .then(() => {
-        dispatch(updateProduct(updatedProduct))
-      })
-  }
-
   const renderProducts = () => products
     .filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
     .map(product => {
-      return <Product product={product} key={product.id} onClick={handleProductClick(product)} />
+      return <Product product={product} key={product.id} />
     })
 
   return (
