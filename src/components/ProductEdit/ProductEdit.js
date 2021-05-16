@@ -18,7 +18,7 @@ const ProductEdit = ({ productId, onClose = null }) => {
     ? products.find(p => p.id === productId)
     : { id: uuid(), selected: false, discounted: false }
 
-  const [name, setName] = useState(product ? product.name : null)
+  const [name, setName] = useState(product ? product.name : "")
   const [zoneId, setZoneId] = useState(product ? product.zoneId : null)
 
   const handleSubmit = (e) => {
@@ -30,10 +30,23 @@ const ProductEdit = ({ productId, onClose = null }) => {
       zoneId: zoneId || null
     }
 
-    api.putProduct(body).then(() => {
-      dispatch(updateProduct(body))
-      onClose?.()
-    })
+    const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase())
+
+    console.log(products, existingProduct);
+
+    if (existingProduct) {
+      window.alert("Ce produit existe déjà")
+    } else {
+      api.putProduct(body).then(() => {
+        dispatch(updateProduct(body))
+        onClose?.()
+  
+        if (!productId) {
+          setName("")
+          setZoneId(null)
+        }
+      })
+    }
   }
 
   const handleChangeName = (e) => setName(e.target.value)
