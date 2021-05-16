@@ -9,9 +9,12 @@ import './styles.scss';
 const Product = ({ product }) => {
   const dispatch = useDispatch()
 
-  const apiUpdate = product => api.putProduct(product).then(
-    () => dispatch(updateProduct(product))
-  )
+  const apiUpdate = nextProduct => {
+    dispatch(updateProduct(nextProduct))
+
+    api.putProduct(nextProduct)
+      .catch(() => dispatch(updateProduct(product)))
+  }
 
   const handleClick = () => {
     const nextSelected = !product.selected
