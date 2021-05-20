@@ -1,7 +1,7 @@
 import { Delete, Save } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import uuid from "uuid/v4"
+import { v4 as uuid } from "uuid"
 import { Button, TextField, Dialog } from '../../petate-ui'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
