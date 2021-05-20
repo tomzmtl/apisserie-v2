@@ -6,7 +6,7 @@ import { useLoadZones } from "../../hooks/zones"
 import { selectZonesByOrder } from '../../selectors/zones'
 import Card from '../Card'
 import ZoneEdit from "../ZoneEdit"
-import AddZone from '../ZoneAdd'
+import ZoneAdd from '../ZoneAdd'
 import "./styles.scss"
 
 const ZoneAdmin = () => {
@@ -39,7 +39,7 @@ const ZoneAdmin = () => {
   return (
     <div className="ZoneAdmin">
       {renderZones()}
-      <AddZone />
+      <ZoneAdd />
       <Dialog.Root open={isOpen} onClose={() => setIsOpen(false)} >
         <ZoneEdit zoneId={editId} onClose={() => setIsOpen(false)} />
       </Dialog.Root>

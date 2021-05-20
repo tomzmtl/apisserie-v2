@@ -18,8 +18,8 @@ const ProductEdit = ({ productId, onClose = null }) => {
     ? products.find(p => p.id === productId)
     : { id: uuid(), selected: false, discounted: false }
 
-  const [name, setName] = useState(product ? product.name : "")
-  const [zoneId, setZoneId] = useState(product ? product.zoneId : null)
+  const [name, setName] = useState(product.name || "")
+  const [zoneId, setZoneId] = useState(product.zoneId || null)
 
   const handleSubmit = (e) => {
     e.preventDefault();

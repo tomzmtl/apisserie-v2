@@ -1,9 +1,9 @@
-import { Save } from '@material-ui/icons'
+import { Save, Delete } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import uuid from "uuid/v4"
 import { Button, TextField, Dialog } from '../../petate-ui'
-import { updateZone } from '../../actions/zones'
+import { deleteZone, updateZone } from '../../actions/zones'
 import { selectZones } from '../../selectors/zones'
 import "./styles.scss"
 import * as api from '../../api/zones'
@@ -15,8 +15,8 @@ const ZoneEdit = ({ zoneId, onClose }) => {
     ? zones.find(({ id }) => id === zoneId)
     : { id: uuid() }
 
-  const [name, setName] = useState(zoneId ? zone.name : "")
-  const [order, setOrder] = useState(zoneId ? zone.order.toString() : "1")
+  const [name, setName] = useState(zone.name || "")
+  const [order, setOrder] = useState(zone.order?.toString() || "1")
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +38,19 @@ const ZoneEdit = ({ zoneId, onClose }) => {
     })
   }
 
+  const handleDelete = () => {
+    const confirm = window.confirm(`Supprimer ${zone.name}?`)
+
+    if (!confirm) {
+      return
+    }
+
+    api.deleteZone(zone.id).then(() => {
+      onClose()
+      dispatch(deleteZone(zone.id))
+    })
+  }
+
   const handleChangeName = (e) => setName(e.target.value)
   const handleChangeOrder = (e) => setOrder(e.target.value)
 
@@ -49,6 +62,7 @@ const ZoneEdit = ({ zoneId, onClose }) => {
           <TextField value={order} placeholder="Order" onChange={handleChangeOrder} type="number" required />
         </Dialog.Content>
         <Dialog.Actions>
+          {zoneId && <Button onClick={handleDelete} icon={<Delete />} variant="cancel" />}
           <Button label={zoneId ? "Mettre à jour" : "Ajouter"} icon={<Save />} submit variant="confirm" />
         </Dialog.Actions>
       </form>

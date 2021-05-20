@@ -1,4 +1,4 @@
-import { SET_IS_LOADING } from "../actions/zones"
+import { SET_IS_LOADING, DELETE } from "../actions/zones"
 
 const initialState = {
   items: [],
@@ -39,6 +39,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.payload.isLoading
+      }
+    
+    case DELETE:
+      return {
+        ...state,
+        items: state.items.filter(z => z.id !== action.payload.zoneId)
       }
 
     default: return state
