@@ -30,7 +30,7 @@ const ProductEdit = ({ productId, onClose = null }) => {
       zoneId: zoneId || null
     }
 
-    const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase())
+    const existingProduct = !productId && products.find(p => p.name.toLowerCase() === name.toLowerCase())
 
     if (existingProduct) {
       window.alert("Ce produit existe déjà")
