@@ -41,6 +41,7 @@ const Header = ({ isLoading }) => {
 
   return (
     <div className={classes}>
+      <div className="Header__backdrop" onClick={() => setIsOpen(false)}/>
       <div className="Header__wrapper">
         {renderButton("Produits", "/products", <List />)}
         {renderButton("Rayons", "/zones", <LocationOn />)}

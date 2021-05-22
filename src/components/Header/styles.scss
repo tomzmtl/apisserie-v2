@@ -4,7 +4,7 @@
   &__wrapper {
     position: fixed;
     top: 0;
-    width: 200px;
+    width: 250px;
     min-height: 100vh;
     flex-shrink: 0;
     background-color: #000;
@@ -79,13 +79,31 @@
   }
 
   @include maxWidth($break-mobile-menu) {
+    &__backdrop {
+      display: none;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background:black;
+      opacity: 0.75;
+      z-index: 150;
+    }
+
     &__wrapper {
       right: 0;
       transform: translateX(100%);
     }
 
-    &--open .Header__wrapper {
-      transform: translateX(0)
+    &--open {
+      .Header__wrapper {
+        transform: translateX(0)
+      }
+
+      .Header__backdrop {
+        display: block;
+      }
     }
   }
 
@@ -95,6 +113,10 @@
     }
 
     &__openButton.MuiButtonBase-root {
+      display: none;
+    }
+
+    &__backdrop {
       display: none;
     }
   }
