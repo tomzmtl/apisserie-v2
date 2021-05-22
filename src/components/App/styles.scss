@@ -17,7 +17,7 @@ html, body {
 
   @include minWidth($break-mobile-menu) {
     &__content {
-      padding-left: 200px;
+      padding-left: $side-menu-width;
     }
   }
 }

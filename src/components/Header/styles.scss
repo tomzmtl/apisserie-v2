@@ -4,7 +4,7 @@
   &__wrapper {
     position: fixed;
     top: 0;
-    width: 250px;
+    width: $side-menu-width;
     min-height: 100vh;
     flex-shrink: 0;
     background-color: #000;
