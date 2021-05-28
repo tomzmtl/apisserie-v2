@@ -52,9 +52,11 @@ const Header = ({ isLoading }) => {
           <div className="Header__buttonLabel">Rafraîchir</div>
         </ButtonBase>
       </div>
-      <ButtonBase className="Header__openButton" onClick={() => setIsOpen(!isOpen)}>
-        <Menu />
-      </ButtonBase>
+      <div className="Header__openButton">
+        <ButtonBase onClick={() => setIsOpen(!isOpen)}>
+          <Menu />
+        </ButtonBase>
+      </div>
       {isLoading && <LinearProgress />}
     </div>
   )

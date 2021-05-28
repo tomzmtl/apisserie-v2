@@ -1,5 +1,7 @@
 import { selectZones } from "./zones"
 
+export const selectIsProductLoading = state => state.products.isLoading
+
 export const selectProducts = state => state.products.items
 
 export const selectProductsByName = state =>
