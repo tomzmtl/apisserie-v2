@@ -58,6 +58,13 @@
     }
   }
 
+  @include minWidth($break-mobile-menu) {
+    &__search {
+      left: $side-menu-width + $space;
+      width: calc(100vw - (#{$side-menu-width + ($space * 4)}));
+    }
+  }
+
   @include minWidth($break-list-2col) {
     &__list {
       display: grid;
