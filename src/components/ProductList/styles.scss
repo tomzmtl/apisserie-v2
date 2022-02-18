@@ -29,7 +29,7 @@
     left: $space;
     top: $space;
     z-index: 100;
-    width: calc(100vw - (#{$space * 4}));
+    width: calc(100vw - (#{$space * 2}));
 
     .TextField {
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
