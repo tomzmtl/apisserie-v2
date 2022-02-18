@@ -7,10 +7,17 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_ZONES": 
+    case "SET_ZONES":
       return {
         ...state,
-        items: action.payload.zones
+        items: [
+          ...action.payload.zones.sort((a, b) => a.order < b.order ? -1 : 1),
+          {
+            order: 999,
+            id: "UNKNOWN",
+            name: "Autres"
+          }
+        ]
       }
     
     case "UPDATE_ZONE": {

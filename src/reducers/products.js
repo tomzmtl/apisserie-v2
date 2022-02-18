@@ -11,9 +11,9 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload.products.map(product => ({
-          zone: 1,
           selected: false,
-          ...product
+          ...product,
+          zoneId: product.zoneId ?? "UNKNOWN"
         }))
       }
 
