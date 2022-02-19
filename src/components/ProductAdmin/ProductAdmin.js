@@ -2,19 +2,17 @@ import { useSelector } from 'react-redux'
 import { selectProductsByName } from '../../selectors/products'
 import { selectZones } from '../../selectors/zones'
 import Card from '../Card'
-import ProductEdit from '../ProductEdit'
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import "./styles.scss"
-import { useState } from 'react'
-import { Dialog } from '../../petate-ui'
+import { useProductEditDialog } from '../ProductEditDialog/hooks';
 
 const ProductAdmin = () => {
   useLoadProducts()
   useLoadZones()
 
-  const [editProductId, setEditProductId] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const { dialog, openDialog } = useProductEditDialog()
+
   const products = useSelector(selectProductsByName)
   const zones = useSelector(selectZones)
 
@@ -24,10 +22,7 @@ const ProductAdmin = () => {
 
       const cardProps = {
         className: "ProductAdmin__item",
-        onClick: () => {
-          setEditProductId(product.id)
-          setIsOpen(true)
-        },
+        onClick: () => { openDialog(product.id) },
         key: product.id
       }
       
@@ -42,9 +37,7 @@ const ProductAdmin = () => {
   return (
     <div className="ProductAdmin">
       {renderProducts()}
-      <Dialog.Root open={isOpen} onClose={() => setIsOpen(false)}>
-        <ProductEdit productId={editProductId} onClose={() => setIsOpen(false)} />
-      </Dialog.Root>
+      {dialog}
     </div>
   )
 }

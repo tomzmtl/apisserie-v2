@@ -6,10 +6,6 @@
   }
 
   .Product {
-    & + .Product {
-      margin-top: $space;
-    }
-
     &--active {
       border-color: #111;
     }
@@ -26,5 +22,17 @@
     padding-left: $space;
     color: lighten($color: $bgMain, $amount: 20);
     text-shadow: 0 -1px 0 black;
+  }
+
+  &__product {
+    display: flex;
+
+    & + & {
+      margin-top: $space;
+    }
+
+    .Product {
+      width: 100%;
+    }
   }
 }

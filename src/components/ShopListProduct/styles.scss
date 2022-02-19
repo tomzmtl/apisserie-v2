@@ -1,0 +1,9 @@
+@import '../App/theme.scss';
+
+.ShopListProduct {
+  &__editBtn {
+    flex-shrink: 0;
+    width: 32px;
+    margin-left: $space !important;
+  }
+}

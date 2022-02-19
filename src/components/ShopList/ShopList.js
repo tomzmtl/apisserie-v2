@@ -5,12 +5,15 @@ import { updateProduct } from '../../actions/products'
 import { selectProductListGroupedByZone } from '../../selectors/products'
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
-import Product from '../Product'
+import ShopListProduct from '../ShopListProduct'
+import { useProductEditDialog } from '../ProductEditDialog/hooks'
 import './styles.scss';
 
 const ShopList = () => {
   useLoadProducts()
   useLoadZones()
+
+  const { dialog, openDialog } = useProductEditDialog()
 
   const productsByZone = useSelector(selectProductListGroupedByZone)
   const dispatch = useDispatch()
@@ -24,9 +27,16 @@ const ShopList = () => {
       })
   }
 
-  const renderProducts = products => products.map(product => (
-    <Product product={product} key={product.id} onClick={handleProductClick(product)} />
-  ))
+  const renderProducts = products => products.map(product => {
+    const productProps = {
+      key: product.id,
+      product: product,
+      onClick: handleProductClick,
+      onClickEdit: () => openDialog(product.id)
+    }
+
+    return <ShopListProduct {...productProps} />
+  })
 
   const renderProductsByZone = productsByZone => productsByZone.map(zone => (
     <div className="ShopList__zone">
@@ -40,6 +50,7 @@ const ShopList = () => {
       <div className="ShopList__list">
         {renderProductsByZone(productsByZone)}
       </div>
+      {dialog}
     </div>
   )
 }
