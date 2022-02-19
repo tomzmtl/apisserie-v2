@@ -9,7 +9,7 @@
     flex-shrink: 0;
     background-color: #000;
     z-index: 200;
-    transition: 200ms ease-out;
+    // transition: 200ms ease-out;
   }
 
   &__button {
@@ -55,11 +55,11 @@
     z-index: 200;
 
     .MuiButtonBase-root {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       background: yellow;
       border-radius: 100%;
-      box-shadow: 0 0 40px black;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       background: $primary;
       padding: $space;
     }
@@ -92,13 +92,36 @@
       top: 0;
       left: 0;
       background:black;
-      opacity: 0.75;
+      opacity: 0.85;
       z-index: 150;
     }
 
     &__wrapper {
       right: 0;
       transform: translateX(100%);
+      width: 100%;
+      background: transparent;
+    }
+    
+    &__menu {
+      $size: 100px;
+      $gap: $space * 2;
+      $gridSize: ($size * 2) + $gap;
+
+      margin: (calc((100vh - #{$gridSize}) / 2)) auto auto auto;
+      display: grid;
+      width: $gridSize;
+      grid-template-columns: repeat(2, $size); 
+      grid-template-rows: repeat(2, $size);
+      grid-row-gap: $gap;
+      grid-column-gap: $gap;
+    }
+
+    &__button {
+      flex-direction: column;
+      text-align: center;
+      background-color: rgb(32, 32, 32) !important; //.MuiButtonBase-root
+      border-radius: 4px !important; //.MuiButtonBase-root
     }
 
     &--open {
@@ -117,8 +140,8 @@
       left: 0;
     }
 
-    &__openButton.MuiButtonBase-root {
-      display: none;
+    &__openButton {
+      display: none !important; //.MuiButtonBase-root
     }
 
     &__backdrop {
