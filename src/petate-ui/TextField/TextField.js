@@ -1,8 +1,21 @@
+import classNames from 'classnames'
 import './styles.scss'
 
-const TextField = ({ value, onChange, placeholder, type, required = false }) => {
+const TextField = ({
+  value,
+  onChange,
+  placeholder,
+  type,
+  required = false,
+  isInvalid = false
+}) => {
+  const classes = classNames({
+    TextField: true,
+    'TextField--error': isInvalid
+  })
+
   return (
-    <div className="TextField">
+    <div className={classes}>
       <input
         className="TextField__input"
         value={value}

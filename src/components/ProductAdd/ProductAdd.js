@@ -1,10 +1,10 @@
 import ProductEdit from '../ProductEdit'
 import "./styles.scss"
 
-const ProductAdd = () => {
+const ProductAdd = ({ prefillText }) => {
   return (
     <div className="ProductAdd">
-      <ProductEdit />
+      <ProductEdit prefillText={prefillText} />
     </div>
   )
 }

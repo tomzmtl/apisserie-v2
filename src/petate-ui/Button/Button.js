@@ -8,16 +8,19 @@ const Button = ({
   onClick,
   icon = null,
   submit = false,
-  variant = null
+  variant = null,
+  disabled = false
 }) => {
   const props = {
     className: classnames("Button", className, {
       "Button--withIcon": !!icon,
       "Button--withLabel": !!label,
+      "Button--disabled": disabled,
       [`Button--variant-${variant}`]: variant,
     }),
     onClick,
-    type: submit ? "submit" : "button"
+    type: submit ? "submit" : "button",
+    disabled
   }
 
   return (

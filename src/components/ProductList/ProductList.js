@@ -12,7 +12,10 @@ const ProductList = () => {
   const products = useSelector(selectProductsByName)
   const isLoading = useSelector(selectIsProductLoading)
 
-  const showSplash = isLoading || products.length === 0
+  const showSplash = isLoading || products.length === 0;
+
+  const productsToDisplay = products
+    .filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
 
   const handleChangeQuery = e => {
     setQuery(e.target.value)
@@ -39,11 +42,9 @@ const ProductList = () => {
       )
     }
 
-    return products
-      .filter(product => product.name.toLowerCase().includes(query.toLowerCase()))
-      .map(product => {
-        return <Product product={product} key={product.id} />
-      })
+    return productsToDisplay.map(product => (
+      <Product product={product} key={product.id} />
+    ))
   }
 
   return (
@@ -52,7 +53,7 @@ const ProductList = () => {
       <div className="ProductList__list">
         {renderProducts()}
       </div>
-      {!showSplash && <ProductAdd />}
+      {!showSplash && <ProductAdd prefillText={productsToDisplay.length ? null : query} />}
     </div>
   )
 }

@@ -17,4 +17,15 @@
       border-color: $primary;
     }
   }
+
+  &--error {
+    .TextField__input {
+      border-color: red;
+      color: red;
+
+      &:focus {
+        box-shadow: 0 0 4px red;
+      }
+    }
+  }
 }
