@@ -26,9 +26,16 @@ const ProductList = () => {
       return null
     }
 
+    const searchFieldProps = {
+      value: query,
+      onChange: handleChangeQuery,
+      placeholder: "Chercher...",
+      onEmpty: () => setQuery("")
+    }
+
     return (
       <div className="ProductList__search">
-        <TextField value={query} onChange={handleChangeQuery} placeholder="Chercher..." />
+        <TextField {...searchFieldProps} />
       </div>
     )
   }

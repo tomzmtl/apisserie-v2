@@ -8,7 +8,7 @@ $error: #c70b0b;
 //   @return hsl(math.random(360), 80%, 40%);
 // }
 
-$primary: #ff5e00;
+$primary: #e5ff00;
 
 @mixin maxWidth($breakpoint) {
   @media (max-width: ($breakpoint - 1)) {
