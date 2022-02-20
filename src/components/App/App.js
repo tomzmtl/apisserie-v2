@@ -2,7 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import './normalize.css';
 import './styles.scss';
 import './theme.scss';
-import Header from '../Header';
+import Menu from '../Menu';
 import ShoppingList from '../ShoppingList';
 import ProductAdmin from '../ProductAdmin';
 import Product from '../Product';
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Header />
+        <Menu />
         <div className="App__content">
           <Switch>
             <Route exact path="/">
