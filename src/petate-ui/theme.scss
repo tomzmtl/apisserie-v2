@@ -21,3 +21,9 @@ $primary: #e5ff00;
     @content;
   }
 }
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: ($max - 1)) {
+    @content;
+  }
+}

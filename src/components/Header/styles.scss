@@ -9,7 +9,6 @@
     flex-shrink: 0;
     background-color: #000;
     z-index: 200;
-    // transition: 200ms ease-out;
   }
 
   &__button {
@@ -117,11 +116,17 @@
     }
   }
 
-  @include minWidth($break-mobile-menu) {
-    .Header__buttonLabel {
+  @include between($break-mobile-menu, $break-compact-menu) {
+    &__wrapper {
+      width: $compact-menu-width;
+    }
+
+    &__buttonLabel {
       display: none;
     }
-    
+  }
+
+  @include minWidth($break-mobile-menu) {
     &__wrapper {
       left: 0;
     }

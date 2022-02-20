@@ -1,10 +1,13 @@
 @import "../../petate-ui/theme.scss";
 
-$break-mobile-menu: 750px;
+$break-mobile-menu: 400px;
+$break-compact-menu: 600px;
+
 $break-list-2col: 600px;
 $break-list-3col: 1100px;
 $break-list-4col: 1450px;
 
-$side-menu-width: 50px;
+$side-menu-width: 150px;
+$compact-menu-width: 50px;
 
 $bgMain: #272827;
