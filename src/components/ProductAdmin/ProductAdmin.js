@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
+import { Card, CardActionArea, Stack, CardHeader } from '@mui/material'
 import { selectProductsByName } from '../../selectors/products'
 import { selectZones } from '../../selectors/zones'
-import { Card, CardContent, CardActionArea, Typography } from '@mui/material'
 import "./styles.scss"
 import { useProductEditDialog } from '../ProductEditDialog/hooks';
 import { useNavigation } from '../../hooks/navigation'
@@ -24,17 +24,7 @@ const ProductAdmin = () => {
       return (
         <Card {...cardProps}>
           <CardActionArea onClick={() => { navigateTo(`/product/${product.id}`) }}>
-            <CardContent>
-              <Typography variant="h6" component="div">
-                {product.name}
-              </Typography>
-              <Typography color="text.secondary">
-                {zone?.name ?? "-"}
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions> */}
+            <CardHeader subheader={zone?.name ?? "-"} title={product.name} />
           </CardActionArea>
         </Card>
       )
@@ -42,7 +32,9 @@ const ProductAdmin = () => {
 
   return (
     <div className="ProductAdmin">
-      {renderProducts()}
+      <Stack spacing={1}>
+        {renderProducts()}
+      </Stack>
       {dialog}
     </div>
   )

@@ -1,6 +1,5 @@
-import { ButtonBase, LinearProgress, SvgIcon } from '@mui/material';
-import { List, PlaylistAddCheck, ShoppingCart, /*Sync,*/ LocationOn, Apps } from '@mui/icons-material';
-// import { useLoadProducts } from '../../hooks/products';
+import { ButtonBase, LinearProgress, SpeedDial } from '@mui/material';
+import { List, PlaylistAddCheck, ShoppingCart, LocationOn, Apps, Close } from '@mui/icons-material';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 import { useLocation } from 'react-router';
@@ -9,13 +8,8 @@ import { useState } from 'react';
 
 const Header = ({ isLoading }) => {
   const [isOpen, setIsOpen] = useState(false)
-  // const { sendRequest } = useLoadProducts()
   const navigateTo = useNavigation()
   const location = useLocation()
-
-  // const onClickRefresh = () => {
-  //   sendRequest()
-  // }
 
   const renderButton = (label, to, icon) => {
     const className = classnames("Header__button", {
@@ -48,17 +42,15 @@ const Header = ({ isLoading }) => {
           {renderButton("Rayons", "/zones", <LocationOn />)}
           {renderButton("Liste", "/", <PlaylistAddCheck />)}
           {renderButton("À pisserie", "/shop", <ShoppingCart />)}
-          {/* <ButtonBase className="Header__button" onClick={onClickRefresh}>
-            <div className="Header__buttonIcon"><Sync /></div>
-            <div className="Header__buttonLabel">Rafraîchir</div>
-          </ButtonBase> */}
         </div>
       </div>
-      <div className="Header__openButton">
-        <ButtonBase onClick={() => setIsOpen(!isOpen)}>
-          <SvgIcon color="black"><Apps style={{ fill: '#333' }} /></SvgIcon>
-        </ButtonBase>
-      </div>
+      <SpeedDial
+        className="Header__openButton"
+        ariaLabel="Menu"
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        icon={isOpen ? <Close /> : <Apps />}
+        onClick={() => setIsOpen(!isOpen)}
+      />
       {isLoading && <LinearProgress />}
     </div>
   )
