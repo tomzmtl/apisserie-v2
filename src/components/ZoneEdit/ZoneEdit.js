@@ -1,4 +1,4 @@
-import { Save, Delete } from '@material-ui/icons'
+import { Save, Delete } from '@mui/icons-material';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuid } from "uuid"

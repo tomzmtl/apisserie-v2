@@ -1,5 +1,5 @@
-import { ButtonBase } from '@material-ui/core';
-import { MonetizationOn, MonetizationOnOutlined } from '@material-ui/icons';
+import { ButtonBase } from '@mui/material';
+import { MonetizationOn, MonetizationOnOutlined } from '@mui/icons-material';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import * as api from "../../api/products"

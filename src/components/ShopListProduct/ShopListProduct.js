@@ -1,7 +1,7 @@
 import Product from '../Product'
 import './styles.scss';
-import { ButtonBase } from '@material-ui/core'
-import { Edit } from '@material-ui/icons'
+import { ButtonBase } from '@mui/material';
+import { Edit } from '@mui/icons-material';
 
 const ShopListProduct = ({ product, onClick, onClickEdit }) => {
   return (

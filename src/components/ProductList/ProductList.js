@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react';
-import { ShoppingCart } from '@material-ui/icons';
+import { ShoppingCart } from '@mui/icons-material';
 import Product from '../Product';
 import ProductAdd from '../ProductAdd';
 import './styles.scss';

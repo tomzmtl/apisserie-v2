@@ -1,5 +1,5 @@
-import { ButtonBase, LinearProgress } from '@material-ui/core'
-import { List, PlaylistAddCheck, ShoppingCart, /*Sync,*/ LocationOn, Apps } from '@material-ui/icons';
+import { ButtonBase, LinearProgress } from '@mui/material';
+import { List, PlaylistAddCheck, ShoppingCart, /*Sync,*/ LocationOn, Apps } from '@mui/icons-material';
 // import { useLoadProducts } from '../../hooks/products';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";

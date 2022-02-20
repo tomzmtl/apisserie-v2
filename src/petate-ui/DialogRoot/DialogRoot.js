@@ -1,4 +1,4 @@
-import { Dialog } from "@material-ui/core"
+import { Dialog } from '@mui/material';
 
 const DialogRoot = (props) => {
   return <Dialog {...props} PaperProps={{ square: true }} />

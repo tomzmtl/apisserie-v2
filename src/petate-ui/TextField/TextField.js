@@ -1,5 +1,5 @@
-import { ButtonBase } from '@material-ui/core'
-import { Close } from '@material-ui/icons'
+import { ButtonBase } from '@mui/material';
+import { Close } from '@mui/icons-material';
 import classNames from 'classnames'
 import './styles.scss'
 
