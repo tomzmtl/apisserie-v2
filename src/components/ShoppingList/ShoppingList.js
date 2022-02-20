@@ -1,13 +1,14 @@
 import API from '@aws-amplify/api'
+import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@mui/material"
+import { Edit } from "@mui/icons-material"
 import { useDispatch, useSelector } from 'react-redux'
 import { PRODUCT_API } from '../../constants'
 import { updateProduct } from '../../actions/products'
 import { selectProductListGroupedByZone } from '../../selectors/products'
-import ShopListProduct from '../ShopListProduct'
 import { useProductEditDialog } from '../ProductEditDialog/hooks'
 import './styles.scss';
 
-const List = () => {
+const ShoppingList = () => {
   const { dialog, openDialog } = useProductEditDialog()
   const productsByZone = useSelector(selectProductListGroupedByZone)
   const dispatch = useDispatch()
@@ -22,26 +23,47 @@ const List = () => {
   }
 
   const renderProducts = products => products.map(product => {
-    const productProps = {
-      key: product.id,
-      product: product,
-      onClick: handleProductClick,
-      onClickEdit: () => openDialog(product.id)
-    }
+    const renderEditBtn = () => {
+      if (product.zoneId !== "NONE") {
+        return null
+      }
 
-    return <ShopListProduct {...productProps} />
+      const onClick = e => {
+        e.stopPropagation()
+        openDialog(product.id)
+      }
+
+      return (
+        <IconButton onClick={onClick}>
+          <Edit />
+        </IconButton>
+      )
+    }
+    
+    return (
+      <Card key={product.id} sx={{ width: "100%" }}>
+        <CardActionArea onClick={handleProductClick(product)}>
+          <CardHeader
+            action={renderEditBtn()}
+            title={product.name}
+          />
+        </CardActionArea>
+      </Card>
+    )
   })
 
   const renderProductsByZone = productsByZone => productsByZone.map(zone => (
-    <div className="List__zone">
-      <div className="List__zoneName">{zone.name}</div>
-      {renderProducts(zone.products)}
+    <div className="ShoppingList__zone">
+      <Divider textAlign="left" sx={{ mb: 1 }}>{zone.name}</Divider>
+      <Stack spacing={1}>
+        {renderProducts(zone.products)}
+      </Stack>
     </div>
   ))
 
   return (
     <div className="List">
-      <div className="List__list">
+      <div className="ShoppingList__list">
         {renderProductsByZone(productsByZone)}
       </div>
       {dialog}
@@ -49,4 +71,4 @@ const List = () => {
   )
 }
 
-export default List;
+export default ShoppingList;

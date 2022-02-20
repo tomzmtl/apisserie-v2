@@ -4,7 +4,7 @@ import './styles.scss';
 import './theme.scss';
 import ProductList from '../ProductList';
 import Header from '../Header';
-import ShopList from '../ShopList';
+import ShoppingList from '../ShoppingList';
 import ProductAdmin from '../ProductAdmin';
 import Product from '../Product';
 import ZoneAdmin from '../ZoneAdmin';
@@ -14,7 +14,13 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark'
+    mode: 'dark',
+    primary: {
+      main: '#e5ff00',
+    },
+    secondary: {
+      main: '#f50057',
+    },
   },
 });
 
@@ -41,7 +47,7 @@ const App = () => {
               <ZoneAdmin />
             </Route>
             <Route path="/shop">
-              <ShopList />
+              <ShoppingList />
             </Route>
           </Switch>
         </div>
