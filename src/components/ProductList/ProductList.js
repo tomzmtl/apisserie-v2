@@ -60,7 +60,7 @@ const ProductList = () => {
       <div className="ProductList__list">
         {renderProducts()}
       </div>
-      {!showSplash && <ProductAdd prefillText={productsToDisplay.length ? null : query} />}
+      {!showSplash && <ProductAdd prefillText={productsToDisplay.length ? "" : query} />}
     </div>
   )
 }

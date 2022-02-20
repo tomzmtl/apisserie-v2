@@ -8,7 +8,7 @@ export const selectProducts = state => state.products.items
 export const selectProductsByName = state =>
   selectProducts(state).sort((a, b) => a.name.localeCompare(b.name))
 
-export const selectProductListGroupedByZone = state => {
+export const selectShoppingList = state => {
   const selectedProducts = selectProducts(state).filter(product => product.selected)
 
   const zones = selectZones(state)
@@ -19,7 +19,8 @@ export const selectProductListGroupedByZone = state => {
   return uniqueZoneIds.map(
     zone => ({
       name: zone.name,
-      products: selectedProducts.filter(product => product.zoneId === zone.id)
+      products: selectedProducts.filter(product => product.zoneId === zone.id),
+      id: zone.id
     })
   )
   .filter(zone => zone.products.length > 0)
