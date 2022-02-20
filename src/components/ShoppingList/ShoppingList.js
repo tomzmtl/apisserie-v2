@@ -42,7 +42,7 @@ const ShoppingList = () => {
     }
     
     return (
-      <Card key={product.id} sx={{ width: "100%" }}>
+      <Card key={product.id}>
         <CardActionArea onClick={handleProductClick(product)}>
           <CardHeader
             avatar={renderStartIcon()}

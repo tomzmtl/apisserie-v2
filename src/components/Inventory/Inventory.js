@@ -21,11 +21,6 @@ const ProductAdmin = () => {
 
   const renderProducts = () => products
     .map(product => {
-      const cardProps = {
-        className: "ProductAdmin__item",
-        key: product.id
-      }
-
       const handleAdminClick = e => {
         e.stopPropagation()
         navigateTo(`/product/${product.id}`)
@@ -72,7 +67,7 @@ const ProductAdmin = () => {
       }
       
       return (
-        <Card {...cardProps}>
+        <Card key={product.id}>
           <CardActionArea onClick={handleCardClick}>
             <CardHeader
               avatar={(
@@ -96,7 +91,7 @@ const ProductAdmin = () => {
     })
 
   return (
-    <div className="ProductAdmin">
+    <div className="Inventory">
       <Stack spacing={1}>
         {renderProducts()}
       </Stack>
