@@ -2,7 +2,6 @@ import { Switch, Route } from "react-router-dom";
 import './normalize.css';
 import './styles.scss';
 import './theme.scss';
-import ProductList from '../ProductList';
 import Header from '../Header';
 import ShoppingList from '../ShoppingList';
 import ProductAdmin from '../ProductAdmin';
@@ -35,13 +34,10 @@ const App = () => {
         <div className="App__content">
           <Switch>
             <Route exact path="/">
-              <ProductList />
+              <ProductAdmin />
             </Route>
             <Route exact path="/product/:productId">
               <Product />
-            </Route>
-            <Route exact path="/products">
-              <ProductAdmin />
             </Route>
             <Route exact path="/zones">
               <ZoneAdmin />

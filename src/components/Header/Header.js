@@ -1,5 +1,5 @@
 import { ButtonBase, LinearProgress, SpeedDial } from '@mui/material';
-import { List, PlaylistAddCheck, ShoppingCart, LocationOn, Apps, Close } from '@mui/icons-material';
+import { PlaylistAddCheck, ShoppingCart, Storefront, Apps, Close } from '@mui/icons-material';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 import { useLocation } from 'react-router';
@@ -22,7 +22,7 @@ const Header = ({ isLoading }) => {
     }
 
     return (
-      <ButtonBase className={className} onClick={handleClick}>
+      <ButtonBase className={className} onClick={handleClick} title={label}>
         <div className="Header__buttonIcon">{icon}</div>
         <div className="Header__buttonLabel">{label}</div>
       </ButtonBase>
@@ -38,9 +38,8 @@ const Header = ({ isLoading }) => {
       <div className="Header__backdrop" onClick={() => setIsOpen(false)}/>
       <div className="Header__wrapper">
         <div className="Header__menu">
-          {renderButton("Produits", "/products", <List />)}
-          {renderButton("Rayons", "/zones", <LocationOn />)}
-          {renderButton("Liste", "/", <PlaylistAddCheck />)}
+          {renderButton("Rayons", "/zones", <Storefront />)}
+          {renderButton("Inventaire", "/", <PlaylistAddCheck />)}
           {renderButton("À pisserie", "/shop", <ShoppingCart />)}
         </div>
       </div>

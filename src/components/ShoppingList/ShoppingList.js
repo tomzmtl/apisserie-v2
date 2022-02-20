@@ -1,5 +1,5 @@
 import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@mui/material"
-import { Edit, AttachMoney, RadioButtonUnchecked, Check } from "@mui/icons-material"
+import { Edit, AttachMoney, Check } from "@mui/icons-material"
 import { useSelector } from 'react-redux'
 import { selectShoppingList } from '../../selectors/products'
 import { useProductEditDialog } from '../ProductEditDialog/hooks'
@@ -38,7 +38,7 @@ const ShoppingList = () => {
         return <AttachMoney color="success" />
       }
 
-      return <Check />
+      return <Check sx={{ opacity: 0.25 }} />
     }
     
     return (
