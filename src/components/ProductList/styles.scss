@@ -65,25 +65,25 @@
     }
   }
 
-  @include minWidth($break-list-2col) {
-    &__list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 1fr;
-      grid-column-gap: $space;
-      grid-row-gap: $space;
-    }
-  }
+  // @include minWidth($break-list-2col) {
+  //   &__list {
+  //     display: grid;
+  //     grid-template-columns: repeat(2, 1fr);
+  //     grid-template-rows: 1fr;
+  //     grid-column-gap: $space;
+  //     grid-row-gap: $space;
+  //   }
+  // }
 
-  @include minWidth($break-list-3col) {
-    &__list {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+  // @include minWidth($break-list-3col) {
+  //   &__list {
+  //     grid-template-columns: repeat(3, 1fr);
+  //   }
+  // }
 
-  @include minWidth($break-list-4col) {
-    &__list {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+  // @include minWidth($break-list-4col) {
+  //   &__list {
+  //     grid-template-columns: repeat(4, 1fr);
+  //   }
+  // }
 }

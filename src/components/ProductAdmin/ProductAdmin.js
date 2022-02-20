@@ -2,14 +2,14 @@ import { useSelector } from 'react-redux'
 import { selectProductsByName } from '../../selectors/products'
 import { selectZones } from '../../selectors/zones'
 import Card from '../Card'
-import { useLoadProducts } from '../../hooks/products';
-import { useLoadZones } from '../../hooks/zones';
+// import { useLoadProducts } from '../../hooks/products';
+// import { useLoadZones } from '../../hooks/zones';
 import "./styles.scss"
 import { useProductEditDialog } from '../ProductEditDialog/hooks';
 
 const ProductAdmin = () => {
-  useLoadProducts()
-  useLoadZones()
+  // useLoadProducts()
+  // useLoadZones()
 
   const { dialog, openDialog } = useProductEditDialog()
 

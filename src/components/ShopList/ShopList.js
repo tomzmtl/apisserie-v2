@@ -3,18 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PRODUCT_API } from '../../constants'
 import { updateProduct } from '../../actions/products'
 import { selectProductListGroupedByZone } from '../../selectors/products'
-import { useLoadProducts } from '../../hooks/products';
-import { useLoadZones } from '../../hooks/zones';
 import ShopListProduct from '../ShopListProduct'
 import { useProductEditDialog } from '../ProductEditDialog/hooks'
 import './styles.scss';
 
 const ShopList = () => {
-  useLoadProducts()
-  useLoadZones()
-
   const { dialog, openDialog } = useProductEditDialog()
-
   const productsByZone = useSelector(selectProductListGroupedByZone)
   const dispatch = useDispatch()
 

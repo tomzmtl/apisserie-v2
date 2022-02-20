@@ -30,7 +30,7 @@ const Header = ({ isLoading }) => {
     return (
       <ButtonBase className={className} onClick={handleClick}>
         <div className="Header__buttonIcon">{icon}</div>
-        <div className="Header__buttonLabel">{label}</div>
+        {/* <div className="Header__buttonLabel">{label}</div> */}
       </ButtonBase>
     )
   }
