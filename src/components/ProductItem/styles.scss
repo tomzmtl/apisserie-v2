@@ -1,8 +1,9 @@
 @use "sass:color";
 @import '../App/theme.scss';
 
-.Product {
+.ProductItem {
   display: flex;
+  width: 100%;
   align-items: center;
   position: relative;
   border: 1px solid #171616;
@@ -30,13 +31,13 @@
   &--active {
     border-color: $primary;
 
-    .Product__base.MuiButtonBase-root {
+    .ProductItem__base.MuiButtonBase-root {
       background-color: color.change($primary, $saturation: 20, $lightness: 5);
     }
   }
 
   &--discounted {
-    .Product__discount.MuiButtonBase-root {
+    .ProductItem__discount.MuiButtonBase-root {
       opacity: 1;
 
       > * {

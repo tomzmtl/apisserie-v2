@@ -10,10 +10,11 @@ export const selectProductsByName = state =>
 
 export const selectProductListGroupedByZone = state => {
   const selectedProducts = selectProducts(state).filter(product => product.selected)
+
   const zones = selectZones(state)
-  const uniqueZoneIds = uniq(zones.map(zone => zone.id ?? "UNKNOWN"))
+  const uniqueZoneIds = uniq(zones.map(zone => zone.id ?? "NONE"))
     .map(zoneId => zones.find(zone => zone.id === zoneId))
-    .sort()
+    .sort((a, b) => a.order < b.order ? -1 : 1)
 
   return uniqueZoneIds.map(
     zone => ({

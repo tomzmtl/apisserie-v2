@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action) => {
         items: action.payload.products.map(product => ({
           selected: false,
           ...product,
-          zoneId: product.zoneId ?? "UNKNOWN"
+          zoneId: product.zoneId !== "none" ? product.zoneId : "NONE"
         }))
       }
 

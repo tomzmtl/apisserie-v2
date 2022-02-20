@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react';
 import { ShoppingCart } from '@mui/icons-material';
-import Product from '../Product';
+import ProductItem from '../ProductItem';
 import ProductAdd from '../ProductAdd';
 import './styles.scss';
 import { TextField } from '../../petate-ui'
@@ -50,7 +50,7 @@ const ProductList = () => {
     }
 
     return productsToDisplay.map(product => (
-      <Product product={product} key={product.id} />
+      <ProductItem product={product} key={product.id} />
     ))
   }
 

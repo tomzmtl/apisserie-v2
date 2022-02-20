@@ -1,4 +1,4 @@
-import { ButtonBase, LinearProgress } from '@mui/material';
+import { ButtonBase, LinearProgress, SvgIcon } from '@mui/material';
 import { List, PlaylistAddCheck, ShoppingCart, /*Sync,*/ LocationOn, Apps } from '@mui/icons-material';
 // import { useLoadProducts } from '../../hooks/products';
 import { useNavigation } from '../../hooks/navigation';
@@ -30,7 +30,7 @@ const Header = ({ isLoading }) => {
     return (
       <ButtonBase className={className} onClick={handleClick}>
         <div className="Header__buttonIcon">{icon}</div>
-        {/* <div className="Header__buttonLabel">{label}</div> */}
+        <div className="Header__buttonLabel">{label}</div>
       </ButtonBase>
     )
   }
@@ -56,7 +56,7 @@ const Header = ({ isLoading }) => {
       </div>
       <div className="Header__openButton">
         <ButtonBase onClick={() => setIsOpen(!isOpen)}>
-          <Apps />
+          <SvgIcon color="black"><Apps style={{ fill: '#333' }} /></SvgIcon>
         </ButtonBase>
       </div>
       {isLoading && <LinearProgress />}

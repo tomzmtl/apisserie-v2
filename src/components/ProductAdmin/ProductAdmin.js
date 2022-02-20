@@ -1,20 +1,16 @@
 import { useSelector } from 'react-redux'
 import { selectProductsByName } from '../../selectors/products'
 import { selectZones } from '../../selectors/zones'
-import Card from '../Card'
-// import { useLoadProducts } from '../../hooks/products';
-// import { useLoadZones } from '../../hooks/zones';
+import { Card, CardContent, CardActionArea, Typography } from '@mui/material'
 import "./styles.scss"
 import { useProductEditDialog } from '../ProductEditDialog/hooks';
+import { useNavigation } from '../../hooks/navigation'
 
 const ProductAdmin = () => {
-  // useLoadProducts()
-  // useLoadZones()
-
-  const { dialog, openDialog } = useProductEditDialog()
-
+  const { dialog } = useProductEditDialog()
   const products = useSelector(selectProductsByName)
   const zones = useSelector(selectZones)
+  const navigateTo = useNavigation()
 
   const renderProducts = () => products
     .map(product => {
@@ -22,14 +18,24 @@ const ProductAdmin = () => {
 
       const cardProps = {
         className: "ProductAdmin__item",
-        onClick: () => { openDialog(product.id) },
         key: product.id
       }
       
       return (
         <Card {...cardProps}>
-          <div className="ProductAdmin__itemName">{product.name}</div>
-          <div className="ProductAdmin__itemZone">{zone ? zone.name : "-"}</div>
+          <CardActionArea onClick={() => { navigateTo(`/product/${product.id}`) }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                {product.name}
+              </Typography>
+              <Typography color="text.secondary">
+                {zone?.name ?? "-"}
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions> */}
+          </CardActionArea>
         </Card>
       )
     })

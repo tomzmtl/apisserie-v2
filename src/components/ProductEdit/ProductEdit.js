@@ -71,9 +71,7 @@ const ProductEdit = ({ productId, onClose = null, prefillText = "" }) => {
     })
   }
 
-  const options = [{ label: "Pas de rayon", value: "none" }].concat(
-    zones.map(zone => ({ value: zone.id, label: zone.name })
-  ))
+  const options = zones.map(zone => ({ value: zone.id, label: zone.name }))
 
   const isNameInvalid = !productId && products.find(product => product.name === name)
 

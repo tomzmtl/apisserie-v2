@@ -13,6 +13,11 @@ html, body {
   &__content {
     width: 100%;
     padding-bottom: $space * 3;
+
+    > * {
+      padding: $space;
+      margin: $space;
+    }
   }
 
   @include minWidth($break-mobile-menu) {
@@ -28,3 +33,4 @@ html, body {
 .TextField + .Select {
   margin-top: $space;
 }
+

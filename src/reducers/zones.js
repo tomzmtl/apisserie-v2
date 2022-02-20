@@ -14,7 +14,7 @@ export const reducer = (state = initialState, action) => {
           ...action.payload.zones.sort((a, b) => a.order < b.order ? -1 : 1),
           {
             order: 999,
-            id: "UNKNOWN",
+            id: "NONE",
             name: "Autres"
           }
         ]

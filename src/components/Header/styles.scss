@@ -136,6 +136,10 @@
   }
 
   @include minWidth($break-mobile-menu) {
+    .Header__buttonLabel {
+      display: none;
+    }
+    
     &__wrapper {
       left: 0;
     }

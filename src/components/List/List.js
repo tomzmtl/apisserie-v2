@@ -7,12 +7,10 @@ import ShopListProduct from '../ShopListProduct'
 import { useProductEditDialog } from '../ProductEditDialog/hooks'
 import './styles.scss';
 
-const ShopList = () => {
+const List = () => {
   const { dialog, openDialog } = useProductEditDialog()
   const productsByZone = useSelector(selectProductListGroupedByZone)
   const dispatch = useDispatch()
-
-  console.log(111, productsByZone);
 
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: false }
@@ -35,15 +33,15 @@ const ShopList = () => {
   })
 
   const renderProductsByZone = productsByZone => productsByZone.map(zone => (
-    <div className="ShopList__zone" key={zone.id}>
-      <div className="ShopList__zoneName">{zone.name}</div>
+    <div className="List__zone">
+      <div className="List__zoneName">{zone.name}</div>
       {renderProducts(zone.products)}
     </div>
   ))
 
   return (
-    <div className="ShopList" key="ShopList">
-      <div className="ShopList__list">
+    <div className="List">
+      <div className="List__list">
         {renderProductsByZone(productsByZone)}
       </div>
       {dialog}
@@ -51,4 +49,4 @@ const ShopList = () => {
   )
 }
 
-export default ShopList;
+export default List;
