@@ -12,8 +12,6 @@ const ShopList = () => {
   const productsByZone = useSelector(selectProductListGroupedByZone)
   const dispatch = useDispatch()
 
-  console.log(111, productsByZone);
-
   const handleProductClick = product => () => {
     const updatedProduct = { ...product, selected: false }
     

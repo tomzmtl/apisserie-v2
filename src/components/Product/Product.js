@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import { TextField, Paper, Typography, Button, Stack } from '@mui/material';
 import { Delete, Save, Send, ArrowBack } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
-import { v4 as uuid } from "uuid"
 import { useParams } from 'react-router-dom';
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
-import "./styles.scss"
+// import "./styles.scss"
 import Select from '../../petate-ui/Select'
 import * as api from '../../api/products'
 import { useNavigation } from '../../hooks/navigation';
@@ -43,20 +42,9 @@ const Product = () => {
       zoneId: zoneId === "NONE" ? null : zoneId
     }
 
-    const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase())
-
-    if (existingProduct) {
-      window.alert("Ce produit existe déjà")
-    } else {
-      api.putProduct(body).then(() => {
-        dispatch(updateProduct(body))
-  
-        // if (isCreateMode) {
-        //   setName("")
-        //   setZoneId(null)
-        // }
-      })
-    }
+    api.putProduct(body).then(() => {
+      dispatch(updateProduct(body))
+    })
   }
 
   const handleChangeName = e => setName(e.target.value)
