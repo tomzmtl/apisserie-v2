@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { TextField, Paper, Typography, Button, Stack } from '@mui/material';
+import { useState, useEffect, useMemo } from 'react'
+import { TextField, Card, Typography, Button, Stack } from '@mui/material';
 import { Delete, Save, Send, ArrowBack } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
@@ -22,10 +22,15 @@ const Product = () => {
   const [name, setName] = useState(product?.name ?? "")
   const [zoneId, setZoneId] = useState(product?.zoneId || null)
 
+  const options = useMemo(() => zones
+    .map(zone => ({ value: zone.id, label: zone.name }))
+    .sort((a) => a.value === "NONE" ? -1 : 1)
+  , [zones])
+
   useEffect(() => {
     if (product) {
       setName(product.name)
-      setZoneId(product.zoneId)
+      setZoneId(product.zoneId ?? "NONE")
     }
   }, [product])
   
@@ -63,11 +68,9 @@ const Product = () => {
     })
   }
 
-  const options = [{ label: "Pas de rayon", value: "none" }].concat(
-    zones.map(zone => ({ value: zone.id, label: zone.name })
-  ))
-
-  const isNameInvalid = !productId && products.find(product => product.name === name)
+  const isNameInvalid = !productId && products.find(
+    product => product.name === name
+  )
 
   const nameFieldProps = {
     value: name,
@@ -100,7 +103,7 @@ const Product = () => {
   }
 
   return (
-    <Paper elevation={0}>
+    <Card>
       <Button {...backBtn}>Produits</Button>
       <Typography variant="h4" component="div" sx={{ mb: 5 }}>
         {product.name}
@@ -108,12 +111,12 @@ const Product = () => {
       <form onSubmit={handleSubmit}>
         <TextField {...nameFieldProps} />
         <Select options={options} onChange={handleChangeZone} value={zoneId || ""} sx={{ mb: 2 }} label="Rayon" />
-        <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+        <Stack direction="row" spacing={2} sx={{ mt: 5 }} justifyContent="space-between">
           {productId && <Button {...deleteBtnProps}>Supprimer</Button>}
           <Button {...confirmBtnProps}>Mettre à jour</Button>
         </Stack>
       </form>
-    </Paper>
+    </Card>
   )
 }
 

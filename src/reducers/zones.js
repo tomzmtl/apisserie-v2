@@ -15,7 +15,7 @@ export const reducer = (state = initialState, action) => {
           {
             order: 999,
             id: "NONE",
-            name: "Autres"
+            name: "Pas de rayon"
           }
         ]
       }
