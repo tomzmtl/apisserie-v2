@@ -1,17 +1,23 @@
 import { useSelector } from 'react-redux'
-import { Card, CardActionArea, Stack, CardHeader, IconButton, CardActions, Chip } from '@mui/material'
-import { Check, Build } from '@mui/icons-material'
+import { Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { Check, Build, AttachMoney } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
 import { useProductEditDialog } from '../ProductEditDialog/hooks';
 import { useNavigation } from '../../hooks/navigation'
 import { useUpdateProduct } from '../../hooks/products'
 
+const useStyles = makeStyles(() => ({
+  cardHeaderAction: { margin: "auto" }
+}));
+
 const ProductAdmin = () => {
   const { dialog } = useProductEditDialog()
   const products = useSelector(selectProductsByName)
   const navigateTo = useNavigation()
-  const { update } = useUpdateProduct()
+  const { update, isLoading, productId } = useUpdateProduct()
+  const classes = useStyles()
 
   const renderProducts = () => products
     .map(product => {
@@ -20,32 +26,71 @@ const ProductAdmin = () => {
         key: product.id
       }
 
-      const handleAdminClick = () => {
+      const handleAdminClick = e => {
+        e.stopPropagation()
         navigateTo(`/product/${product.id}`)
       }
 
-      const handleSelect = () => {
-        update({ ...product, selected: !product.selected })
+      const handleCardClick = () => {
+        const nextSelected = !product.selected
+
+        update({
+          ...product,
+          selected: nextSelected,
+          discounted: false
+        })
       }
 
-      const selectedFlag = product.selected &&
-        <Chip color="success" label="Ajouté" icon={<Check />} />
+      const handleStartIconClick = e => {
+        e.stopPropagation()
+
+        update({
+          ...product,
+          selected: true,
+          discounted: true
+        })
+      }
+
+      const renderStartIcon = () => {
+        if (isLoading && productId === product.id) {
+          return <CircularProgress size={24} />
+        }
+
+        if (product.selected) {
+          if (product.discounted) {
+            return (
+              <AttachMoney color="success" />
+            )
+          }
+
+          return <Check />
+        }
+
+        return (
+          <AttachMoney sx={{ opacity: 0.1 }} />
+        )
+      }
       
       return (
         <Card {...cardProps}>
-          <CardActionArea onClick={handleSelect}>
+          <CardActionArea onClick={handleCardClick}>
             <CardHeader
+              avatar={(
+                <IconButton onClick={handleStartIconClick}>
+                  {renderStartIcon()}
+                </IconButton>
+              )}
               title={product.name}
-              action={selectedFlag}
+              action={(
+                <IconButton onClick={handleAdminClick} title="Admin">
+                  <Build sx={{ opacity: 0.5 }} />
+                </IconButton>
+              )}
+              classes={{
+                action: classes.cardHeaderAction
+              }}
             />
           </CardActionArea>
-          <CardActions className="ProductAdmin__actions">
-            <Stack direction="row" justifyContent="space-between">
-              <IconButton size="small" onClick={handleAdminClick} title="Admin">
-                <Build fontSize="inherit" />
-              </IconButton>
-            </Stack>
-          </CardActions>
         </Card>
       )
     })

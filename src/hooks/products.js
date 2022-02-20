@@ -32,13 +32,21 @@ export const useLoadProducts = () => {
 
 export const useUpdateProduct = () => {
   const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(false)
+  const [productId, setProductId] = useState(null)
 
   const update = (product) => {
+    setIsLoading(true)
+    setProductId(product.id)
     API.put(PRODUCT_API, "/products", { body: product })
       .then(() => {
         dispatch(updateProduct(product))
       })
+      .finally(() => {
+        setIsLoading(false)
+        setProductId(null)
+      })
   }
 
-  return { update }
+  return { isLoading, update, productId }
 }
