@@ -1,25 +1,18 @@
-import API from '@aws-amplify/api'
 import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@mui/material"
 import { Edit } from "@mui/icons-material"
-import { useDispatch, useSelector } from 'react-redux'
-import { PRODUCT_API } from '../../constants'
-import { updateProduct } from '../../actions/products'
+import { useSelector } from 'react-redux'
 import { selectShoppingList } from '../../selectors/products'
 import { useProductEditDialog } from '../ProductEditDialog/hooks'
 import './styles.scss';
+import { useUpdateProduct } from '../../hooks/products'
 
 const ShoppingList = () => {
   const { dialog, openDialog } = useProductEditDialog()
   const productsByZone = useSelector(selectShoppingList)
-  const dispatch = useDispatch()
+  const { update } = useUpdateProduct()
 
   const handleProductClick = product => () => {
-    const updatedProduct = { ...product, selected: false }
-    
-    API.put(PRODUCT_API, "/products", { body: updatedProduct })
-      .then(() => {
-        dispatch(updateProduct(updatedProduct))
-      })
+    update({ ...product, selected: false })
   }
 
   const renderProducts = products => products.map(product => {
@@ -51,7 +44,6 @@ const ShoppingList = () => {
       </Card>
     )
   })
-
   
   const renderProductsByZone = productsByZone => productsByZone.map(zone => (
     <div className="ShoppingList__zone" key={zone.id}>

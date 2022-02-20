@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setProducts } from '../actions/products'
 import { PRODUCT_API } from '../constants';
 import { makeTimestamp } from '../helpers';
-import { setIsLoading } from '../actions/products';
+import { setIsLoading, updateProduct } from '../actions/products';
 
 export const useLoadProducts = () => {
   const dispatch = useDispatch()
@@ -28,4 +28,17 @@ export const useLoadProducts = () => {
   }, [dispatch, sendRequest, ts])
 
   return { sendRequest }
+}
+
+export const useUpdateProduct = () => {
+  const dispatch = useDispatch()
+
+  const update = (product) => {
+    API.put(PRODUCT_API, "/products", { body: product })
+      .then(() => {
+        dispatch(updateProduct(product))
+      })
+  }
+
+  return { update }
 }
