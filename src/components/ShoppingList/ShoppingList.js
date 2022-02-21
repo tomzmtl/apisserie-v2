@@ -35,7 +35,7 @@ const ShoppingList = () => {
 
     const renderStartIcon = () => {
       if (product.discounted) {
-        return <AttachMoney color="success" />
+        return <AttachMoney color="secondary" />
       }
 
       return <Check sx={{ opacity: 0.25 }} />
@@ -43,7 +43,7 @@ const ShoppingList = () => {
     
     return (
       <Card key={product.id}>
-        <CardActionArea onClick={handleProductClick(product)}>
+        <CardActionArea onClick={handleProductClick(product)} component="div">
           <CardHeader
             avatar={renderStartIcon()}
             action={renderEditBtn()}

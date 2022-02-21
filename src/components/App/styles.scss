@@ -9,6 +9,10 @@ html, body {
   color: #eeeeee;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .App {
   &__content {
     width: 100%;
@@ -17,18 +21,6 @@ html, body {
     > * {
       padding: $space;
       margin: $space;
-    }
-  }
-
-  @include minWidth($break-mobile-menu) {
-    &__content {
-      padding-left: $compact-menu-width;
-    }
-  }
-  
-  @include minWidth($break-compact-menu) {
-    &__content {
-      padding-left: $side-menu-width;
     }
   }
 }

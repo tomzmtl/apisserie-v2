@@ -4,7 +4,7 @@ import './styles.scss';
 import './theme.scss';
 import Menu from '../Menu';
 import ShoppingList from '../ShoppingList';
-import ProductAdmin from '../ProductAdmin';
+import Inventory from '../Inventory';
 import Product from '../Product';
 import ZoneAdmin from '../ZoneAdmin';
 import { useLoadProducts } from '../../hooks/products';
@@ -15,10 +15,10 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#e5ff00',
+      main: '#6e62f6',
     },
     secondary: {
-      main: '#f50057',
+      main: '#e5ff00',
     },
   },
 });
@@ -30,11 +30,10 @@ const App = () => {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Menu />
         <div className="App__content">
           <Switch>
             <Route exact path="/">
-              <ProductAdmin />
+              <Inventory />
             </Route>
             <Route exact path="/product/:productId">
               <Product />
@@ -42,11 +41,12 @@ const App = () => {
             <Route exact path="/zones">
               <ZoneAdmin />
             </Route>
-            <Route path="/shop">
+            <Route path="/list">
               <ShoppingList />
             </Route>
           </Switch>
         </div>
+        <Menu />
       </ThemeProvider>
     </div>
   );

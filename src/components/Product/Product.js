@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
-// import "./styles.scss"
 import Select from '../../petate-ui/Select'
 import * as api from '../../api/products'
 import { useNavigation } from '../../hooks/navigation';
@@ -83,7 +82,7 @@ const Product = () => {
   }
 
   const backBtn = {
-    onClick: () => navigateTo("/products"),
+    onClick: () => navigateTo("/"),
     startIcon: <ArrowBack />
   }
 
@@ -111,7 +110,12 @@ const Product = () => {
       <form onSubmit={handleSubmit}>
         <TextField {...nameFieldProps} />
         <Select options={options} onChange={handleChangeZone} value={zoneId || ""} sx={{ mb: 2 }} label="Rayon" />
-        <Stack direction="row" spacing={2} sx={{ mt: 5 }} justifyContent="space-between">
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="space-between"
+          sx={{ mt: 3 }}
+        >
           {productId && <Button {...deleteBtnProps}>Supprimer</Button>}
           <Button {...confirmBtnProps}>Mettre à jour</Button>
         </Stack>
