@@ -57,7 +57,7 @@ const ShoppingList = () => {
   const renderProductsByZone = productsByZone => productsByZone.map(zone => (
     <div className="ShoppingList__zone" key={zone.id}>
       <Divider textAlign="left" sx={{ mb: 1 }}>{zone.name}</Divider>
-      <Stack spacing={1}>
+      <Stack spacing={1} sx={{ mb: 2 }} >
         {renderProducts(zone.products)}
       </Stack>
     </div>

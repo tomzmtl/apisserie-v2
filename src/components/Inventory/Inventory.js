@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { Check, Build, AttachMoney, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
@@ -9,17 +8,12 @@ import { useProductEditDialog } from '../ProductEditDialog/hooks';
 import { useNavigation } from '../../hooks/navigation'
 import { useUpdateProduct } from '../../hooks/products'
 
-const useStyles = makeStyles(() => ({
-  cardHeaderAction: { margin: "auto" }
-}));
-
 const Inventory = () => {
   const { dialog } = useProductEditDialog()
   const products = useSelector(selectProductsByName)
   const [query, setQuery] = useState("")
   const navigateTo = useNavigation()
   const { update, isLoading, productId } = useUpdateProduct()
-  const classes = useStyles()
 
   const productsToDisplay = products.filter(
     product => product.name.toLowerCase().includes(query.toLowerCase())
@@ -61,18 +55,20 @@ const Inventory = () => {
           return <CircularProgress size={24} />
         }
 
+        const iconProps = { onClick: handleStartIconClick }
+
         if (product.selected) {
           if (product.discounted) {
             return (
-              <AttachMoney color="secondary" />
+              <AttachMoney {...iconProps} color="secondary" />
             )
           }
 
-          return <Check />
+          return <Check {...iconProps} />
         }
 
         return (
-          <AttachMoney sx={{ opacity: 0.1 }} />
+          <AttachMoney {...iconProps} sx={{ opacity: 0.1 }} />
         )
       }
       
@@ -80,19 +76,13 @@ const Inventory = () => {
         <Card key={product.id}>
           <CardActionArea onClick={handleCardClick} component="div">
             <CardHeader
-              avatar={(
-                <IconButton onClick={handleStartIconClick}>
-                  {renderStartIcon()}
-                </IconButton>
-              )}
+              avatar={renderStartIcon()}
               title={product.name}
               action={(
                 <IconButton onClick={handleAdminClick} title="Admin">
                   <Build sx={{ opacity: 0.5 }} />
                 </IconButton>
               )}
-              classes={{ action: classes.cardHeaderAction }}
-              sx={{ padding: "8px" }}
             />
           </CardActionArea>
         </Card>
