@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { TextField, Card, Typography, Button, Stack } from '@mui/material';
+import { TextField, Paper, Button, Stack,FormControl
+,InputLabel, Select,
+MenuItem } from '@mui/material';
 import { Delete, Save, Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
-import Select from '../../petate-ui/Select'
 import * as api from '../../api/products'
 
 const NEW_PRODUCT = {
@@ -102,15 +103,23 @@ const Product = ({ productId, onAfterSave, add }) => {
   }
 
   return (
-    <Card sx={{ p: 2 }}>
-      {product && (
-        <Typography variant="h4" component="div" sx={{ mb: 5 }}>
-          {product.name}
-        </Typography>
-      )}
+    <Paper square sx={{ p: 2 }}>
       <form onSubmit={handleSubmit}>
         <TextField {...nameFieldProps} />
-        <Select options={options} onChange={handleChangeZone} value={zoneId || ""} sx={{ mb: 2 }} label="Rayon" />
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Rayon</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            value={zoneId || ""}
+            label="Rayon"
+            onChange={handleChangeZone}
+          >
+            {options.map(option => (
+              <MenuItem value={option.value}>{option.label}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Stack
           direction="row"
           spacing={2}
@@ -121,7 +130,7 @@ const Product = ({ productId, onAfterSave, add }) => {
           <Button {...confirmBtnProps}>{add ? "Ajouter" : "Mettre à jour"}</Button>
         </Stack>
       </form>
-    </Card>
+    </Paper>
   )
 }
 
