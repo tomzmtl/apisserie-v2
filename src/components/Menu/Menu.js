@@ -1,13 +1,13 @@
 import { LinearProgress, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { Storefront } from '@mui/icons-material';
+import { Storefront, PlaylistAddCheck, Inventory } from '@mui/icons-material';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 import { useLocation } from 'react-router';
 
 const BUTTONS = {
-  "/zones": { label: "Rayons"    , Icon: Storefront },
-  "/"     : { label: "Inventaire", Icon: Storefront },
-  "/list" : { label: "Liste"     , Icon: Storefront },
+  "/zones": { label: "Rayons"    , Icon: Storefront       },
+  "/"     : { label: "Inventaire", Icon: Inventory        },
+  "/list" : { label: "Liste"     , Icon: PlaylistAddCheck },
 }
 
 const Menu = ({ isLoading }) => {
