@@ -1,20 +1,23 @@
 import { useState } from "react"
-import ProductEditDialog from "."
+import ProductEdit from "."
 
-export const useProductEditDialog = () => {
+export const useProductEdit = () => {
   const [productId, setProductId] = useState(null)
+  const [name, setName] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
 
-  const dialogProps = {
+  const editProps = {
     onClose: () => setIsOpen(false),
     productId,
+    add: name,
     isOpen
   } 
 
   return {
-    dialog: <ProductEditDialog {...dialogProps} />,
-    openDialog: (productId) => {
+    productEdit: <ProductEdit {...editProps} />,
+    openProductEdit: (productId, name) => {
       setProductId(productId)
+      setName(name)
       setIsOpen(true)
     }
   }

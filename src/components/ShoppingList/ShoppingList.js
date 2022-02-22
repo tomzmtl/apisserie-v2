@@ -2,12 +2,12 @@ import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@m
 import { Edit, AttachMoney, Check } from "@mui/icons-material"
 import { useSelector } from 'react-redux'
 import { selectShoppingList } from '../../selectors/products'
-import { useProductEditDialog } from '../ProductEditDialog/hooks'
+import { useProductEdit } from '../ProductEdit/hooks';
 import './styles.scss';
 import { useUpdateProduct } from '../../hooks/products'
 
 const ShoppingList = () => {
-  const { dialog, openDialog } = useProductEditDialog()
+  const { productEdit, openProductEdit } = useProductEdit()
   const productsByZone = useSelector(selectShoppingList)
   const { update } = useUpdateProduct()
 
@@ -23,7 +23,7 @@ const ShoppingList = () => {
 
       const onClick = e => {
         e.stopPropagation()
-        openDialog(product.id)
+        openProductEdit(product.id)
       }
 
       return (
@@ -68,7 +68,7 @@ const ShoppingList = () => {
       <div className="ShoppingList__list">
         {renderProductsByZone(productsByZone)}
       </div>
-      {dialog}
+      {productEdit}
     </div>
   )
 }

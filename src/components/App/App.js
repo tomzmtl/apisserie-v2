@@ -5,7 +5,6 @@ import './theme.scss';
 import Menu from '../Menu';
 import ShoppingList from '../ShoppingList';
 import Inventory from '../Inventory';
-import Product from '../Product';
 import ZoneAdmin from '../ZoneAdmin';
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
@@ -34,9 +33,6 @@ const App = () => {
           <Switch>
             <Route exact path="/">
               <Inventory />
-            </Route>
-            <Route exact path="/product/:productId">
-              <Product />
             </Route>
             <Route exact path="/zones">
               <ZoneAdmin />

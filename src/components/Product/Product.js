@@ -1,24 +1,27 @@
 import { useState, useEffect, useMemo } from 'react'
+import { v4 as uuid } from "uuid"
 import { TextField, Card, Typography, Button, Stack } from '@mui/material';
-import { Delete, Save, Send, ArrowBack } from '@mui/icons-material';
+import { Delete, Save, Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
 import Select from '../../petate-ui/Select'
 import * as api from '../../api/products'
-import { useNavigation } from '../../hooks/navigation';
 
-const Product = () => {
+const NEW_PRODUCT = {
+  selected: false,
+  discounted: false
+}
+
+const Product = ({ productId, onAfterSave, add }) => {
   const dispatch = useDispatch()
-  const navigateTo = useNavigation()
   const products = useSelector(selectProducts)
-  const { productId } = useParams()
+  const pId = add ? null : productId
   const zones = useSelector(selectZonesByName)
   const product = products.find(p => p.id === productId)
   
-  const [name, setName] = useState(product?.name ?? "")
+  const [name, setName] = useState(add ?? product?.name ?? "")
   const [zoneId, setZoneId] = useState(product?.zoneId || null)
 
   const options = useMemo(() => zones
@@ -33,7 +36,7 @@ const Product = () => {
     }
   }, [product])
   
-  if (!product) {
+  if (!product && !add) {
     return null
   }
 
@@ -41,13 +44,14 @@ const Product = () => {
     e.preventDefault();
 
     const body = {
-      ...product,
+      ...(add ? { ...NEW_PRODUCT, id: uuid() } : product),
       name,
       zoneId: zoneId === "NONE" ? null : zoneId
     }
 
     api.putProduct(body).then(() => {
       dispatch(updateProduct(body))
+      onAfterSave?.()
     })
   }
 
@@ -62,12 +66,12 @@ const Product = () => {
     }
 
     api.deleteProduct(product.id).then(() => {
-      navigateTo("/products")
       dispatch(deleteProduct(product.id))
+      onAfterSave?.()
     })
   }
 
-  const isNameInvalid = !productId && products.find(
+  const isNameInvalid = !pId && products.find(
     product => product.name === name
   )
 
@@ -81,19 +85,15 @@ const Product = () => {
     sx: { width: "100%", mb: 2 }
   }
 
-  const backBtn = {
-    onClick: () => navigateTo("/"),
-    startIcon: <ArrowBack />
-  }
-
   const deleteBtnProps = {
     onClick: handleDelete,
     endIcon: <Delete />,
-    variant: "container"
+    variant: "container",
+    sx: { marginRight: "auto" }
   }
   
   const confirmBtnProps = {
-    label: productId ? "Mettre à jour" : "Ajouter",
+    label: pId ? "Mettre à jour" : "Ajouter",
     icon: <Save />,
     type: "submit",
     disabled: isNameInvalid,
@@ -102,22 +102,23 @@ const Product = () => {
   }
 
   return (
-    <Card>
-      <Button {...backBtn}>Produits</Button>
-      <Typography variant="h4" component="div" sx={{ mb: 5 }}>
-        {product.name}
-      </Typography>
+    <Card sx={{ p: 2 }}>
+      {product && (
+        <Typography variant="h4" component="div" sx={{ mb: 5 }}>
+          {product.name}
+        </Typography>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField {...nameFieldProps} />
         <Select options={options} onChange={handleChangeZone} value={zoneId || ""} sx={{ mb: 2 }} label="Rayon" />
         <Stack
           direction="row"
           spacing={2}
-          justifyContent="space-between"
+          justifyContent="flex-end"
           sx={{ mt: 3 }}
         >
-          {productId && <Button {...deleteBtnProps}>Supprimer</Button>}
-          <Button {...confirmBtnProps}>Mettre à jour</Button>
+          {pId && <Button {...deleteBtnProps}>Supprimer</Button>}
+          <Button {...confirmBtnProps}>{add ? "Ajouter" : "Mettre à jour"}</Button>
         </Stack>
       </form>
     </Card>

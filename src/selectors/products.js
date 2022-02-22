@@ -12,6 +12,7 @@ export const selectShoppingList = state => {
   const selectedProducts = selectProducts(state).filter(product => product.selected)
 
   const zones = selectZones(state)
+
   const uniqueZoneIds = uniq(zones.map(zone => zone.id ?? "NONE"))
     .map(zoneId => zones.find(zone => zone.id === zoneId))
     .sort((a, b) => a.order < b.order ? -1 : 1)

@@ -1,18 +1,16 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
-import { Check, Build, AttachMoney, Close } from '@mui/icons-material'
+import { Add, Check, Build, AttachMoney, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
-import { useProductEditDialog } from '../ProductEditDialog/hooks';
-import { useNavigation } from '../../hooks/navigation'
+import { useProductEdit } from '../ProductEdit/hooks';
 import { useUpdateProduct } from '../../hooks/products'
 
 const Inventory = () => {
-  const { dialog } = useProductEditDialog()
+  const { productEdit, openProductEdit } = useProductEdit()
   const products = useSelector(selectProductsByName)
   const [query, setQuery] = useState("")
-  const navigateTo = useNavigation()
   const { update, isLoading, productId } = useUpdateProduct()
 
   const productsToDisplay = products.filter(
@@ -23,11 +21,21 @@ const Inventory = () => {
     setQuery(e.target.value)
   }
 
-  const renderProducts = () => productsToDisplay
-    .map(product => {
+  const renderProducts = () => {
+    if (!productsToDisplay.length && query.length) {
+      return (
+        <Card>
+          <CardActionArea onClick={() => { openProductEdit(null, query) }} component="div">
+            <CardHeader avatar={<Add />} title={`Ajouter "${query}"...`} />
+          </CardActionArea>
+        </Card>
+      )
+    }
+
+    return productsToDisplay.map(product => {
       const handleAdminClick = e => {
         e.stopPropagation()
-        navigateTo(`/product/${product.id}`)
+        openProductEdit(product.id)
       }
 
       const handleCardClick = () => {
@@ -88,6 +96,7 @@ const Inventory = () => {
         </Card>
       )
     })
+  }
 
   return (
     <div className="Inventory">
@@ -114,7 +123,7 @@ const Inventory = () => {
       <Stack spacing={1}>
         {renderProducts()}
       </Stack>
-      {dialog}
+      {productEdit}
     </div>
   )
 }
