@@ -23,7 +23,7 @@ export const useProductEdit = () => {
 
   const notificationProps = {
     open: isOpenNotification,
-    autoHideDuration: 2000,
+    autoHideDuration: 3000,
     onClose: handleCloseNotification,
     TransitionComponent: Slide,
     anchorOrigin: { vertical: "top", horizontal: "center" }
