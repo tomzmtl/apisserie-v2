@@ -8,7 +8,7 @@ import { useProductEdit } from '../Product/hooks';
 import { useUpdateProduct } from '../../hooks/products'
 
 const Inventory = () => {
-  const { productEdit, openProductEdit } = useProductEdit()
+  const { productEditComponents, openProductEdit } = useProductEdit()
   const products = useSelector(selectProductsByName)
   const [query, setQuery] = useState("")
   const { update, isLoading, productId } = useUpdateProduct()
@@ -88,7 +88,7 @@ const Inventory = () => {
               title={product.name}
               action={(
                 <IconButton onClick={handleAdminClick} title="Admin">
-                  <Build sx={{ opacity: 0.5 }} />
+                  <Build sx={{ opacity: product.zoneId === "NONE" ? 1 : 0.4}} />
                 </IconButton>
               )}
             />
@@ -123,7 +123,7 @@ const Inventory = () => {
       <Stack spacing={1}>
         {renderProducts()}
       </Stack>
-      {productEdit}
+      {productEditComponents}
     </div>
   )
 }

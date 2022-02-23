@@ -1,24 +1,60 @@
+import { Alert, Snackbar, Slide } from "@mui/material"
 import { useState } from "react"
-import ProductEdit from "."
+import Drawer from "."
 
 export const useProductEdit = () => {
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
   const [productId, setProductId] = useState(null)
+  const [message, setMessage] = useState("Mis à jour!")
   const [name, setName] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  const editProps = {
-    onAfterSave: () => setIsOpen(false),
+  const handleCloseDrawer = (e, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setIsDrawerOpen(false);
+  };
+
+  const handleCloseNotification = () => {
+    setIsOpenNotification(false);
+  };
+
+  const notificationProps = {
+    open: isOpenNotification,
+    autoHideDuration: 2000,
+    onClose: handleCloseNotification,
+    TransitionComponent: Slide
+  }
+
+  const drawerProps = {
+    onClose: handleCloseDrawer,
+    onAfterSave: (message) => {
+      setIsDrawerOpen(false)
+      setIsOpenNotification(true)
+      setMessage(message)
+    },
     productId,
     add: name,
-    isOpen
-  } 
+    isOpen: isDrawerOpen
+  }
 
   return {
-    productEdit: <ProductEdit {...editProps} />,
+    productEditComponents: (
+      <>
+        <Snackbar key="product-edit-notification" {...notificationProps}>
+          <Alert onClose={handleCloseNotification} severity="success" sx={{ width: '100%' }}>
+            {message}
+          </Alert>
+        </Snackbar>
+        <Drawer key="product-edit-drawer" {...drawerProps} />
+      </>
+    ),
     openProductEdit: (productId, name) => {
       setProductId(productId)
       setName(name)
-      setIsOpen(true)
+      setIsDrawerOpen(true)
     }
   }
 }

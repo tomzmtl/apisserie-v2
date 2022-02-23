@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { Drawer, TextField, Paper, Button, Stack,FormControl
-,InputLabel, Select,
-MenuItem } from '@mui/material';
+import { Drawer, TextField, Paper, Button, Stack,FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Delete, Save, Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, updateProduct } from '../../actions/products'
@@ -15,7 +13,9 @@ const NEW_PRODUCT = {
   discounted: false
 }
 
-const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
+const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
+  const isEditMode = !!productId
+  const isCreatemode = !isEditMode
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
   const pId = add ? null : productId
@@ -34,10 +34,13 @@ const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
     if (product) {
       setName(product.name)
       setZoneId(product.zoneId ?? "NONE")
+    } else {
+      setName(add ?? "")
+      setZoneId(null)
     }
-  }, [product])
+  }, [product, add])
   
-  if (!product && !add) {
+  if (!product && add === null) {
     return null
   }
 
@@ -45,14 +48,14 @@ const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
     e.preventDefault();
 
     const body = {
-      ...(add ? { ...NEW_PRODUCT, id: uuid() } : product),
+      ...(isCreatemode ? { ...NEW_PRODUCT, id: uuid() } : product),
       name,
       zoneId: zoneId === "NONE" ? null : zoneId
     }
 
     api.putProduct(body).then(() => {
       dispatch(updateProduct(body))
-      onAfterSave?.()
+      onAfterSave?.(isCreatemode ? `${name} ajouté!` : `${name} mis à jour!`)
     })
   }
 
@@ -68,7 +71,7 @@ const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
 
     api.deleteProduct(product.id).then(() => {
       dispatch(deleteProduct(product.id))
-      onAfterSave?.()
+      onAfterSave?.(`${name} supprimé!`)
     })
   }
 
@@ -106,7 +109,7 @@ const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
     <Drawer
       anchor="bottom"
       open={isOpen}
-      onClose={onAfterSave}
+      onClose={onClose}
     >
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>

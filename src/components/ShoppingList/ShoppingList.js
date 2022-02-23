@@ -7,7 +7,7 @@ import './styles.scss';
 import { useUpdateProduct } from '../../hooks/products'
 
 const ShoppingList = () => {
-  const { productEdit, openProductEdit } = useProductEdit()
+  const { productEditComponents, openProductEdit } = useProductEdit()
   const productsByZone = useSelector(selectShoppingList)
   const { update } = useUpdateProduct()
 
@@ -68,7 +68,7 @@ const ShoppingList = () => {
       <div className="ShoppingList__list">
         {renderProductsByZone(productsByZone)}
       </div>
-      {productEdit}
+      {productEditComponents}
     </div>
   )
 }
