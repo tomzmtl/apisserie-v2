@@ -1,21 +1,17 @@
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Stack, Card, CardActionArea, CardHeader } from "@mui/material"
-import { Dialog } from '../../petate-ui'
+import { Add } from "@mui/icons-material"
 import { selectZonesByOrder } from '../../selectors/zones'
-import ZoneEdit from "../ZoneEdit"
-import ZoneAdd from '../ZoneAdd'
+import { useZoneEdit } from '../Zone/hooks'
 import "./styles.scss"
 
-const ZoneAdmin = () => {
+const Zones = () => {
   const zones = useSelector(selectZonesByOrder)
-  const [editId, setEditId] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const { zoneEdit, openZoneEdit } = useZoneEdit()
 
   const renderZones = () => zones.map(zone => {
     const handleCardClick = () => {
-      setEditId(zone.id)
-      setIsOpen(true)
+      openZoneEdit(zone.id)
     }
 
     return (
@@ -28,16 +24,18 @@ const ZoneAdmin = () => {
   })
 
   return (
-    <div className="ZoneAdmin">
+    <div className="Zones">
       <Stack spacing={1}>
         {renderZones()}
       </Stack>
-      <ZoneAdd />
-      <Dialog.Root open={isOpen} onClose={() => setIsOpen(false)} >
-        <ZoneEdit zoneId={editId} onClose={() => setIsOpen(false)} />
-      </Dialog.Root>
+      <Card key="zone-dd" sx={{ mt: 3, mb: 5 }}>
+        <CardActionArea onClick={() => openZoneEdit(null, "")}>
+          <CardHeader avatar={<Add color="secondary" />} title="Add zone..." />
+        </CardActionArea>
+      </Card>
+      {zoneEdit}
     </div>
   )
 }
 
-export default ZoneAdmin
+export default Zones

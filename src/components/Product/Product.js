@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { TextField, Paper, Button, Stack,FormControl
+import { Drawer, TextField, Paper, Button, Stack,FormControl
 ,InputLabel, Select,
 MenuItem } from '@mui/material';
 import { Delete, Save, Send } from '@mui/icons-material';
@@ -15,7 +15,7 @@ const NEW_PRODUCT = {
   discounted: false
 }
 
-const Product = ({ productId, onAfterSave, add }) => {
+const Product = ({ productId, onAfterSave, isOpen, add = null }) => {
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
   const pId = add ? null : productId
@@ -103,34 +103,40 @@ const Product = ({ productId, onAfterSave, add }) => {
   }
 
   return (
-    <Paper square sx={{ p: 2 }}>
-      <form onSubmit={handleSubmit}>
-        <TextField {...nameFieldProps} />
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Rayon</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            value={zoneId || ""}
-            label="Rayon"
-            onChange={handleChangeZone}
-          >
-            {options.map(option => (
-              <MenuItem value={option.value}>{option.label}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+    <Drawer
+      anchor="bottom"
+      open={isOpen}
+      onClose={onAfterSave}
+    >
+      <Paper square sx={{ p: 2 }}>
+        <form onSubmit={handleSubmit}>
+          <TextField {...nameFieldProps} />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Rayon</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              value={zoneId || ""}
+              label="Rayon"
+              onChange={handleChangeZone}
+            >
+              {options.map(option => (
+                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <Stack
-          direction="row"
-          spacing={2}
-          justifyContent="flex-end"
-          sx={{ mt: 3 }}
-        >
-          {pId && <Button {...deleteBtnProps}>Supprimer</Button>}
-          <Button {...confirmBtnProps}>{add ? "Ajouter" : "Mettre à jour"}</Button>
-        </Stack>
-      </form>
-    </Paper>
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="flex-end"
+            sx={{ mt: 3 }}
+          >
+            {pId && <Button {...deleteBtnProps}>Supprimer</Button>}
+            <Button {...confirmBtnProps}>{add ? "Ajouter" : "Mettre à jour"}</Button>
+          </Stack>
+        </form>
+      </Paper>
+    </Drawer>
   )
 }
 

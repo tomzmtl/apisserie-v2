@@ -5,7 +5,7 @@ import './theme.scss';
 import Menu from '../Menu';
 import ShoppingList from '../ShoppingList';
 import Inventory from '../Inventory';
-import ZoneAdmin from '../ZoneAdmin';
+import Zones from '../Zones';
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -35,7 +35,7 @@ const App = () => {
               <Inventory />
             </Route>
             <Route exact path="/zones">
-              <ZoneAdmin />
+              <Zones />
             </Route>
             <Route path="/list">
               <ShoppingList />

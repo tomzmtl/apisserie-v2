@@ -4,7 +4,7 @@ import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, Ico
 import { Add, Check, Build, AttachMoney, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
-import { useProductEdit } from '../ProductEdit/hooks';
+import { useProductEdit } from '../Product/hooks';
 import { useUpdateProduct } from '../../hooks/products'
 
 const Inventory = () => {

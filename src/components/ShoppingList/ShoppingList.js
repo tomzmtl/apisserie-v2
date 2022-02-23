@@ -2,7 +2,7 @@ import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@m
 import { Edit, AttachMoney, Check } from "@mui/icons-material"
 import { useSelector } from 'react-redux'
 import { selectShoppingList } from '../../selectors/products'
-import { useProductEdit } from '../ProductEdit/hooks';
+import { useProductEdit } from '../Product/hooks';
 import './styles.scss';
 import { useUpdateProduct } from '../../hooks/products'
 

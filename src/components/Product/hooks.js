@@ -7,7 +7,7 @@ export const useProductEdit = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const editProps = {
-    onClose: () => setIsOpen(false),
+    onAfterSave: () => setIsOpen(false),
     productId,
     add: name,
     isOpen
