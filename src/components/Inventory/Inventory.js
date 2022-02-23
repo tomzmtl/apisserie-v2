@@ -88,7 +88,7 @@ const Inventory = () => {
               title={product.name}
               action={(
                 <IconButton onClick={handleAdminClick} title="Admin">
-                  <Build sx={{ opacity: product.zoneId === "NONE" ? 1 : 0.4}} />
+                  <Build sx={{ opacity: product.zoneId === "NONE" ? 0.5 : 0.1}} />
                 </IconButton>
               )}
             />

@@ -25,7 +25,8 @@ export const useProductEdit = () => {
     open: isOpenNotification,
     autoHideDuration: 2000,
     onClose: handleCloseNotification,
-    TransitionComponent: Slide
+    TransitionComponent: Slide,
+    anchorOrigin: { vertical: "top", horizontal: "center" }
   }
 
   const drawerProps = {
