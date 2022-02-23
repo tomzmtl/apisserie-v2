@@ -1,4 +1,4 @@
-@import "../../petate-ui/theme.scss";
+@use "sass:math";
 
 $break-mobile-menu: 400px;
 $break-compact-menu: 600px;
@@ -11,3 +11,31 @@ $side-menu-width: 170px;
 $compact-menu-width: 50px;
 
 $bgMain: #272827;
+
+
+
+$space: 8px;
+$dialog-space: $space * 2;
+$error: #c70b0b;
+
+// @function getRandomColor() {
+//   @return hsl(math.random(360), 80%, 40%);
+// }
+
+@mixin maxWidth($breakpoint) {
+  @media (max-width: ($breakpoint - 1)) {
+    @content;
+  }
+}
+
+@mixin minWidth($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: ($max - 1)) {
+    @content;
+  }
+}

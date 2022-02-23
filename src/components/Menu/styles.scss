@@ -1,40 +1,6 @@
 @import '../App/theme.scss';
 
 .Menu {
-  &__wrapper {
-    position: fixed;
-    top: 0;
-    width: $side-menu-width;
-    min-height: 100vh;
-    flex-shrink: 0;
-    background-color: #000;
-    z-index: 200;
-  }
-
-  &__button {
-    display: flex;
-    width: 100%;
-    text-align: left;
-
-    &--active {
-      .Menu__buttonLabel {
-        color: $primary;
-      }
-
-      .MuiSvgIcon-root {
-        fill: $primary;
-      }
-    }
-
-    &:hover {
-      background-color: #0e0e0e;
-    }
-  }
-
-  &__buttonLabel {
-    width: 100%;
-  }
-
   .MuiLinearProgress {
     &-root {
       position: absolute;
@@ -43,89 +9,11 @@
       left: 0;
       z-index: 300;
     }
-
-    &-colorPrimary {
-      background-color: $primary;
-    }
-  
-    &-bar {
-      background-color: darken($primary, 20%);
-    }
   }
 
-  @include maxWidth($break-mobile-menu) {
-    &__backdrop {
-      display: none;
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      background:black;
-      opacity: 0.85;
-      z-index: 150;
-    }
+  @include maxWidth($break-mobile-menu) {}
 
-    &__wrapper {
-      right: 0;
-      transform: translateX(100%);
-      width: 100%;
-      background: transparent;
-    }
-    
-    &__menu {
-      $size: 100px;
-      $gap: $space * 2;
-      $gridSize: ($size * 2) + $gap;
+  @include between($break-mobile-menu, $break-compact-menu) {}
 
-      margin: (calc((100vh - #{$gridSize}) / 2)) auto auto auto;
-      display: grid;
-      width: $gridSize;
-      grid-template-columns: repeat(2, $size); 
-      grid-template-rows: repeat(2, $size);
-      grid-row-gap: $gap;
-      grid-column-gap: $gap;
-    }
-
-    &__button {
-      flex-direction: column;
-      text-align: center;
-      background-color: rgb(32, 32, 32) !important; //.MuiButtonBase-root
-      border-radius: 4px !important; //.MuiButtonBase-root
-    }
-
-    &--open {
-      .Menu__wrapper {
-        transform: translateX(0)
-      }
-
-      .Menu__backdrop {
-        display: block;
-      }
-    }
-  }
-
-  @include between($break-mobile-menu, $break-compact-menu) {
-    &__wrapper {
-      width: $compact-menu-width;
-    }
-
-    &__buttonLabel {
-      display: none;
-    }
-  }
-
-  @include minWidth($break-mobile-menu) {
-    &__wrapper {
-      left: 0;
-    }
-
-    &__openButton {
-      display: none !important; //.MuiButtonBase-root
-    }
-
-    &__backdrop {
-      display: none;
-    }
-  }
+  @include minWidth($break-mobile-menu) {}
 }
