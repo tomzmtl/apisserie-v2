@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { Drawer, TextField, Paper, Button, Stack,FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Delete, Save, Send } from '@mui/icons-material';
+import { LoadingButton } from "@mui/lab"
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
@@ -11,6 +12,11 @@ import * as api from '../../api/products'
 const NEW_PRODUCT = {
   selected: false,
   discounted: false
+}
+
+const INITIAL_LOADING = {
+  delete: false,
+  save: false
 }
 
 const makeProductBase = (isCreateMode, existingProduct) => {
@@ -38,6 +44,13 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const [name, setName] = useState(add ?? product?.name ?? "")
   const [zoneId, setZoneId] = useState(product?.zoneId || null)
 
+  const [isLoading, setIsLoading] = useState(INITIAL_LOADING)
+
+  const handleClose = () => {
+    onClose()
+    setIsLoading(INITIAL_LOADING)
+  }
+
   const options = useMemo(() => [...zones]
     .map(zone => ({ value: zone.id, label: zone.name }))
   , [zones])
@@ -58,16 +71,20 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading({ ...isLoading, save: true })
+    
     const body = {
       ...makeProductBase(isCreateMode, product),
       name,
       zoneId: zoneId || null
     }
-
+    
     api.putProduct(body).then(() => {
       dispatch(updateProduct(body))
       onAfterSave?.(isCreateMode ? `${name} ajouté` : `${name} mis à jour`)
+    })
+    .finally(() => {
+      setIsLoading({ ...isLoading, save: false })
     })
   }
 
@@ -76,14 +93,19 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const handleDelete = () => {
     const confirm = window.confirm(`Supprimer ${product.name}?`)
-
+    
     if (!confirm) {
       return
     }
-
+    
+    setIsLoading({ ...isLoading, delete: true })
+    
     api.deleteProduct(product.id).then(() => {
       dispatch(deleteProduct(product.id))
       onAfterSave?.(`${name} supprimé`)
+    })
+    .finally(() => {
+      setIsLoading({ ...isLoading, delete: false })
     })
   }
 
@@ -106,23 +128,26 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     endIcon: <Delete />,
     sx: { marginRight: "auto" },
     variant: "outlined",
-    color: "error"
+    color: "error",
+    loading: isLoading.delete,
+    disabled: isLoading.save
   }
   
   const confirmBtnProps = {
     label: pId ? "Mettre à jour" : "Ajouter",
     icon: <Save />,
     type: "submit",
-    disabled: isNameInvalid,
+    disabled: isNameInvalid || isLoading.delete,
     endIcon: <Send />,
-    variant: "contained"
+    variant: "contained",
+    loading: isLoading.save
   }
 
   return (
     <Drawer
       anchor="bottom"
       open={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
     >
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
@@ -148,8 +173,10 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
             justifyContent="flex-end"
             sx={{ mt: 3 }}
           >
-            {pId && <Button {...deleteBtnProps}>Supprimer</Button>}
-            <Button {...confirmBtnProps}>{add ? "Ajouter" : "Mettre à jour"}</Button>
+            {pId && <LoadingButton {...deleteBtnProps}>Supprimer</LoadingButton>}
+            <LoadingButton {...confirmBtnProps}>
+              {add ? "Ajouter" : "Mettre à jour"}
+            </LoadingButton>
           </Stack>
         </form>
       </Paper>

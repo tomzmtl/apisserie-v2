@@ -70,12 +70,13 @@ const Zone = ({ onAfterSave, onClose, zoneId, isOpen, add = null }) => {
   const handleChangeOrder = e => setOrder(e.target.value)
 
   const handleDelete = () => {
-    setIsLoading({ ...isLoading, delete: true })
     const confirm = window.confirm(`Supprimer ${zone.name}?`)
-
+    
     if (!confirm) {
       return
     }
+    
+    setIsLoading({ ...isLoading, delete: true })
 
     api.deleteZone(zone.id).then(() => {
       dispatch(deleteZone(zone.id))
