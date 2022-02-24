@@ -3,11 +3,11 @@ import { useState } from "react"
 import Drawer from "."
 
 export const useProductEdit = () => {
-  const [isOpenNotification, setIsOpenNotification] = useState(false);
   const [productId, setProductId] = useState(null)
   const [message, setMessage] = useState("Mis à jour!")
   const [name, setName] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
 
   const handleCloseDrawer = (e, reason) => {
     if (reason === 'clickaway') {
@@ -44,12 +44,12 @@ export const useProductEdit = () => {
   return {
     productEditComponents: (
       <>
-        <Snackbar key="product-edit-notification" {...notificationProps}>
+        <Snackbar {...notificationProps}>
           <Alert onClose={handleCloseNotification} severity="success" sx={{ width: '100%' }}>
             {message}
           </Alert>
         </Snackbar>
-        <Drawer key="product-edit-drawer" {...drawerProps} />
+        <Drawer {...drawerProps} />
       </>
     ),
     openProductEdit: (productId, name) => {

@@ -45,7 +45,7 @@ const Zone = ({ onAfterSave, zoneId, isOpen, add = null }) => {
 
     api.putZone(body).then(() => {
       dispatch(updateZone(body))
-      onAfterSave?.()
+      onAfterSave?.(isCreateMode ? `${name} ajouté!` : `${name} mis à jour!`)
     })
   }
 
@@ -61,7 +61,7 @@ const Zone = ({ onAfterSave, zoneId, isOpen, add = null }) => {
 
     api.deleteZone(zone.id).then(() => {
       dispatch(deleteZone(zone.id))
-      onAfterSave?.()
+      onAfterSave?.(`${name} supprimé!`)
     })
   }
 

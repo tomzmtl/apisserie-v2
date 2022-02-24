@@ -15,7 +15,10 @@ const NEW_PRODUCT = {
 
 const makeProductBase = (isCreateMode, existingProduct) => {
   if (isCreateMode) {
-    return NEW_PRODUCT
+    return {
+      ...NEW_PRODUCT,
+      id: uuid()
+    }
   }
 
   const { zone, ...product } = existingProduct
@@ -58,7 +61,6 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
     const body = {
       ...makeProductBase(isCreateMode, product),
-      // ...(isCreatemode ? { ...NEW_PRODUCT, id: uuid() } : product),
       name,
       zoneId: zoneId || null
     }

@@ -7,7 +7,7 @@ import "./styles.scss"
 
 const Zones = () => {
   const zones = useSelector(selectZonesByOrder)
-  const { zoneEdit, openZoneEdit } = useZoneEdit()
+  const { zoneEditComponents, openZoneEdit } = useZoneEdit()
 
   const renderZones = () => zones.map(zone => {
     const handleCardClick = () => {
@@ -33,7 +33,7 @@ const Zones = () => {
           <CardHeader avatar={<Add color="secondary" />} title="Add zone..." />
         </CardActionArea>
       </Card>
-      {zoneEdit}
+      {zoneEditComponents}
     </div>
   )
 }
