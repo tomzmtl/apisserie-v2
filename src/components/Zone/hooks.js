@@ -4,7 +4,7 @@ import Drawer from "."
 
 export const useZoneEdit = () => {
   const [zoneId, setZoneId] = useState(null)
-  const [message, setMessage] = useState()
+  const [message, setMessage] = useState("Done!")
   const [name, setName] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isOpenNotification, setIsOpenNotification] = useState(false);

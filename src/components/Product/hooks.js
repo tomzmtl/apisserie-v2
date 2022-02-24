@@ -4,7 +4,7 @@ import Drawer from "."
 
 export const useProductEdit = () => {
   const [productId, setProductId] = useState(null)
-  const [message, setMessage] = useState("Mis à jour!")
+  const [message, setMessage] = useState("Done!")
   const [name, setName] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isOpenNotification, setIsOpenNotification] = useState(false);

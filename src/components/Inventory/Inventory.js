@@ -26,7 +26,7 @@ const Inventory = () => {
       return (
         <Card>
           <CardActionArea onClick={() => { openProductEdit(null, query) }} component="div">
-            <CardHeader avatar={<Add />} title={`Ajouter "${query}"...`} />
+            <CardHeader avatar={<Add color="secondary" />} title={`Ajouter "${query}"...`} />
           </CardActionArea>
         </Card>
       )

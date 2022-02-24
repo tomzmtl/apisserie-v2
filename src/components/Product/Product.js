@@ -67,7 +67,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
     api.putProduct(body).then(() => {
       dispatch(updateProduct(body))
-      onAfterSave?.(isCreateMode ? `${name} ajouté!` : `${name} mis à jour!`)
+      onAfterSave?.(isCreateMode ? `${name} ajouté` : `${name} mis à jour`)
     })
   }
 
@@ -83,11 +83,11 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
     api.deleteProduct(product.id).then(() => {
       dispatch(deleteProduct(product.id))
-      onAfterSave?.(`${name} supprimé!`)
+      onAfterSave?.(`${name} supprimé`)
     })
   }
 
-  const isNameInvalid = !pId && products.find(
+  const isNameInvalid = !pId && products.some(
     product => product.name === name
   )
 
@@ -104,8 +104,9 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const deleteBtnProps = {
     onClick: handleDelete,
     endIcon: <Delete />,
-    variant: "container",
-    sx: { marginRight: "auto" }
+    sx: { marginRight: "auto" },
+    variant: "outlined",
+    color: "error"
   }
   
   const confirmBtnProps = {
