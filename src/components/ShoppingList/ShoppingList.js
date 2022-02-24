@@ -17,7 +17,7 @@ const ShoppingList = () => {
 
   const renderProducts = products => products.map(product => {
     const renderEditBtn = () => {
-      if (product.zoneId !== "NONE") {
+      if (product.zoneId) {
         return null
       }
 
@@ -28,7 +28,7 @@ const ShoppingList = () => {
 
       return (
         <IconButton onClick={onClick}>
-          <Edit />
+          <Edit sx={{ opacity: 0.5 }} />
         </IconButton>
       )
     }

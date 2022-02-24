@@ -13,7 +13,7 @@ export const selectShoppingList = state => {
 
   const zones = selectZones(state)
 
-  const uniqueZoneIds = uniq(zones.map(zone => zone.id ?? "NONE"))
+  const uniqueZoneIds = uniq(zones.map(zone => zone.id))
     .map(zoneId => zones.find(zone => zone.id === zoneId))
     .sort((a, b) => a.order < b.order ? -1 : 1)
 
@@ -24,5 +24,10 @@ export const selectShoppingList = state => {
       id: zone.id
     })
   )
+  .concat({
+    name: "Autres",
+    products: selectedProducts.filter(product => !product.zoneId),
+    id: "NONE"
+  })
   .filter(zone => zone.products.length > 0)
 }

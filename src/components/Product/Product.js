@@ -13,9 +13,19 @@ const NEW_PRODUCT = {
   discounted: false
 }
 
+const makeProductBase = (isCreateMode, existingProduct) => {
+  if (isCreateMode) {
+    return NEW_PRODUCT
+  }
+
+  const { zone, ...product } = existingProduct
+
+  return product
+}
+
 const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const isEditMode = !!productId
-  const isCreatemode = !isEditMode
+  const isCreateMode = !isEditMode
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
   const pId = add ? null : productId
@@ -25,15 +35,14 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const [name, setName] = useState(add ?? product?.name ?? "")
   const [zoneId, setZoneId] = useState(product?.zoneId || null)
 
-  const options = useMemo(() => zones
+  const options = useMemo(() => [...zones]
     .map(zone => ({ value: zone.id, label: zone.name }))
-    .sort((a) => a.value === "NONE" ? -1 : 1)
   , [zones])
 
   useEffect(() => {
     if (product) {
       setName(product.name)
-      setZoneId(product.zoneId ?? "NONE")
+      setZoneId(product.zoneId)
     } else {
       setName(add ?? "")
       setZoneId(null)
@@ -48,14 +57,15 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     e.preventDefault();
 
     const body = {
-      ...(isCreatemode ? { ...NEW_PRODUCT, id: uuid() } : product),
+      ...makeProductBase(isCreateMode, product),
+      // ...(isCreatemode ? { ...NEW_PRODUCT, id: uuid() } : product),
       name,
-      zoneId: zoneId === "NONE" ? null : zoneId
+      zoneId: zoneId || null
     }
 
     api.putProduct(body).then(() => {
       dispatch(updateProduct(body))
-      onAfterSave?.(isCreatemode ? `${name} ajouté!` : `${name} mis à jour!`)
+      onAfterSave?.(isCreateMode ? `${name} ajouté!` : `${name} mis à jour!`)
     })
   }
 
@@ -122,6 +132,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
               label="Rayon"
               onChange={handleChangeZone}
             >
+              <MenuItem value="">Pas de rayon</MenuItem>
               {options.map(option => (
                 <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
               ))}

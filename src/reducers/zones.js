@@ -12,12 +12,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         items: [
           ...action.payload.zones
-            .sort((a, b) => a.order < b.order ? -1 : 1),
-          {
-            order: 999,
-            id: "NONE",
-            name: "Pas de rayon"
-          }
+            .sort((a, b) => a.order < b.order ? -1 : 1)
         ]
       }
     

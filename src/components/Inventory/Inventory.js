@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
-import { Add, Check, Build, AttachMoney, Close } from '@mui/icons-material'
+import { Add, Check, Edit, AttachMoney, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
 import { useProductEdit } from '../Product/hooks';
@@ -88,7 +88,7 @@ const Inventory = () => {
               title={product.name}
               action={(
                 <IconButton onClick={handleAdminClick} title="Admin">
-                  <Build sx={{ opacity: product.zoneId === "NONE" ? 0.5 : 0.1}} />
+                  <Edit sx={{ opacity: product.zoneId ? 0.1 : 0.5 }} />
                 </IconButton>
               )}
             />
