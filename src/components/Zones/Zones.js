@@ -28,7 +28,7 @@ const Zones = () => {
       <Stack spacing={1}>
         {renderZones()}
       </Stack>
-      <Card key="zone-dd" sx={{ mt: 3, mb: 5 }}>
+      <Card key="zone-dd" sx={{ mt: 3 }}>
         <CardActionArea onClick={() => openZoneEdit(null, "")}>
           <CardHeader avatar={<Add color="secondary" />} title="Add zone..." />
         </CardActionArea>

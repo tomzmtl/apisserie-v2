@@ -1,13 +1,14 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Delete, Save, Send } from '@mui/icons-material';
+import { Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton } from '@mui/material';
+import { Add, Delete, Save, Send } from '@mui/icons-material';
 import { LoadingButton } from "@mui/lab"
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, updateProduct } from '../../actions/products'
 import { selectZonesByName } from '../../selectors/zones'
 import { selectProducts } from '../../selectors/products'
 import * as api from '../../api/products'
+import { uniq, without } from 'lodash-es';
 
 const NEW_PRODUCT = {
   selected: false,
@@ -42,13 +43,16 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const product = products.find(p => p.id === productId)
   
   const [name, setName] = useState(add ?? product?.name ?? "")
-  const [zoneId, setZoneId] = useState(product?.zoneId || null)
+  const [zoneId, setZoneId] = useState(product?.zoneId ?? null)
+  const [tag, setTag] = useState("")
+  const [tags, setTags] = useState(product?.tags ?? [])
 
   const [isLoading, setIsLoading] = useState(INITIAL_LOADING)
 
   const handleClose = () => {
     onClose()
     setIsLoading(INITIAL_LOADING)
+    setTag("")
   }
 
   const options = useMemo(() => [...zones]
@@ -59,9 +63,11 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     if (product) {
       setName(product.name)
       setZoneId(product.zoneId)
+      setTags(product?.tags ?? [])
     } else {
       setName(add ?? "")
       setZoneId(null)
+      setTags([])
     }
   }, [product, add])
   
@@ -76,7 +82,8 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     const body = {
       ...makeProductBase(isCreateMode, product),
       name,
-      zoneId: zoneId || null
+      zoneId: zoneId || null,
+      tags
     }
     
     api.putProduct(body).then(() => {
@@ -90,6 +97,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const handleChangeName = e => setName(e.target.value)
   const handleChangeZone = e => setZoneId(e.target.value)
+  const handleChangeTag = e => setTag(e.target.value)
 
   const handleDelete = () => {
     const confirm = window.confirm(`Supprimer ${product.name}?`)
@@ -109,6 +117,15 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     })
   }
 
+  const handleAddTag = () => {
+    setTags(uniq([...tags, tag]))
+    setTag("")
+  }
+
+  const handleDeleteTag = tag => (e) => {
+    setTags(without(tags, tag))
+  }
+
   const isNameInvalid = !pId && products.some(
     product => product.name === name
   )
@@ -120,7 +137,25 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     onChange: handleChangeName,
     required: true,
     error: isNameInvalid,
-    sx: { width: "100%", mb: 2 }
+    fullWidth: true,
+  }
+
+  const addTagFieldProps = {
+    value: tag,
+    placeholder: "Add tag",
+    label: "Add tag",
+    onChange: handleChangeTag,
+    fullWidth: true,
+    InputProps: {
+      endAdornment: (
+        <InputAdornment position="end" disabled={tags.length === 0}>
+          <IconButton onClick={handleAddTag}>
+            <Add />
+          </IconButton>
+        </InputAdornment>
+      )
+    },
+    sx: { mt: 2 }
   }
 
   const deleteBtnProps = {
@@ -143,6 +178,10 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     loading: isLoading.save
   }
 
+  const renderTags = () => tags.map(tag => (
+    <Chip label={tag} onDelete={handleDeleteTag(tag)} key={tag} sx={{ mr: 1 }} />
+  ))
+
   return (
     <Drawer
       anchor="bottom"
@@ -152,7 +191,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
           <TextField {...nameFieldProps} />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel id="demo-simple-select-label">Rayon</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -166,6 +205,11 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
               ))}
             </Select>
           </FormControl>
+
+          <Divider sx={{ my: 2 }} />
+          {renderTags()}
+          <TextField {...addTagFieldProps} />
+          <Divider sx={{ my: 2 }} />
 
           <Stack
             direction="row"
