@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
+import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress, Paper, Chip } from '@mui/material'
 import { Add, Check, Edit, AttachMoney, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
 import { useProductEdit } from '../Product/hooks';
 import { useUpdateProduct } from '../../hooks/products'
+import { without } from 'lodash-es'
 
 const Inventory = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
@@ -44,7 +45,10 @@ const Inventory = () => {
         update({
           ...product,
           selected: nextSelected,
-          discounted: false
+          discounted: false,
+          selection: {
+            tags: nextSelected ? product.selection.tags : []
+          }
         })
       }
 
@@ -79,6 +83,48 @@ const Inventory = () => {
           <AttachMoney {...iconProps} sx={{ opacity: 0.1 }} />
         )
       }
+
+      const onToggleTag = tag => e => {
+        const { tags } = product.selection
+        const isSelected = tags.includes(tag)
+
+        update({
+          ...product,
+          selected: true,
+          selection: {
+            tags: isSelected ? without(tags, tag) : tags.concat(tag)
+          }
+        })
+      }
+
+      const renderTags = () => {
+        if (product.tags.length === 0) {
+          return null
+        }
+
+        const chips = product.tags.map(tag => {
+          const isSelected = product.selection.tags.includes(tag)
+
+          const chipProps = {
+            label: tag,
+            onClick: isLoading ? null : onToggleTag(tag),
+            key: tag,
+            variant: isSelected ? undefined : "outlined",
+            color: isSelected ? "secondary" : undefined,
+            sx: { opacity: isLoading ? 0.5 : 1}
+          }
+
+          return (
+            <Chip {...chipProps} />
+          )
+        })
+
+        return (
+          <Stack direction="row" spacing={1} sx={{ p: 1, pl: 2 }}>
+            {chips}
+          </Stack>
+        )
+      }
       
       return (
         <Card key={product.id} sx={{ opacity: isLoading && product.id !== productId ? 0.3 : 1 }}>
@@ -97,6 +143,7 @@ const Inventory = () => {
               )}
             />
           </CardActionArea>
+          {renderTags()}
         </Card>
       )
     })

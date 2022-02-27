@@ -63,7 +63,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     if (product) {
       setName(product.name)
       setZoneId(product.zoneId)
-      setTags(product?.tags ?? [])
+      setTags(product.tags)
     } else {
       setName(add ?? "")
       setZoneId(null)
