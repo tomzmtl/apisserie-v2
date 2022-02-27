@@ -81,8 +81,12 @@ const Inventory = () => {
       }
       
       return (
-        <Card key={product.id}>
-          <CardActionArea onClick={handleCardClick} component="div">
+        <Card key={product.id} sx={{ opacity: isLoading && product.id !== productId ? 0.3 : 1 }}>
+          <CardActionArea
+            onClick={isLoading ? null : handleCardClick}
+            disableRipple={isLoading && product.id !== productId}
+            component="div"
+          >
             <CardHeader
               avatar={renderStartIcon()}
               title={product.name}
