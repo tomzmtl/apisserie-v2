@@ -48,5 +48,13 @@ export const useUpdateProduct = () => {
       })
   }
 
-  return { isLoading, update, productId }
+  const unselect = product => {
+    update({
+      ...product,
+      selected: false,
+      selection: { tags: [] }
+    })
+  }
+
+  return { isLoading, update, unselect, productId }
 }

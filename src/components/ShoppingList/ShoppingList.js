@@ -1,56 +1,30 @@
-import { Divider, Card, CardActionArea, Stack, CardHeader, IconButton } from "@mui/material"
-import { Edit, AttachMoney, Check } from "@mui/icons-material"
+import { Divider, Stack } from "@mui/material"
 import { useSelector } from 'react-redux'
 import { selectShoppingList } from '../../selectors/products'
 import { useProductEdit } from '../Product/hooks';
 import './styles.scss';
 import { useUpdateProduct } from '../../hooks/products'
+import ProductCard from "../ProductCard";
 
 const ShoppingList = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
   const productsByZone = useSelector(selectShoppingList)
-  const { update } = useUpdateProduct()
+  const { unselect, productId, isLoading } = useUpdateProduct()
 
-  const handleProductClick = product => () => {
-    update({ ...product, selected: false })
-  }
-
+  const handleProductClick = product => () => { unselect(product) }
+  
   const renderProducts = products => products.map(product => {
-    const renderEditBtn = () => {
-      if (product.zoneId) {
-        return null
-      }
-
-      const onClick = e => {
-        e.stopPropagation()
-        openProductEdit(product.id)
-      }
-
-      return (
-        <IconButton onClick={onClick}>
-          <Edit sx={{ opacity: 0.5 }} />
-        </IconButton>
-      )
+    const cardProps = {
+      key: product.id,
+      product,
+      onCardClick: handleProductClick(product),
+      onClickEdit: () => { openProductEdit(product.id) },
+      isLoading: isLoading && productId === product.id,
+      isDisabled: isLoading && product.id !== productId,
     }
 
-    const renderStartIcon = () => {
-      if (product.discounted) {
-        return <AttachMoney color="secondary" />
-      }
-
-      return <Check sx={{ opacity: 0.25 }} />
-    }
-    
     return (
-      <Card key={product.id}>
-        <CardActionArea onClick={handleProductClick(product)} component="div">
-          <CardHeader
-            avatar={renderStartIcon()}
-            action={renderEditBtn()}
-            title={product.name}
-          />
-        </CardActionArea>
-      </Card>
+      <ProductCard {...cardProps} />
     )
   })
   

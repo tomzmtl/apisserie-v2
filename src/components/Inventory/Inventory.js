@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress } from '@mui/material'
-import { Add, Check, Edit, AttachMoney, Close } from '@mui/icons-material'
+import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton } from '@mui/material'
+import { Add, Close } from '@mui/icons-material'
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
 import { useProductEdit } from '../Product/hooks';
@@ -35,11 +35,6 @@ const Inventory = () => {
     }
 
     return productsToDisplay.map(product => {
-      const handleAdminClick = e => {
-        e.stopPropagation()
-        openProductEdit(product.id)
-      }
-
       const handleCardClick = () => {
         const nextSelected = !product.selected
 
@@ -77,13 +72,14 @@ const Inventory = () => {
       }
 
       const cardProps = {
+        key: product.id,
         product,
         isLoading: isLoading && product.id === productId,
         isDisabled: isLoading && product.id !== productId,
         onCardClick: handleCardClick,
-        onClickEdit: handleAdminClick,
+        onClickEdit: () => openProductEdit(product.id),
         onClickStartIcon: handleStartIconClick,
-        onToggleTag
+        onClickTag: onToggleTag
       }
       
       return <ProductCard {...cardProps} />

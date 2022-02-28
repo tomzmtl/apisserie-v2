@@ -1,5 +1,5 @@
-import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress, Chip } from '@mui/material'
-import { Add, Check, Edit, AttachMoney } from '@mui/icons-material'
+import { Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress, Chip } from '@mui/material'
+import { Check, Edit, AttachMoney } from '@mui/icons-material'
 
 const ProductCard = ({
   product,
@@ -8,7 +8,7 @@ const ProductCard = ({
   onCardClick,
   onClickEdit,
   onClickStartIcon,
-  onToggleTag
+  onClickTag
 }) => {
   const isEnabled = !isDisabled
 
@@ -35,19 +35,31 @@ const ProductCard = ({
   }
 
   const renderTags = () => {
-    if (product.tags.length === 0) {
+    const isEditable = !!onClickTag
+    
+    const tagsToDisplay = isEditable ? product.tags : product.selection.tags
+    
+    if (tagsToDisplay.length === 0) {
       return null
     }
 
-    const chips = product.tags.map(tag => {
+    const chips = tagsToDisplay.map(tag => {
       const isSelected = product.selection.tags.includes(tag)
+
+      const getClickHandler = () => {
+        if (isLoading || !isEditable) {
+          return null
+        }
+
+        return onClickTag(tag)
+      }
 
       const chipProps = {
         label: tag,
-        onClick: isLoading ? null : onToggleTag(tag),
+        onClick: getClickHandler(),
         key: tag,
-        variant: isSelected ? undefined : "outlined",
-        color: isSelected ? "secondary" : undefined,
+        variant: isEditable && isSelected ? undefined : "outlined",
+        color: isEditable && isSelected ? "secondary" : undefined,
         sx: { opacity: isLoading ? 0.5 : 1}
       }
 
@@ -63,6 +75,11 @@ const ProductCard = ({
     )
   }
 
+  const handleEdit = e => {
+    e.stopPropagation();
+    onClickEdit()
+  }
+
   return (
     <Card key={product.id} sx={{ opacity: isDisabled ? 0.3 : 1 }}>
       <CardActionArea
@@ -74,7 +91,7 @@ const ProductCard = ({
           avatar={renderStartIcon()}
           title={product.name}
           action={(
-            <IconButton onClick={isEnabled ? onClickEdit : null} title="Admin">
+            <IconButton onClick={isEnabled ? handleEdit : null} title="Admin">
               <Edit sx={{ opacity: product.zoneId ? 0.1 : 0.5 }} />
             </IconButton>
           )}

@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action) => {
         items: action.payload.products.map(product => ({
           selected: false,
           selection: {
-            tags: []
+            tags: product?.selection?.tags ?? []
           },
           ...product,
           tags: product.tags ?? [],
