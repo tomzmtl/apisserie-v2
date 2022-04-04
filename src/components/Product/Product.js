@@ -12,7 +12,8 @@ import { uniq, without } from 'lodash-es';
 
 const NEW_PRODUCT = {
   selected: false,
-  discounted: false
+  discounted: false,
+  selection: { tags: [] }
 }
 
 const INITIAL_LOADING = {

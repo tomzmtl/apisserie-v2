@@ -43,7 +43,7 @@ const Inventory = () => {
           selected: nextSelected,
           discounted: false,
           selection: {
-            tags: nextSelected ? product.selection.tags : []
+            tags: nextSelected ? product.selection?.tags : []
           }
         })
       }
