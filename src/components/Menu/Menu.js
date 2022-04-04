@@ -5,9 +5,9 @@ import "./styles.scss";
 import { useLocation } from 'react-router';
 
 const BUTTONS = {
-  "/zones": { label: "Rayons"    , Icon: Storefront       },
-  "/"     : { label: "Inventaire", Icon: Inventory        },
-  "/list" : { label: "Liste"     , Icon: PlaylistAddCheck },
+  "/zones":     { label: "Rayons"    , Icon: Storefront       },
+  "/inventory": { label: "Inventaire", Icon: Inventory        },
+  "/" :         { label: "Liste"     , Icon: PlaylistAddCheck },
 }
 
 const Menu = ({ isLoading, refresh }) => {

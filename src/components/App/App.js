@@ -37,13 +37,13 @@ const App = ({ ts }) => {
       <ThemeProvider theme={theme}>
         <div className="App__content">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/inventory">
               <Inventory />
             </Route>
             <Route exact path="/zones">
               <Zones />
             </Route>
-            <Route path="/list">
+            <Route path="/">
               <ShoppingList />
             </Route>
           </Switch>
