@@ -4,3 +4,5 @@ import { ZONE_API } from '../constants'
 export const putZone = zone => API.put(ZONE_API, "/zones", { body: zone })
 
 export const deleteZone = zoneId => API.del(ZONE_API, `/zones/object/${zoneId}`)
+
+export const getZones = () => API.get(ZONE_API, '/zones/id')

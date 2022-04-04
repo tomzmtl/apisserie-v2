@@ -1,30 +1,24 @@
-import API from '@aws-amplify/api'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { ZONE_API } from "../constants"
-import { makeTimestamp } from '../helpers'
 import { setZones, setIsLoading } from '../actions/zones'
+import { getZones } from '../api/zones'
 
-export const useLoadZones = () => {
+export const useLoadZones = (ts) => {
   const dispatch = useDispatch()
-  const [ts, setTs] = useState(makeTimestamp())
 
-  const sendRequest = useCallback(
+  const load = useCallback(
     () => {
-      setTs(makeTimestamp())
+      dispatch(setIsLoading(true))
 
-      API
-        .get(ZONE_API, '/zones/id')
+      getZones()
         .then(response => dispatch(setZones(response)))
         .catch(error => console.log(error))
         .finally(() => dispatch(setIsLoading(false)))
     }, [dispatch])
   
   useEffect(() => {
-    dispatch(setIsLoading(true))
+    load()
+  }, [dispatch, load, ts])
 
-    sendRequest()
-  }, [dispatch, sendRequest, ts])
-
-  return { sendRequest }
+  return { load }
 }

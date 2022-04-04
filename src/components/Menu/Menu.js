@@ -1,5 +1,5 @@
 import { LinearProgress, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { Storefront, PlaylistAddCheck, Inventory } from '@mui/icons-material';
+import { Storefront, PlaylistAddCheck, Inventory, Refresh } from '@mui/icons-material';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 import { useLocation } from 'react-router';
@@ -10,7 +10,7 @@ const BUTTONS = {
   "/list" : { label: "Liste"     , Icon: PlaylistAddCheck },
 }
 
-const Menu = ({ isLoading }) => {
+const Menu = ({ isLoading, refresh }) => {
   const navigateTo = useNavigation()
   const location = useLocation()
 
@@ -28,7 +28,14 @@ const Menu = ({ isLoading }) => {
           value={path}
         />
       )
-    }, [])
+    }, []).concat((
+      <BottomNavigationAction
+        key="refresh"
+        label="Rafraîchir"
+        icon={<Refresh />}
+        onClick={() => { refresh() }}
+      />
+    ))
 
   return (
     <div className="Menu">

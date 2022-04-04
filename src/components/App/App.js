@@ -9,6 +9,7 @@ import Zones from '../Zones';
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -22,9 +23,14 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
-  useLoadProducts()
-  useLoadZones()
+const App = ({ ts }) => {
+  const { load: loadProducts } = useLoadProducts(ts)
+  const { load: loadZones } = useLoadZones(ts)
+
+  useEffect(() => {
+    loadProducts()
+    loadZones()
+  }, [ts, loadProducts, loadZones])
 
   return (
     <div className="App">

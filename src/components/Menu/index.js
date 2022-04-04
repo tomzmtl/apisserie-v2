@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { refresh } from '../../actions/app'
 import { selectAppIsLoading } from '../../selectors/app'
 import component from "./Menu"
 
@@ -6,4 +7,8 @@ const mapStateToProps = state => ({
   isLoading: selectAppIsLoading(state)
 })
 
-export default connect(mapStateToProps)(component)
+const mapDispatchToProps = dispatch => ({
+  refresh: () => dispatch(refresh())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(component)

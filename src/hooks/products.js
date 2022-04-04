@@ -1,21 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import { API } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { setProducts } from '../actions/products'
-import { PRODUCT_API } from '../constants';
-import { makeTimestamp } from '../helpers';
 import { setIsLoading, updateProduct } from '../actions/products';
+import { getProducts, putProduct } from '../api/products';
 
-export const useLoadProducts = () => {
+export const useLoadProducts = (ts) => {
   const dispatch = useDispatch()
-  const [ts, setTs] = useState(makeTimestamp())
 
-  const sendRequest = useCallback(
+  const load = useCallback(
     () => {
-      setTs(makeTimestamp())
+      dispatch(setIsLoading(true))
 
-      API
-        .get(PRODUCT_API, '/products/id')
+      getProducts()
         .then(response => dispatch(setProducts(response)))
         .catch(error => console.log(error.response))
         .finally(() => dispatch(setIsLoading(false)))
@@ -24,10 +20,10 @@ export const useLoadProducts = () => {
   useEffect(() => {
     dispatch(setIsLoading(true))
 
-    sendRequest()
-  }, [dispatch, sendRequest, ts])
+    load()
+  }, [dispatch, load, ts])
 
-  return { sendRequest }
+  return { load }
 }
 
 export const useUpdateProduct = () => {
@@ -38,7 +34,8 @@ export const useUpdateProduct = () => {
   const update = (product) => {
     setIsLoading(true)
     setProductId(product.id)
-    API.put(PRODUCT_API, "/products", { body: product })
+
+    putProduct(product)
       .then(() => {
         dispatch(updateProduct(product))
       })
