@@ -9,6 +9,10 @@ import { useUpdateProduct } from '../../hooks/products'
 import { without } from 'lodash-es'
 import ProductCard from '../ProductCard'
 
+const matchStrings = (str1, str2) => {
+  return removeAccents(str1.toLowerCase())
+           .includes(removeAccents(str2.toLowerCase()))
+}
 const Inventory = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
   const products = useSelector(selectProductsByName)
@@ -16,7 +20,7 @@ const Inventory = () => {
   const { update, isLoading, productId } = useUpdateProduct()
 
   const productsToDisplay = products.filter(
-    product => product.name.toLowerCase().includes(query.toLowerCase())
+    product => matchStrings(product.name, query)
   )
 
   const handleChangeQuery = e => {
