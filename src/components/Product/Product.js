@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton } from '@mui/material';
+import { Box, Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton } from '@mui/material';
 import { Add, Delete, Save, Send } from '@mui/icons-material';
 import { LoadingButton } from "@mui/lab"
 import { useDispatch, useSelector } from 'react-redux'
@@ -98,7 +98,12 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const handleChangeName = e => setName(e.target.value)
   const handleChangeZone = e => setZoneId(e.target.value)
-  const handleChangeTag = e => setTag(e.target.value)
+  
+  const handleChangeTag = e => {
+    if (e.target.value) {
+      setTag(e.target.value)
+    }
+  }
 
   const handleDelete = () => {
     const confirm = window.confirm(`Supprimer ${product.name}?`)
@@ -119,8 +124,10 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   }
 
   const handleAddTag = () => {
-    setTags(uniq([...tags, tag]))
-    setTag("")
+    if (tag) {
+      setTags(uniq([...tags, tag]))
+      setTag("")
+    }
   }
 
   const handleDeleteTag = tag => (e) => {
@@ -143,8 +150,8 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const addTagFieldProps = {
     value: tag,
-    placeholder: "Add tag",
-    label: "Add tag",
+    placeholder: "Ajouter une étiquette",
+    label: "Ajouter une étiquette",
     onChange: handleChangeTag,
     fullWidth: true,
     InputProps: {
@@ -179,9 +186,21 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     loading: isLoading.save
   }
 
-  const renderTags = () => tags.map(tag => (
-    <Chip label={tag} onDelete={handleDeleteTag(tag)} key={tag} sx={{ mr: 1 }} />
-  ))
+  const renderTags = () => {
+    if (!tags.length) {
+      return null
+    }
+    
+    const chips = tags.map(tag => (
+      <Chip label={tag} onDelete={handleDeleteTag(tag)} key={tag} sx={{ mr: 1 }} />
+    ))
+
+    return (
+      <Box className="Product__tagChips" sx={{ mt: 2 }}>
+        {chips}
+      </Box>
+    )
+  }
 
   return (
     <Drawer
@@ -191,6 +210,8 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     >
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
+          <div>{product.id}</div>
+          <Divider sx={{ my: 2 }} />
           <TextField {...nameFieldProps} />
           <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel id="demo-simple-select-label">Rayon</InputLabel>
@@ -207,7 +228,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
             </Select>
           </FormControl>
 
-          <Divider sx={{ my: 2 }} />
+          <Divider sx={{ mt: 2 }} />
           {renderTags()}
           <TextField {...addTagFieldProps} />
           <Divider sx={{ my: 2 }} />
