@@ -5,6 +5,7 @@ import {
   CardActionArea,
   CardHeader,
   IconButton,
+  SpeedDial,
 } from "@mui/material"
 import { Add, ArrowCircleUp } from "@mui/icons-material"
 import { selectZonesByOrder } from "../../selectors/zones"
@@ -78,15 +79,14 @@ const Zones = () => {
   return (
     <div className="Zones">
       <Stack spacing={1}>{renderZones()}</Stack>
-      <Card key="zone-dd" sx={{ mt: 3 }}>
-        <CardActionArea onClick={() => openZoneEdit(null, "")}>
-          <CardHeader
-            avatar={<Add color="secondary" />}
-            title="Ajouter un rayon..."
-          />
-        </CardActionArea>
-      </Card>
       {zoneEditComponents}
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "fixed", bottom: 72, right: 16 }}
+        icon={<Add />}
+        onClick={() => openZoneEdit(null, "")}
+        title="Ajouter un rayon..."
+      />
     </div>
   )
 }
