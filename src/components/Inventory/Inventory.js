@@ -1,30 +1,42 @@
-import { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, MenuItem, Menu } from '@mui/material'
-import { Add, Close, MenuBook } from '@mui/icons-material'
+import { useRef, useState } from "react"
+import { useSelector } from "react-redux"
+import {
+  InputAdornment,
+  TextField,
+  Card,
+  CardActionArea,
+  Stack,
+  CardHeader,
+  IconButton,
+  MenuItem,
+  Menu,
+} from "@mui/material"
+import { Add, Close, MenuBook } from "@mui/icons-material"
 import removeAccents from "remove-accents"
-import { selectProductsByName } from '../../selectors/products'
+import { selectProductsByName } from "../../selectors/products"
 import "./styles.scss"
-import { useProductEdit } from '../Product/hooks';
-import { useUpdateProduct } from '../../hooks/products'
-import { without } from 'lodash-es'
-import ProductCard from '../ProductCard'
-import { RECIPES } from '../Recipes/data'
+import { useProductEdit } from "../Product/hooks"
+import { useUpdateProduct } from "../../hooks/products"
+import { without } from "lodash-es"
+import ProductCard from "../ProductCard"
+import { RECIPES } from "../Recipes/data"
 
 const matchStrings = (str1, str2) => {
-  return removeAccents(str1.toLowerCase())
-    .includes(removeAccents(str2.toLowerCase()))
+  return removeAccents(str1.toLowerCase()).includes(
+    removeAccents(str2.toLowerCase())
+  )
 }
 
-const searchProducts = (products, query) => products.filter(product => {
-  const directMatch = matchStrings(product.name, query)
+const searchProducts = (products, query) =>
+  products.filter((product) => {
+    const directMatch = matchStrings(product.name, query)
 
-  if (directMatch) {
-    return true
-  }
+    if (directMatch) {
+      return true
+    }
 
-  return product.tags.some(tag => matchStrings(tag, query))
-})
+    return product.tags.some((tag) => matchStrings(tag, query))
+  })
 
 const Inventory = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
@@ -35,18 +47,20 @@ const Inventory = () => {
   const textFieldRef = useRef(null)
 
   const selectedRecipeProductIds = selectedRecipe
-    ? RECIPES
-      .find(recipe => recipe.id === selectedRecipe.id).products
-      .map(product => product.id)
+    ? RECIPES.find((recipe) => recipe.id === selectedRecipe.id).products.map(
+        (product) => product.id
+      )
     : []
 
   const productsToDisplay = query
     ? searchProducts(products, query)
     : selectedRecipe
-      ? products.filter(product => selectedRecipeProductIds.includes(product.id))
-      : products
+    ? products.filter((product) =>
+        selectedRecipeProductIds.includes(product.id)
+      )
+    : products
 
-  const handleChangeQuery = e => {
+  const handleChangeQuery = (e) => {
     setQuery(e.target.value)
   }
 
@@ -54,14 +68,22 @@ const Inventory = () => {
     if (!productsToDisplay.length && query.length) {
       return (
         <Card>
-          <CardActionArea onClick={() => { openProductEdit(null, query) }} component="div">
-            <CardHeader avatar={<Add color="secondary" />} title={`Ajouter "${query}"...`} />
+          <CardActionArea
+            onClick={() => {
+              openProductEdit(null, query)
+            }}
+            component="div"
+          >
+            <CardHeader
+              avatar={<Add color="secondary" />}
+              title={`Ajouter "${query}"...`}
+            />
           </CardActionArea>
         </Card>
       )
     }
 
-    return productsToDisplay.map(product => {
+    return productsToDisplay.map((product) => {
       const handleCardClick = () => {
         const nextSelected = !product.selected
 
@@ -70,22 +92,22 @@ const Inventory = () => {
           selected: nextSelected,
           discounted: false,
           selection: {
-            tags: nextSelected ? product.selection?.tags : []
-          }
+            tags: nextSelected ? product.selection?.tags : [],
+          },
         })
       }
 
-      const handleStartIconClick = e => {
+      const handleStartIconClick = (e) => {
         e.stopPropagation()
 
         update({
           ...product,
           selected: true,
-          discounted: true
+          discounted: true,
         })
       }
 
-      const onToggleTag = tag => e => {
+      const onToggleTag = (tag) => (e) => {
         const { tags } = product.selection
         const isSelected = tags.includes(tag)
 
@@ -93,8 +115,8 @@ const Inventory = () => {
           ...product,
           selected: true,
           selection: {
-            tags: isSelected ? without(tags, tag) : tags.concat(tag)
-          }
+            tags: isSelected ? without(tags, tag) : tags.concat(tag),
+          },
         })
       }
 
@@ -106,9 +128,9 @@ const Inventory = () => {
         onCardClick: handleCardClick,
         onClickEdit: () => openProductEdit(product.id),
         onClickStartIcon: handleStartIconClick,
-        onClickTag: onToggleTag
+        onClickTag: onToggleTag,
       }
-      
+
       return <ProductCard {...cardProps} />
     })
   }
@@ -123,15 +145,15 @@ const Inventory = () => {
     open,
     anchorEl: textFieldRef.current,
     onClose: handleCloseRecipes,
-    transformOrigin: { horizontal: 'left', vertical: 'top' },
-    anchorOrigin: { horizontal: 'left', vertical: 'top' },
+    transformOrigin: { horizontal: "left", vertical: "top" },
+    anchorOrigin: { horizontal: "left", vertical: "top" },
     BackdropProps: { invisible: false },
-    sx: { width: "100%" }
+    sx: { width: "100%" },
   }
 
   const handleRecipesClick = () => {
     setOpen(!open)
-  };
+  }
 
   const makeRecipeItemProps = (recipe) => {
     return {
@@ -141,7 +163,7 @@ const Inventory = () => {
         setQuery("")
         setOpen(false)
         setSelectedRecipe(RECIPES.find(({ id }) => recipe.id === id))
-      }
+      },
     }
   }
 
@@ -159,23 +181,23 @@ const Inventory = () => {
     InputProps: {
       startAdornment: (
         <InputAdornment position="start">
-          <IconButton onClick={handleRecipesClick} className="Inventory__recipesBtn">
+          <IconButton
+            onClick={handleRecipesClick}
+            className="Inventory__recipesBtn"
+          >
             <MenuBook color={selectedRecipe ? "secondary" : undefined} />
           </IconButton>
         </InputAdornment>
       ),
       endAdornment: (
-        <InputAdornment
-          position="end"
-          sx={{ right: "8px", opacity: 0.5 }}
-        >
+        <InputAdornment position="end" sx={{ right: "8px", opacity: 0.5 }}>
           <IconButton onClick={handleClickClear}>
             <Close />
           </IconButton>
         </InputAdornment>
-      )
+      ),
     },
-    sx: { width: "100%", boxShadow: "0 1px 10px rgba(0, 0, 0, 0.2)" }
+    sx: { width: "100%", boxShadow: "0 1px 10px rgba(0, 0, 0, 0.2)" },
   }
 
   return (
@@ -183,14 +205,12 @@ const Inventory = () => {
       <div className="Inventory__search">
         <TextField {...textFieldProps} />
         <Menu {...menuProps}>
-          {RECIPES.map(recipe => (
+          {RECIPES.map((recipe) => (
             <MenuItem {...makeRecipeItemProps(recipe)}>{recipe.name}</MenuItem>
           ))}
         </Menu>
       </div>
-      <Stack spacing={1}>
-        {renderProducts()}
-      </Stack>
+      <Stack spacing={1}>{renderProducts()}</Stack>
       {productEditComponents}
     </div>
   )

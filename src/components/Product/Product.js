@@ -1,32 +1,48 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from "react"
 import { v4 as uuid } from "uuid"
-import copy from 'copy-to-clipboard';
-import { Box, Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton, ButtonBase, Tooltip } from '@mui/material';
-import { Add, Delete, Save, Send } from '@mui/icons-material';
+import copy from "copy-to-clipboard"
+import {
+  Box,
+  Drawer,
+  TextField,
+  Paper,
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Divider,
+  Chip,
+  InputAdornment,
+  IconButton,
+  ButtonBase,
+  Tooltip,
+} from "@mui/material"
+import { Add, Delete, Save, Send } from "@mui/icons-material"
 import { LoadingButton } from "@mui/lab"
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteProduct, updateProduct } from '../../actions/products'
-import { selectZonesByName } from '../../selectors/zones'
-import { selectProducts } from '../../selectors/products'
-import * as api from '../../api/products'
-import { uniq, without } from 'lodash-es';
+import { useDispatch, useSelector } from "react-redux"
+import { deleteProduct, updateProduct } from "../../actions/products"
+import { selectZonesByName } from "../../selectors/zones"
+import { selectProducts } from "../../selectors/products"
+import * as api from "../../api/products"
+import { uniq, without } from "lodash-es"
 
 const NEW_PRODUCT = {
   selected: false,
   discounted: false,
-  selection: { tags: [] }
+  selection: { tags: [] },
 }
 
 const INITIAL_LOADING = {
   delete: false,
-  save: false
+  save: false,
 }
 
 const makeProductBase = (isCreateMode, existingProduct) => {
   if (isCreateMode) {
     return {
       ...NEW_PRODUCT,
-      id: uuid()
+      id: uuid(),
     }
   }
 
@@ -40,8 +56,8 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const products = useSelector(selectProducts)
   const pId = add ? null : productId
   const zones = useSelector(selectZonesByName)
-  const product = products.find(p => p.id === productId)
-  
+  const product = products.find((p) => p.id === productId)
+
   const [name, setName] = useState(add ?? product?.name ?? "")
   const [zoneId, setZoneId] = useState(product?.zoneId ?? null)
   const [tag, setTag] = useState("")
@@ -55,9 +71,10 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     setTag("")
   }
 
-  const options = useMemo(() => [...zones]
-    .map(zone => ({ value: zone.id, label: zone.name }))
-  , [zones])
+  const options = useMemo(
+    () => [...zones].map((zone) => ({ value: zone.id, label: zone.name })),
+    [zones]
+  )
 
   useEffect(() => {
     if (product) {
@@ -70,35 +87,37 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
       setTags([])
     }
   }, [product, add])
-  
+
   if (!product && add === null) {
     return null
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setIsLoading({ ...isLoading, save: true })
-    
+
     const body = {
       ...makeProductBase(isCreateMode, product),
       name,
       zoneId: zoneId || null,
-      tags
+      tags,
     }
-    
-    api.putProduct(body).then(() => {
-      dispatch(updateProduct(body))
-      onAfterSave?.(isCreateMode ? `${name} ajouté` : `${name} mis à jour`)
-    })
-    .finally(() => {
-      setIsLoading({ ...isLoading, save: false })
-    })
+
+    api
+      .putProduct(body)
+      .then(() => {
+        dispatch(updateProduct(body))
+        onAfterSave?.(isCreateMode ? `${name} ajouté` : `${name} mis à jour`)
+      })
+      .finally(() => {
+        setIsLoading({ ...isLoading, save: false })
+      })
   }
 
-  const handleChangeName = e => setName(e.target.value)
-  const handleChangeZone = e => setZoneId(e.target.value)
-  
-  const handleChangeTag = e => {
+  const handleChangeName = (e) => setName(e.target.value)
+  const handleChangeZone = (e) => setZoneId(e.target.value)
+
+  const handleChangeTag = (e) => {
     if (e.target.value) {
       setTag(e.target.value)
     }
@@ -106,20 +125,22 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
 
   const handleDelete = () => {
     const confirm = window.confirm(`Supprimer ${product.name}?`)
-    
+
     if (!confirm) {
       return
     }
-    
+
     setIsLoading({ ...isLoading, delete: true })
-    
-    api.deleteProduct(product.id).then(() => {
-      dispatch(deleteProduct(product.id))
-      onAfterSave?.(`${name} supprimé`)
-    })
-    .finally(() => {
-      setIsLoading({ ...isLoading, delete: false })
-    })
+
+    api
+      .deleteProduct(product.id)
+      .then(() => {
+        dispatch(deleteProduct(product.id))
+        onAfterSave?.(`${name} supprimé`)
+      })
+      .finally(() => {
+        setIsLoading({ ...isLoading, delete: false })
+      })
   }
 
   const handleAddTag = () => {
@@ -129,13 +150,12 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     }
   }
 
-  const handleDeleteTag = tag => (e) => {
+  const handleDeleteTag = (tag) => (e) => {
     setTags(without(tags, tag))
   }
 
-  const isNameInvalid = !pId && products.some(
-    product => product.name === name
-  )
+  const isNameInvalid =
+    !pId && products.some((product) => product.name === name)
 
   const nameFieldProps = {
     value: name,
@@ -160,9 +180,9 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
             <Add />
           </IconButton>
         </InputAdornment>
-      )
+      ),
     },
-    sx: { mt: 2 }
+    sx: { mt: 2 },
   }
 
   const deleteBtnProps = {
@@ -172,9 +192,9 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     variant: "outlined",
     color: "error",
     loading: isLoading.delete,
-    disabled: isLoading.save
+    disabled: isLoading.save,
   }
-  
+
   const confirmBtnProps = {
     label: pId ? "Mettre à jour" : "Ajouter",
     icon: <Save />,
@@ -182,16 +202,21 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     disabled: isNameInvalid || isLoading.delete,
     endIcon: <Send />,
     variant: "contained",
-    loading: isLoading.save
+    loading: isLoading.save,
   }
 
   const renderTags = () => {
     if (!tags.length) {
       return null
     }
-    
-    const chips = tags.map(tag => (
-      <Chip label={tag} onDelete={handleDeleteTag(tag)} key={tag} sx={{ mr: 1 }} />
+
+    const chips = tags.map((tag) => (
+      <Chip
+        label={tag}
+        onDelete={handleDeleteTag(tag)}
+        key={tag}
+        sx={{ mr: 1 }}
+      />
     ))
 
     return (
@@ -202,16 +227,14 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   }
 
   return (
-    <Drawer
-      anchor="bottom"
-      open={isOpen}
-      onClose={handleClose}
-    >
+    <Drawer anchor="bottom" open={isOpen} onClose={handleClose}>
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
           {isEditMode && (
             <Tooltip title="Click to copy" placement="right" arrow>
-              <ButtonBase onClick={() => copy(product.id)}>{product.id}</ButtonBase>
+              <ButtonBase onClick={() => copy(product.id)}>
+                {product.id}
+              </ButtonBase>
             </Tooltip>
           )}
           <Divider sx={{ my: 2 }} />
@@ -225,8 +248,10 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
               onChange={handleChangeZone}
             >
               <MenuItem value="">Pas de rayon</MenuItem>
-              {options.map(option => (
-                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+              {options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -242,7 +267,9 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
             justifyContent="flex-end"
             sx={{ mt: 3 }}
           >
-            {pId && <LoadingButton {...deleteBtnProps}>Supprimer</LoadingButton>}
+            {pId && (
+              <LoadingButton {...deleteBtnProps}>Supprimer</LoadingButton>
+            )}
             <LoadingButton {...confirmBtnProps}>
               {add ? "Ajouter" : "Mettre à jour"}
             </LoadingButton>

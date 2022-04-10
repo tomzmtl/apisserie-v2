@@ -1,11 +1,11 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from 'react-redux'
-import Amplify from 'aws-amplify';
-import awsconfig from '../../aws-exports';
-import { store } from '../../store'
+import { BrowserRouter as Router } from "react-router-dom"
+import { Provider } from "react-redux"
+import Amplify from "aws-amplify"
+import awsconfig from "../../aws-exports"
+import { store } from "../../store"
 import App from "../App"
 
-Amplify.configure(awsconfig);
+Amplify.configure(awsconfig)
 
 const AppRoot = () => {
   return (
@@ -14,7 +14,7 @@ const AppRoot = () => {
         <App />
       </Router>
     </Provider>
-  );
+  )
 }
 
-export default AppRoot;
+export default AppRoot

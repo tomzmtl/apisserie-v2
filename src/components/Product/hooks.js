@@ -7,26 +7,26 @@ export const useProductEdit = () => {
   const [message, setMessage] = useState("Done!")
   const [name, setName] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [isOpenNotification, setIsOpenNotification] = useState(false);
+  const [isOpenNotification, setIsOpenNotification] = useState(false)
 
   const handleCloseDrawer = (e, reason) => {
-    if (reason === 'clickaway') {
-      return;
+    if (reason === "clickaway") {
+      return
     }
 
-    setIsDrawerOpen(false);
-  };
+    setIsDrawerOpen(false)
+  }
 
   const handleCloseNotification = () => {
-    setIsOpenNotification(false);
-  };
+    setIsOpenNotification(false)
+  }
 
   const notificationProps = {
     open: isOpenNotification,
     autoHideDuration: 3000,
     onClose: handleCloseNotification,
     TransitionComponent: Slide,
-    anchorOrigin: { vertical: "top", horizontal: "center" }
+    anchorOrigin: { vertical: "top", horizontal: "center" },
   }
 
   const drawerProps = {
@@ -38,14 +38,18 @@ export const useProductEdit = () => {
     },
     productId,
     add: name,
-    isOpen: isDrawerOpen
+    isOpen: isDrawerOpen,
   }
 
   return {
     productEditComponents: (
       <>
         <Snackbar {...notificationProps}>
-          <Alert onClose={handleCloseNotification} severity="success" sx={{ width: '100%' }}>
+          <Alert
+            onClose={handleCloseNotification}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
             {message}
           </Alert>
         </Snackbar>
@@ -56,6 +60,6 @@ export const useProductEdit = () => {
       setProductId(productId)
       setName(name)
       setIsDrawerOpen(true)
-    }
+    },
   }
 }

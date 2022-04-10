@@ -1,5 +1,13 @@
-import { Card, CardActionArea, Stack, CardHeader, IconButton, CircularProgress, Chip } from '@mui/material'
-import { Check, Edit, AttachMoney } from '@mui/icons-material'
+import {
+  Card,
+  CardActionArea,
+  Stack,
+  CardHeader,
+  IconButton,
+  CircularProgress,
+  Chip,
+} from "@mui/material"
+import { Check, Edit, AttachMoney } from "@mui/icons-material"
 
 const ProductCard = ({
   product,
@@ -8,7 +16,7 @@ const ProductCard = ({
   onCardClick,
   onClickEdit,
   onClickStartIcon,
-  onClickTag
+  onClickTag,
 }) => {
   const isEnabled = !isDisabled
 
@@ -21,29 +29,25 @@ const ProductCard = ({
 
     if (product.selected) {
       if (product.discounted) {
-        return (
-          <AttachMoney {...iconProps} color="secondary" />
-        )
+        return <AttachMoney {...iconProps} color="secondary" />
       }
 
       return <Check {...iconProps} />
     }
 
-    return (
-      <AttachMoney {...iconProps} sx={{ opacity: 0.1 }} />
-    )
+    return <AttachMoney {...iconProps} sx={{ opacity: 0.1 }} />
   }
 
   const renderTags = () => {
     const isEditable = !!onClickTag
-    
+
     const tagsToDisplay = isEditable ? product.tags : product.selection.tags
-    
+
     if (tagsToDisplay.length === 0) {
       return null
     }
 
-    const chips = tagsToDisplay.map(tag => {
+    const chips = tagsToDisplay.map((tag) => {
       const isSelected = product.selection.tags.includes(tag)
 
       const getClickHandler = () => {
@@ -60,12 +64,10 @@ const ProductCard = ({
         key: tag,
         variant: isEditable && isSelected ? undefined : "outlined",
         color: isEditable && isSelected ? "secondary" : undefined,
-        sx: { opacity: isLoading ? 0.5 : 1, mb: 1}
+        sx: { opacity: isLoading ? 0.5 : 1, mb: 1 },
       }
 
-      return (
-        <Chip {...chipProps} />
-      )
+      return <Chip {...chipProps} />
     })
 
     return (
@@ -75,8 +77,8 @@ const ProductCard = ({
     )
   }
 
-  const handleEdit = e => {
-    e.stopPropagation();
+  const handleEdit = (e) => {
+    e.stopPropagation()
     onClickEdit()
   }
 
@@ -90,11 +92,11 @@ const ProductCard = ({
         <CardHeader
           avatar={renderStartIcon()}
           title={product.name}
-          action={(
+          action={
             <IconButton onClick={isEnabled ? handleEdit : null} title="Admin">
               <Edit sx={{ opacity: product.zoneId ? 0.1 : 0.5 }} />
             </IconButton>
-          )}
+          }
         />
       </CardActionArea>
       {renderTags()}
