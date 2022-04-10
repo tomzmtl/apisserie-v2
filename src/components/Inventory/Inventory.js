@@ -16,6 +16,16 @@ const matchStrings = (str1, str2) => {
     .includes(removeAccents(str2.toLowerCase()))
 }
 
+const searchProducts = (products, query) => products.filter(product => {
+  const directMatch = matchStrings(product.name, query)
+
+  if (directMatch) {
+    return true
+  }
+
+  return product.tags.some(tag => matchStrings(tag, query))
+})
+
 const Inventory = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
   const products = useSelector(selectProductsByName)
@@ -31,7 +41,7 @@ const Inventory = () => {
     : []
 
   const productsToDisplay = query
-    ? products.filter(product => matchStrings(product.name, query))
+    ? searchProducts(products, query)
     : selectedRecipe
       ? products.filter(product => selectedRecipeProductIds.includes(product.id))
       : products
