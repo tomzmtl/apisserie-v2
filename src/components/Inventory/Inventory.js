@@ -44,7 +44,7 @@ const Inventory = () => {
   const [query, setQuery] = useState("")
   const { update, isLoading, productId } = useUpdateProduct()
   const [selectedRecipe, setSelectedRecipe] = useState(null)
-  const textFieldRef = useRef(null)
+  const menuRef = useRef(null)
 
   const selectedRecipeProductIds = selectedRecipe
     ? RECIPES.find((recipe) => recipe.id === selectedRecipe.id).products.map(
@@ -143,7 +143,7 @@ const Inventory = () => {
 
   const menuProps = {
     open,
-    anchorEl: textFieldRef.current,
+    anchorEl: menuRef.current,
     onClose: handleCloseRecipes,
     transformOrigin: { horizontal: "left", vertical: "top" },
     anchorOrigin: { horizontal: "left", vertical: "top" },
@@ -173,7 +173,7 @@ const Inventory = () => {
   }
 
   const textFieldProps = {
-    ref: textFieldRef,
+    ref: menuRef,
     value: selectedRecipe ? selectedRecipe.name : query,
     onChange: handleChangeQuery,
     placeholder: "Chercher...",

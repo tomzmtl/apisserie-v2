@@ -3,6 +3,11 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Paper,
+  Menu as MuiMenu,
+  MenuItem,
+  ListItemIcon,
+  MenuList,
+  ListItemText,
 } from "@mui/material"
 import {
   Storefront,
@@ -10,10 +15,12 @@ import {
   Inventory,
   Refresh,
   MenuBook,
+  MiscellaneousServices,
 } from "@mui/icons-material"
 import { useNavigation } from "../../hooks/navigation"
 import "./styles.scss"
 import { useLocation } from "react-router"
+import { useRef, useState } from "react"
 
 const BUTTONS = {
   "/zones": { label: "Rayons", Icon: Storefront },
@@ -25,6 +32,8 @@ const BUTTONS = {
 const Menu = ({ isLoading, refresh }) => {
   const navigateTo = useNavigation()
   const location = useLocation()
+  const [open, setOpen] = useState(false)
+  const menuRef = useRef(null)
 
   const handleTabClick = (e, value) => {
     navigateTo(value)
@@ -44,14 +53,32 @@ const Menu = ({ isLoading, refresh }) => {
       }, [])
       .concat(
         <BottomNavigationAction
-          key="refresh"
-          label="Rafraîchir"
-          icon={<Refresh />}
+          ref={menuRef}
+          key="tools"
+          label="Outils"
+          icon={<MiscellaneousServices />}
           onClick={() => {
-            refresh()
+            setOpen(true)
           }}
         />
       )
+
+  const menuProps = {
+    open,
+    anchorEl: menuRef.current,
+    onClose: () => {
+      setOpen(false)
+    },
+    transformOrigin: { horizontal: "right", vertical: "bottom" },
+    anchorOrigin: { horizontal: "right", vertical: "bottom" },
+    BackdropProps: { invisible: false },
+    sx: { width: "100%" },
+  }
+
+  const handleRefresh = () => {
+    refresh()
+    setOpen(false)
+  }
 
   return (
     <div className="Menu">
@@ -68,6 +95,16 @@ const Menu = ({ isLoading, refresh }) => {
         </BottomNavigation>
       </Paper>
       {isLoading && <LinearProgress />}
+      <MuiMenu {...menuProps}>
+        <MenuList>
+          <MenuItem onClick={handleRefresh}>
+            <ListItemIcon>
+              <Refresh fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Refresh</ListItemText>
+          </MenuItem>
+        </MenuList>
+      </MuiMenu>
     </div>
   )
 }
