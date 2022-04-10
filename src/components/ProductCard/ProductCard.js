@@ -60,7 +60,7 @@ const ProductCard = ({
         key: tag,
         variant: isEditable && isSelected ? undefined : "outlined",
         color: isEditable && isSelected ? "secondary" : undefined,
-        sx: { opacity: isLoading ? 0.5 : 1}
+        sx: { opacity: isLoading ? 0.5 : 1, mb: 1}
       }
 
       return (
@@ -69,7 +69,7 @@ const ProductCard = ({
     })
 
     return (
-      <Stack direction="row" spacing={1} sx={{ p: 1, pl: 2 }}>
+      <Stack direction="row" spacing={1} sx={{ p: 1, pl: 2, flexWrap: "wrap" }}>
         {chips}
       </Stack>
     )
