@@ -26,6 +26,7 @@ import { selectZonesByName } from "../../selectors/zones"
 import { selectProducts } from "../../selectors/products"
 import * as api from "../../api/products"
 import { uniq, without } from "lodash-es"
+import { selectIsDevMode } from "../../selectors/app"
 
 const NEW_PRODUCT = {
   selected: false,
@@ -54,6 +55,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
   const isCreateMode = !isEditMode
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
+  const isDevMode = useSelector(selectIsDevMode)
   const pId = add ? null : productId
   const zones = useSelector(selectZonesByName)
   const product = products.find((p) => p.id === productId)
@@ -104,7 +106,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     }
 
     api
-      .putProduct(body)
+      .putProduct(body, isDevMode)
       .then(() => {
         dispatch(updateProduct(body))
         onAfterSave?.(isCreateMode ? `${name} ajouté` : `${name} mis à jour`)
@@ -133,7 +135,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     setIsLoading({ ...isLoading, delete: true })
 
     api
-      .deleteProduct(product.id)
+      .deleteProduct(product.id, isDevMode)
       .then(() => {
         dispatch(deleteProduct(product.id))
         onAfterSave?.(`${name} supprimé`)

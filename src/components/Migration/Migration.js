@@ -4,12 +4,14 @@ import { useSelector } from "react-redux"
 import { LinearProgress } from "@mui/material"
 import { selectProductsByName } from "../../selectors/products"
 import * as api from "../../api/products"
+import { selectIsDevMode } from "../../selectors/app"
 
 const Migration = () => {
   const [isStarted, setIsStarted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [completed, setCompleted] = useState(0)
   const products = useSelector(selectProductsByName)
+  const isDevMode = useSelector(selectIsDevMode)
 
   const completion = Math.ceil((completed / products.length) * 100)
 
@@ -25,7 +27,7 @@ const Migration = () => {
       }
 
       return api
-        .putProduct(body)
+        .putProduct(body, isDevMode)
         .then(() => {
           setCompleted((value) => (value += 1))
           console.log("Done:", body)

@@ -8,6 +8,7 @@ import {
   ListItemIcon,
   MenuList,
   ListItemText,
+  Switch,
 } from "@mui/material"
 import {
   Storefront,
@@ -16,11 +17,16 @@ import {
   Refresh,
   MenuBook,
   MiscellaneousServices,
+  AutoFixHigh,
 } from "@mui/icons-material"
 import { useNavigation } from "../../hooks/navigation"
 import "./styles.scss"
 import { useLocation } from "react-router"
 import { useRef, useState } from "react"
+import { toggleDevMode } from "../../actions/app"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
+import { selectIsDevMode } from "../../selectors/app"
 
 const BUTTONS = {
   "/zones": { label: "Rayons", Icon: Storefront },
@@ -32,8 +38,10 @@ const BUTTONS = {
 const Menu = ({ isLoading, refresh }) => {
   const navigateTo = useNavigation()
   const location = useLocation()
+  const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const menuRef = useRef(null)
+  const isDevMode = useSelector(selectIsDevMode)
 
   const handleTabClick = (e, value) => {
     navigateTo(value)
@@ -80,6 +88,10 @@ const Menu = ({ isLoading, refresh }) => {
     setOpen(false)
   }
 
+  const handleToggleDevMode = () => {
+    dispatch(toggleDevMode())
+  }
+
   return (
     <div className="Menu">
       <Paper
@@ -97,11 +109,17 @@ const Menu = ({ isLoading, refresh }) => {
       {isLoading && <LinearProgress />}
       <MuiMenu {...menuProps}>
         <MenuList>
+          <MenuItem onClick={handleToggleDevMode}>
+            <ListItemIcon>
+              <Switch checked={isDevMode} />
+            </ListItemIcon>
+            <ListItemText>Dev Mode</ListItemText>
+          </MenuItem>
           <MenuItem onClick={handleRefresh}>
             <ListItemIcon>
               <Refresh fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Refresh</ListItemText>
+            <ListItemText>Rafraîchir</ListItemText>
           </MenuItem>
         </MenuList>
       </MuiMenu>

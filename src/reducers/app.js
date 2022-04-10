@@ -1,7 +1,8 @@
-import { REFRESH } from "../actions/app"
+import { REFRESH, TOGGLE_DEV_MODE } from "../actions/app"
 
 const initialState = {
   lastRefreshed: [],
+  isDevMode: false,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -9,9 +10,16 @@ export const reducer = (state = initialState, action) => {
     case REFRESH:
       return {
         ...state,
-        lastRefreshed: Date.now()
+        lastRefreshed: Date.now(),
       }
 
-    default: return state
+    case TOGGLE_DEV_MODE:
+      return {
+        ...state,
+        isDevMode: !state.isDevMode,
+      }
+
+    default:
+      return state
   }
 }
