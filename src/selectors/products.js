@@ -31,3 +31,10 @@ export const selectShoppingList = state => {
   })
   .filter(zone => zone.products.length > 0)
 }
+
+export const selectProductsById = state => {
+  return selectProducts(state).reduce((productsById, product) => {
+    productsById[product.id] = product
+    return productsById
+  }, {})
+}

@@ -4,6 +4,7 @@
   position: relative;
 
   &__search {
+    display: flex;
     position: sticky;
     top: $space * 2;
     left: $space;

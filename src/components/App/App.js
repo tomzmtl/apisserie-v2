@@ -6,6 +6,7 @@ import Menu from '../Menu';
 import ShoppingList from '../ShoppingList';
 import Inventory from '../Inventory';
 import Zones from '../Zones';
+import Recipes from '../Recipes';
 import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -42,6 +43,9 @@ const App = ({ ts }) => {
             </Route>
             <Route exact path="/zones">
               <Zones />
+            </Route>
+            <Route path="/recipes">
+              <Recipes />
             </Route>
             <Route path="/">
               <ShoppingList />

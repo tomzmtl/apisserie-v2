@@ -1,5 +1,5 @@
 import { LinearProgress, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { Storefront, PlaylistAddCheck, Inventory, Refresh } from '@mui/icons-material';
+import { Storefront, PlaylistAddCheck, Inventory, Refresh, MenuBook } from '@mui/icons-material';
 import { useNavigation } from '../../hooks/navigation';
 import "./styles.scss";
 import { useLocation } from 'react-router';
@@ -8,6 +8,7 @@ const BUTTONS = {
   "/zones":     { label: "Rayons"    , Icon: Storefront       },
   "/inventory": { label: "Inventaire", Icon: Inventory        },
   "/" :         { label: "Liste"     , Icon: PlaylistAddCheck },
+  "/recipes" :  { label: "Recettes"  , Icon: MenuBook         },
 }
 
 const Menu = ({ isLoading, refresh }) => {

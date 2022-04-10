@@ -210,7 +210,7 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     >
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
-          <div>{product.id}</div>
+          {isEditMode && <div>{product.id}</div>}
           <Divider sx={{ my: 2 }} />
           <TextField {...nameFieldProps} />
           <FormControl fullWidth sx={{ mt: 2 }}>
