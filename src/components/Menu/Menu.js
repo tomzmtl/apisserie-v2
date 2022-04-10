@@ -15,9 +15,7 @@ import {
   PlaylistAddCheck,
   Inventory,
   Refresh,
-  MenuBook,
   MiscellaneousServices,
-  AutoFixHigh,
 } from "@mui/icons-material"
 import { useNavigation } from "../../hooks/navigation"
 import "./styles.scss"

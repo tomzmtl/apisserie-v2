@@ -6,6 +6,8 @@ import {
   CardHeader,
   IconButton,
   SpeedDial,
+  CardContent,
+  Typography,
 } from "@mui/material"
 import { Add, ArrowCircleUp } from "@mui/icons-material"
 import { selectZonesByOrder } from "../../selectors/zones"
@@ -15,9 +17,11 @@ import "./styles.scss"
 import { useState } from "react"
 import { updateZone } from "../../actions/zones"
 import { useDispatch } from "react-redux"
+import { selectProductsByZoneId } from "../../selectors/products"
 
 const Zones = () => {
   const zones = useSelector(selectZonesByOrder)
+  const products = useSelector(selectProductsByZoneId)
   const { zoneEditComponents, openZoneEdit } = useZoneEdit()
   const [loading, setLoading] = useState([])
   const dispatch = useDispatch()
@@ -71,6 +75,17 @@ const Zones = () => {
             disabled={loading.includes(zone.id)}
           >
             <CardHeader {...cardHeaderProps} />
+            {products[zone.id].length > 0 && (
+              <CardContent>
+                <Typography variant="caption">
+                  {products[zone.id]
+                    .slice(0, 5)
+                    .map((product) => product.name)
+                    .join(", ")
+                    .concat("...")}
+                </Typography>
+              </CardContent>
+            )}
           </CardActionArea>
         </Card>
       )

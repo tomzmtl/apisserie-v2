@@ -69,7 +69,6 @@ const Zone = ({ onAfterSave, onClose, zoneId, isOpen, add = null }) => {
   }
 
   const handleChangeName = (e) => setName(e.target.value)
-  const handleChangeOrder = (e) => setOrder(e.target.value)
 
   const handleDelete = () => {
     const confirm = window.confirm(`Supprimer ${zone.name}?`)
@@ -108,16 +107,6 @@ const Zone = ({ onAfterSave, onClose, zoneId, isOpen, add = null }) => {
     sx: { width: "100%", mb: 2 },
   }
 
-  const orderFieldProps = {
-    value: order,
-    placeholder: "Order",
-    label: "Order",
-    onChange: handleChangeOrder,
-    required: true,
-    inputProps: { inputMode: "numeric", pattern: "[0-9]*" },
-    sx: { width: "100%", mb: 2 },
-  }
-
   const deleteBtnProps = {
     onClick: handleDelete,
     endIcon: <Delete />,
@@ -143,8 +132,6 @@ const Zone = ({ onAfterSave, onClose, zoneId, isOpen, add = null }) => {
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
           <TextField {...nameFieldProps} />
-          <TextField {...orderFieldProps} />
-
           <Stack
             direction="row"
             spacing={2}
