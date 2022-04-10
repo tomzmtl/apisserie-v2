@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, SpeedDial, SpeedDialAction, Drawer, Box, MenuList, MenuItem, ListItemText, ListItemIcon, ListSubheader, Select, Menu as MuiMenu } from '@mui/material'
-import { Add, Close, DisplaySettings, SortByAlpha, Storefront, Check, MenuBook } from '@mui/icons-material'
+import { InputAdornment, TextField, Card, CardActionArea, Stack, CardHeader, IconButton, MenuItem, Menu } from '@mui/material'
+import { Add, Close, MenuBook } from '@mui/icons-material'
 import removeAccents from "remove-accents"
 import { selectProductsByName } from '../../selectors/products'
 import "./styles.scss"
@@ -10,7 +10,6 @@ import { useUpdateProduct } from '../../hooks/products'
 import { without } from 'lodash-es'
 import ProductCard from '../ProductCard'
 import { RECIPES } from '../Recipes/data'
-// import Menu from '../Menu'
 
 const matchStrings = (str1, str2) => {
   return removeAccents(str1.toLowerCase())
@@ -22,7 +21,6 @@ const Inventory = () => {
   const products = useSelector(selectProductsByName)
   const [query, setQuery] = useState("")
   const { update, isLoading, productId } = useUpdateProduct()
-  // const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const textFieldRef = useRef(null)
 
@@ -105,10 +103,6 @@ const Inventory = () => {
     })
   }
 
-  // const handleOpenDisplayOptions = () => e => {
-  //   setIsSettingsOpen(true)
-  // }
-
   const [open, setOpen] = useState(false)
 
   const handleCloseRecipes = () => {
@@ -178,36 +172,16 @@ const Inventory = () => {
     <div className="Inventory">
       <div className="Inventory__search">
         <TextField {...textFieldProps} />
-        <MuiMenu {...menuProps}>
+        <Menu {...menuProps}>
           {RECIPES.map(recipe => (
             <MenuItem {...makeRecipeItemProps(recipe)}>{recipe.name}</MenuItem>
           ))}
-        </MuiMenu>
+        </Menu>
       </div>
       <Stack spacing={1}>
         {renderProducts()}
       </Stack>
       {productEditComponents}
-      {/* <SpeedDial
-        ariaLabel="SpeedDial"
-        sx={{ position: 'fixed', bottom: 72, right: 16 }}
-        icon={<DisplaySettings />}
-        onClick={handleOpenDisplayOptions}
-      />
-      <Drawer open={true} anchor="bottom">
-        <ListSubheader>Affichage</ListSubheader>
-        <MenuList dense>
-          <MenuItem>
-            <ListItemIcon>
-              <Check />
-            </ListItemIcon>
-            Ordre alphabétique
-          </MenuItem>
-          <MenuItem>
-            <ListItemText inset>Par rayon</ListItemText>
-          </MenuItem>
-        </MenuList>
-      </Drawer> */}
     </div>
   )
 }

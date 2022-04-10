@@ -8,7 +8,7 @@ const BUTTONS = {
   "/zones":     { label: "Rayons"    , Icon: Storefront       },
   "/inventory": { label: "Inventaire", Icon: Inventory        },
   "/" :         { label: "Liste"     , Icon: PlaylistAddCheck },
-  "/recipes" :  { label: "Recettes"  , Icon: MenuBook         },
+  // "/recipes" :  { label: "Recettes"  , Icon: MenuBook         },
 }
 
 const Menu = ({ isLoading, refresh }) => {

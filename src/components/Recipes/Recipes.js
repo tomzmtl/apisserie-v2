@@ -24,11 +24,11 @@ const Recipes = () => {
       <Stack spacing={1}>
         {renderRecipes()}
       </Stack>
-      <Card key="zone-dd" sx={{ mt: 3 }}>
+      {/* <Card key="zone-dd" sx={{ mt: 3 }}>
         <CardActionArea onClick={() => null}>
           <CardHeader avatar={<Add color="secondary" />} title="Ajouter une recette..." />
         </CardActionArea>
-      </Card>
+      </Card> */}
       {/* {zoneEditComponents} */}
     </div>
   )

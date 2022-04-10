@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { v4 as uuid } from "uuid"
-import { Box, Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton } from '@mui/material';
+import copy from 'copy-to-clipboard';
+import { Box, Drawer, TextField, Paper, Stack,FormControl, InputLabel, Select, MenuItem, Divider, Chip, InputAdornment, IconButton, ButtonBase, Tooltip } from '@mui/material';
 import { Add, Delete, Save, Send } from '@mui/icons-material';
 import { LoadingButton } from "@mui/lab"
 import { useDispatch, useSelector } from 'react-redux'
@@ -210,7 +211,11 @@ const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {
     >
       <Paper square sx={{ p: 2 }}>
         <form onSubmit={handleSubmit}>
-          {isEditMode && <div>{product.id}</div>}
+          {isEditMode && (
+            <Tooltip title="Click to copy" placement="right" arrow>
+              <ButtonBase onClick={() => copy(product.id)}>{product.id}</ButtonBase>
+            </Tooltip>
+          )}
           <Divider sx={{ my: 2 }} />
           <TextField {...nameFieldProps} />
           <FormControl fullWidth sx={{ mt: 2 }}>
