@@ -11,6 +11,7 @@ import { useLoadProducts } from '../../hooks/products';
 import { useLoadZones } from '../../hooks/zones';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useEffect } from "react";
+import Migration from "../Migration";
 
 const theme = createTheme({
   palette: {
@@ -46,6 +47,9 @@ const App = ({ ts }) => {
             </Route>
             <Route path="/recipes">
               <Recipes />
+            </Route>
+            <Route path="/migrate">
+              <Migration />
             </Route>
             <Route path="/">
               <ShoppingList />

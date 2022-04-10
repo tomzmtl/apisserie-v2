@@ -30,9 +30,7 @@ const makeProductBase = (isCreateMode, existingProduct) => {
     }
   }
 
-  const { zone, ...product } = existingProduct
-
-  return product
+  return existingProduct
 }
 
 const Product = ({ productId, onAfterSave, onClose, isOpen, add = null }) => {

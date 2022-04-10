@@ -10,14 +10,7 @@ export const reducer = (state = initialState, action) => {
     case "SET_PRODUCTS":
       return {
         ...state,
-        items: action.payload.products.map(product => ({
-          selected: false,
-          selection: {
-            tags: product?.selection?.tags ?? []
-          },
-          ...product,
-          tags: product.tags ?? [],
-        }))
+        items: action.payload.products
       }
 
     case "UPDATE_PRODUCT": {
