@@ -18,7 +18,7 @@ const ShoppingList = () => {
         onClickEdit: () => {
           openProductEdit(product.id)
         },
-        disableStartIconClick: true,
+        selectable: false,
       }
 
       return <ProductCard {...cardProps} />

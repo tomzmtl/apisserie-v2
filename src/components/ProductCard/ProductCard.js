@@ -84,7 +84,7 @@ const ProductCard = ({ product, onClickEdit, selectable = true }) => {
     const chips = tagsToDisplay.map((tag) => {
       const isSelected = product.selection.tags.includes(tag)
 
-      const getClickHandler = () => {
+      const handleTagClick = () => {
         if (isLoading || !selectable) {
           return null
         }
@@ -94,7 +94,7 @@ const ProductCard = ({ product, onClickEdit, selectable = true }) => {
 
       const chipProps = {
         label: tag,
-        onClick: getClickHandler(),
+        onClick: selectable ? handleTagClick() : null,
         key: tag,
         variant: selectable && isSelected ? undefined : "outlined",
         color: selectable && isSelected ? "secondary" : undefined,
