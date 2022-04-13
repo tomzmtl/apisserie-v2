@@ -8,24 +8,47 @@ import {
   Chip,
 } from "@mui/material"
 import { Check, Edit, AttachMoney } from "@mui/icons-material"
+import { useUpdateProduct } from "../../hooks/products"
+import { without } from "lodash-es"
 
-const ProductCard = ({
-  product,
-  isLoading,
-  isDisabled,
-  onCardClick,
-  onClickEdit,
-  onClickStartIcon,
-  onClickTag,
-}) => {
-  const isEnabled = !isDisabled
+const ProductCard = ({ product, onClickEdit, selectable = true }) => {
+  const { update, unselect, isLoading } = useUpdateProduct()
+
+  const handleClick = () => {
+    const nextSelected = !product.selected
+
+    if (nextSelected === false) {
+      unselect(product)
+    } else {
+      update({
+        ...product,
+        selected: nextSelected,
+        discounted: false,
+        selection: {
+          tags: nextSelected ? product.selection?.tags : [],
+        },
+      })
+    }
+  }
+
+  const handleStartIconClick = (e) => {
+    e.stopPropagation()
+
+    update({
+      ...product,
+      selected: true,
+      discounted: true,
+    })
+  }
 
   const renderStartIcon = () => {
     if (isLoading) {
       return <CircularProgress size={24} />
     }
 
-    const iconProps = { onClick: onClickStartIcon }
+    const iconProps = {
+      onClick: selectable ? handleStartIconClick : null,
+    }
 
     if (product.selected) {
       if (product.discounted) {
@@ -38,10 +61,21 @@ const ProductCard = ({
     return <AttachMoney {...iconProps} sx={{ opacity: 0.1 }} />
   }
 
-  const renderTags = () => {
-    const isEditable = !!onClickTag
+  const onToggleTag = (tag) => (e) => {
+    const { tags } = product.selection
+    const isSelected = tags.includes(tag)
 
-    const tagsToDisplay = isEditable ? product.tags : product.selection.tags
+    update({
+      ...product,
+      selected: true,
+      selection: {
+        tags: isSelected ? without(tags, tag) : tags.concat(tag),
+      },
+    })
+  }
+
+  const renderTags = () => {
+    const tagsToDisplay = selectable ? product.tags : product.selection.tags
 
     if (tagsToDisplay.length === 0) {
       return null
@@ -51,19 +85,19 @@ const ProductCard = ({
       const isSelected = product.selection.tags.includes(tag)
 
       const getClickHandler = () => {
-        if (isLoading || !isEditable) {
+        if (isLoading || !selectable) {
           return null
         }
 
-        return onClickTag(tag)
+        return onToggleTag(tag)
       }
 
       const chipProps = {
         label: tag,
         onClick: getClickHandler(),
         key: tag,
-        variant: isEditable && isSelected ? undefined : "outlined",
-        color: isEditable && isSelected ? "secondary" : undefined,
+        variant: selectable && isSelected ? undefined : "outlined",
+        color: selectable && isSelected ? "secondary" : undefined,
         sx: { opacity: isLoading ? 0.5 : 1, mb: 1 },
       }
 
@@ -83,9 +117,9 @@ const ProductCard = ({
   }
 
   return (
-    <Card key={product.id} sx={{ opacity: isDisabled ? 0.3 : 1 }}>
+    <Card key={product.id} sx={{ opacity: isLoading ? 0.3 : 1 }}>
       <CardActionArea
-        onClick={isEnabled ? onCardClick : null}
+        onClick={isLoading ? null : handleClick}
         disableRipple={isLoading}
         component="div"
       >
@@ -93,7 +127,7 @@ const ProductCard = ({
           avatar={renderStartIcon()}
           title={product.name}
           action={
-            <IconButton onClick={isEnabled ? handleEdit : null} title="Admin">
+            <IconButton onClick={isLoading ? null : handleEdit} title="Admin">
               <Edit sx={{ opacity: product.zoneId ? 0.1 : 0.5 }} />
             </IconButton>
           }

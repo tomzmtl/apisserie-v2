@@ -16,8 +16,6 @@ import removeAccents from "remove-accents"
 import { selectProductsByName } from "../../selectors/products"
 import "./styles.scss"
 import { useProductEdit } from "../Product/hooks"
-import { useUpdateProduct } from "../../hooks/products"
-import { without } from "lodash-es"
 import ProductCard from "../ProductCard"
 import { RECIPES } from "../Recipes/data"
 
@@ -42,7 +40,6 @@ const Inventory = () => {
   const { productEditComponents, openProductEdit } = useProductEdit()
   const products = useSelector(selectProductsByName)
   const [query, setQuery] = useState("")
-  const { update, isLoading, productId } = useUpdateProduct()
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const menuRef = useRef(null)
 
@@ -84,51 +81,10 @@ const Inventory = () => {
     }
 
     return productsToDisplay.map((product) => {
-      const handleCardClick = () => {
-        const nextSelected = !product.selected
-
-        update({
-          ...product,
-          selected: nextSelected,
-          discounted: false,
-          selection: {
-            tags: nextSelected ? product.selection?.tags : [],
-          },
-        })
-      }
-
-      const handleStartIconClick = (e) => {
-        e.stopPropagation()
-
-        update({
-          ...product,
-          selected: true,
-          discounted: true,
-        })
-      }
-
-      const onToggleTag = (tag) => (e) => {
-        const { tags } = product.selection
-        const isSelected = tags.includes(tag)
-
-        update({
-          ...product,
-          selected: true,
-          selection: {
-            tags: isSelected ? without(tags, tag) : tags.concat(tag),
-          },
-        })
-      }
-
       const cardProps = {
         key: product.id,
         product,
-        isLoading: isLoading && product.id === productId,
-        isDisabled: isLoading && product.id !== productId,
-        onCardClick: handleCardClick,
         onClickEdit: () => openProductEdit(product.id),
-        onClickStartIcon: handleStartIconClick,
-        onClickTag: onToggleTag,
       }
 
       return <ProductCard {...cardProps} />
