@@ -66,4 +66,30 @@ export const RECIPES = [
       },
     ],
   },
+  {
+    id: "poulet-cari",
+    name: "Poulet au cari/ananas",
+    products: [
+      {
+        // poulet
+        id: "b4216e04-8ff2-4950-b147-92ed2b47d793",
+        tags: [],
+      },
+      {
+        // lait de coco
+        id: "93ebf852-01c6-47c9-860f-7d53acd15d52",
+        tags: [],
+      },
+      {
+        // ananas
+        id: "846b32b9-662b-4902-8ab7-ba73771db257",
+        tags: [],
+      },
+      {
+        // poivrons
+        id: "8ac10505-e1be-4dc9-9110-09f45feaae90",
+        tags: [],
+      },
+    ],
+  },
 ]
