@@ -61,10 +61,14 @@ const Inventory = () => {
     setQuery(e.target.value)
   }
 
-  const renderProducts = () => {
-    if (!productsToDisplay.length && query.length) {
+  const renderProductAdd = () => {
+    const hasExactMatch = productsToDisplay.some(
+      (product) => product.name.toLowerCase() === query.toLowerCase()
+    )
+
+    if (query.length && !hasExactMatch) {
       return (
-        <Card>
+        <Card key="__ADD_PRODUCT__">
           <CardActionArea
             onClick={() => {
               openProductEdit(null, query)
@@ -80,15 +84,21 @@ const Inventory = () => {
       )
     }
 
-    return productsToDisplay.map((product) => {
-      const cardProps = {
-        key: product.id,
-        product,
-        onClickEdit: () => openProductEdit(product.id),
-      }
+    return null
+  }
 
-      return <ProductCard {...cardProps} />
-    })
+  const renderProducts = () => {
+    return productsToDisplay
+      .map((product) => {
+        const cardProps = {
+          key: product.id,
+          product,
+          onClickEdit: () => openProductEdit(product.id),
+        }
+
+        return <ProductCard {...cardProps} />
+      })
+      .concat(renderProductAdd())
   }
 
   const [open, setOpen] = useState(false)
