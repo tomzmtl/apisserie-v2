@@ -1,9 +1,11 @@
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import AppRoot from "../AppRoot"
 import reportWebVitals from "../../reportWebVitals"
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"))
+
+root.render(
   <React.StrictMode>
     <AppRoot />
   </React.StrictMode>,

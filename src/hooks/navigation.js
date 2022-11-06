@@ -1,6 +1,6 @@
-import { useHistory } from 'react-router';
+import { useNavigate } from "react-router"
 
 export const useNavigation = () => {
-  const history = useHistory()
-  return path => history.push(path)
+  const navigate = useNavigate()
+  return (path) => navigate(path)
 }

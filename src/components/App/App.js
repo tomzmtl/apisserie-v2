@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import "./normalize.css"
 import "./styles.scss"
 import "./theme.scss"
@@ -38,23 +38,13 @@ const App = ({ ts }) => {
     <div className="App">
       <ThemeProvider theme={theme}>
         <div className="App__content">
-          <Switch>
-            <Route exact path="/inventory">
-              <Inventory />
-            </Route>
-            <Route exact path="/zones">
-              <Zones />
-            </Route>
-            <Route path="/recipes">
-              <Recipes />
-            </Route>
-            <Route path="/migrate">
-              <Migration />
-            </Route>
-            <Route path="/">
-              <ShoppingList />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/zones" element={<Zones />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/migrate" element={<Migration />} />
+            <Route path="/" element={<ShoppingList />} />
+          </Routes>
         </div>
         <Menu />
       </ThemeProvider>
